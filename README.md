@@ -35,7 +35,7 @@ SELECT `message` FROM Log WHERE `service` = 'DevOps' SINCE 12 hours ago
 
 ## How to use in a repo
 
-- Add a submodule to the repo: `git submodule add https://github.com/thisisarchimedes/DevOps DevOps`
+- Add a submodule to the repo: `git submodule add https://github.com/thisisarchimedes/DevOps devops`
 
 - Make sure you are using this repo as a submodule in your repo
 - Make sure you have the need variables in your `.env` file
@@ -57,7 +57,7 @@ SELECT `message` FROM Log WHERE `service` = 'DevOps' SINCE 12 hours ago
     - name: "Report DevOps Metrics"
         run: |
             echo "Time taken to run the script: ${{ env.DURATION }} seconds"
-            python devops/report_new_relic.py ${{ github.repository }} "PR Test" "true" ${{ env.DURATION }}
+            python devops/src/report_new_relic.py ${{ github.repository }} "PR Test" "true" ${{ env.DURATION }}
 ```
 
 # Expected log formation
