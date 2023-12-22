@@ -42,6 +42,12 @@ SELECT `message` FROM Log WHERE `service` = 'DevOps' SINCE 12 hours ago
 - Make sure you set up Github Actions Secrets with the same variables
 - Add to Github Action script - here is an example:
 
+Add NEW_RELIC_API_KEY to Github Actions Secrets and expose it to Github Actions script
+```yaml
+env:
+  NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+```
+Then, add the following to the Github Actions script
 ```yaml
     - name: "Run the tests"
         run: |
