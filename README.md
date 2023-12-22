@@ -60,6 +60,20 @@ SELECT `message` FROM Log WHERE `service` = 'DevOps' SINCE 12 hours ago
             python devops/src/report_new_relic.py ${{ github.repository }} "PR Test" "true" ${{ env.DURATION }}
 ```
 
+You might need to add Python support to the Github Actions script
+    
+    ```yaml
+       - name: "Prepare Python environment"
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r devops/requirements.txt
+    ```
+
 # Expected log formation
 
 Here is an example of a log item
