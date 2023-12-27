@@ -63,7 +63,7 @@ Then, add the following to the Github Actions script
     - name: "Report DevOps Metrics"
         run: |
             echo "Time taken to run the script: ${{ env.DURATION }} seconds"
-            python devops/src/report_new_relic.py ${{ github.repository }} "PR Test" "true" ${{ env.DURATION }}
+            python ~/devops/src/report_new_relic.py ${{ github.repository }} "PR Test" "true" ${{ env.DURATION }}
 ```
 
 You might need to add Python support to the Github Actions script
@@ -77,7 +77,7 @@ You might need to add Python support to the Github Actions script
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r devops/requirements.txt
+        pip install -r ~/devops/requirements.txt
 ```
 
 # Expected log formation
