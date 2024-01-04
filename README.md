@@ -90,8 +90,6 @@ Here is an example of a log item
     info.test_pass:"true"
     info.test_time_seconds:"40"
     message:"DevOps Event: thisisarchimedes/SustainableLeverage"
-    newrelic.logPattern:"nr.DID_NOT_MATCH"
-    newrelic.source:"api.logs"
     service:"DevOps"
     timestamp:1703262871412
 }
