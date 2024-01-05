@@ -2,7 +2,7 @@ import os
 import boto3
 from src.database.db_connection import DBConnection
 from datetime import datetime, timezone
-import pytz
+from zoneinfo import ZoneInfo
 
 DATABASE_NAME = 'DORAStats'
 TABLE_NAME = 'DORARawEvents'
@@ -15,43 +15,30 @@ class DBConnectionTimeseries(DBConnection):
         record = self.prepare_record(payload['repo_name'], payload['event'], payload['metadata'])
         self.insert_record_into_timestream(client, record)
         
-
     
     def get_all_repo_events(self, repo_name: str) -> list:
-        client = boto3.client('timestream-query')
-
-        query = f"""
-            SELECT * FROM "{DATABASE_NAME}"."{TABLE_NAME}"
-            WHERE "repo_name" = '{repo_name}'
-        """
+        client = self.create_timestream_client('timestream-query')
+        query = self.construct_query_for_repo_events(repo_name)
 
         try:
             response = client.query(QueryString=query)
-            events = []
-
-            for row in response['Rows']:
-                event = { 'Data': row['Data'] }
-                events.append(event)
-
-            return events
-
+            return self.parse_repo_events_response(response)
         except Exception as e:
             print(f"Error querying database: {e}")
             return []
 
-
+    
     def create_timestream_client(self, client_type: str):
         return boto3.client(client_type)
-
+    
 
     def prepare_record(self, repo_name, event, metadata) -> dict:
 
         utc_time = datetime.now(timezone.utc)
-        est = pytz.timezone('America/New_York')
-        est_time = utc_time.astimezone(est)
+        est_time = utc_time.astimezone(ZoneInfo("America/New_York"))
 
         current_time_milliseconds = int(est_time.timestamp() * 1000)
-        
+
         return {
             'Dimensions': [
                 {'Name': 'repo_name', 'Value': repo_name},
@@ -80,5 +67,18 @@ class DBConnectionTimeseries(DBConnection):
         except Exception as e:
             print(f"Error inserting record: {e}")
 
+    def construct_query_for_repo_events(self, repo_name: str) -> str:
+        return f"""
+            SELECT * FROM "{DATABASE_NAME}"."{TABLE_NAME}"
+            WHERE "repo_name" = '{repo_name}'
+        """
+
+
+    def parse_repo_events_response(self, response) -> list:
+        events = []
+        for row in response['Rows']:
+            event = {'Data': row['Data']}
+            events.append(event)
+        return events
 
 
