@@ -6,9 +6,11 @@ from src.database.db_connection_timeseries import DBConnectionTimeseries
 
 class TestDBConnectionTimeseries:
 
+    DATABASE_NAME = 'DORAStats'
+    TABLE_NAME = 'DORARawEventsTest'
 
     def test_write_timeseries(self):
-        db_connection = DBConnectionTimeseries()
+        db_connection = DBConnectionTimeseries(self.DATABASE_NAME, self.TABLE_NAME)
 
         random_uuid = str(uuid.uuid4())
 

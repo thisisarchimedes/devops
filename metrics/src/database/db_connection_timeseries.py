@@ -4,10 +4,11 @@ from src.database.db_connection import DBConnection
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-DATABASE_NAME = 'DORAStats'
-TABLE_NAME = 'DORARawEvents'
-
 class DBConnectionTimeseries(DBConnection):
+
+    def __init__(self, database_name: str, table_name: str):
+        self.database_name = database_name
+        self.table_name = table_name
 
     def write_event_to_db(self, payload: dict):
 
@@ -55,7 +56,7 @@ class DBConnectionTimeseries(DBConnection):
     def insert_record_into_timestream(self, client, record):
 
         try:
-            response = client.write_records(DatabaseName=DATABASE_NAME, TableName=TABLE_NAME, Records=[record])
+            response = client.write_records(DatabaseName=self.database_name, TableName=self.table_name, Records=[record])
             print("Record inserted successfully")
         except client.exceptions.RejectedRecordsException as e:
             print("Some records were rejected.")
@@ -66,11 +67,11 @@ class DBConnectionTimeseries(DBConnection):
                 print("Error: RejectedRecords details not found in response.")
         except Exception as e:
             print(f"Error inserting record: {e}")
-            
+
 
     def construct_query_for_repo_events(self, repo_name: str) -> str:
         return f"""
-            SELECT * FROM "{DATABASE_NAME}"."{TABLE_NAME}"
+            SELECT * FROM "{self.database_name}"."{self.table_name}"
             WHERE "repo_name" = '{repo_name}'
         """
 
