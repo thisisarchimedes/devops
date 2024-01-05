@@ -66,6 +66,7 @@ class DBConnectionTimeseries(DBConnection):
                 print("Error: RejectedRecords details not found in response.")
         except Exception as e:
             print(f"Error inserting record: {e}")
+            
 
     def construct_query_for_repo_events(self, repo_name: str) -> str:
         return f"""
