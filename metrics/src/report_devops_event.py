@@ -7,8 +7,9 @@ EVENT_TYPES = ['push', 'deploy', 'test pass']
 
 class DevOpsEventReporter:
 
-    def __init__(self, target_url: str):
+    def __init__(self, target_url: str, secret_token: str = None) -> None:
         self.target_url = target_url
+        self.secret_token = secret_token
 
     def parse_cli_arguments(self) -> argparse.Namespace:
     
@@ -31,18 +32,22 @@ class DevOpsEventReporter:
         return record
     
     def post_event(self, record: dict) -> requests.Response:
-        response = requests.post(self.target_url, json=record)
+
+        headers = {
+            'X-Secret-Token': self.secret_token,
+            'Content-Type': 'application/json'
+        }
+
+        response = requests.post(self.target_url, json=record, headers=headers)
+
         return response
 
-    
 
 def main():
 
-    target_url = os.getenv('API_DEVOPS_EVENT_CATCHER', None)
-    if target_url is None:
-        raise ValueError("API_DEVOPS_EVENT_CATCHER environment variable is not set.")
-
-    event_reporter = DevOpsEventReporter(target_url)
+    target_url = get_target_url()
+    secret_token = get_secret_token()
+    event_reporter = DevOpsEventReporter(target_url, secret_token)
 
     args = event_reporter.parse_cli_arguments()
     record = event_reporter.prepare_record(args.repo_name, args.event, args.metadata)
@@ -53,6 +58,22 @@ def main():
     else:
         print("Event logging failed.")
 
+
+def get_target_url() -> str:
+
+    target_url = os.getenv('API_DEVOPS_EVENT_CATCHER', None)
+    if target_url is None:
+        raise ValueError("API_DEVOPS_EVENT_CATCHER environment variable is not set.")
+    
+    return target_url
+
+def get_secret_token() -> str:
+    
+    secret_token = os.getenv('SECRET_TOKEN', None)
+    if secret_token is None:
+        raise ValueError("SECRET_TOKEN environment variable is not set.")
+    
+    return secret_token
 
 if __name__ == "__main__":
     main()

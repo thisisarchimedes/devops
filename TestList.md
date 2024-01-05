@@ -15,9 +15,8 @@
 [X] Send generated JSON to the API endpoint
 
 ## Backend API
-[] Get an event via API and print payload
-[] Get payload and check authentication
-[] Get payload and validate payload correctness
+[X] Get check authentication
+[X] Get payload and validate payload correctness
 [] Get payload and store it in the DB
 [] Get "test pass" event and apply addition logic (send it to New Relic)
 [] Get "deploy" event and apply addition logic (calculate frequence and send it to New Relic)
@@ -27,3 +26,4 @@
 # Refactor List
 
 [] Replace existing script with the new one
+[] Add auth token to header when sending post request
