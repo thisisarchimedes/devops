@@ -20,6 +20,8 @@ class EventProcessor:
         if not self.is_payload_valid(event):
             return
         
+        self.write_event_to_db(event)
+        
 
         
 

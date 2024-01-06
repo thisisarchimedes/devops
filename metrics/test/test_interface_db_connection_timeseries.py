@@ -16,7 +16,7 @@ class TestDBConnectionTimeseries:
 
         payload = {
             'repo_name': random_uuid,
-            'event': 'push',
+            'event': 'deploy',
             'metadata': 'test_metadata'
         }
 
@@ -28,3 +28,15 @@ class TestDBConnectionTimeseries:
         
         res = db_connection.get_all_repo_events(random_uuid)
         assert len(res) == 1, "write_timeseries() should write one event to the database."
+
+
+    def test_get_deployment_frequency(self):
+    
+        db_connection = DBConnectionTimeseries(self.DATABASE_NAME, self.TABLE_NAME)
+
+        repos = ["test_repo1", "test_repo2", "test_repo3"]
+
+        res = db_connection.get_days_per_week_with_deploy(repos)
+        assert len(res) > 0, "get_deployment_frequency() should return a list of at least one item."
+
+        print (res)

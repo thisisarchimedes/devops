@@ -17,13 +17,32 @@
 ## Backend API
 [X] Get check authentication
 [X] Get payload and validate payload correctness
-[] Get payload and store it in the DB
-[] Get "test pass" event and apply addition logic (send it to New Relic)
+[X] Get payload and store it in the DB
+[X] Get "test pass" event and apply addition logic (send it to New Relic)
+[X] Get "push" event and apply addition logic (send it to New Relic)
 [] Get "deploy" event and apply addition logic (calculate frequence and send it to New Relic)
-[] Get "push" event and apply addition logic (send it to New Relic)
 
+
+## Interface
+[X] Interface Timeseries DB
 
 # Refactor List
 
 [] Replace existing script with the new one
 [] Add auth token to header when sending post request
+
+
+
+[
+    {
+        'Data': [
+            {'ScalarValue': 'test_repo'}, {'ScalarValue': 'push'}, {'ScalarValue': 'event_metadata'}, {'ScalarValue': '2024-01-06 03:09:09.508000000'}, {'ScalarValue': 'test_metadata'}]
+    }, 
+    {
+        'Data': [
+            {'ScalarValue': 'test_repo'}, {'ScalarValue': 'push'}, {'ScalarValue': 'event_metadata'}, {'ScalarValue': '2024-01-06 03:09:18.073000000'}, {'ScalarValue': 'test_metadata'}]
+    }, 
+    {
+        'Data': [{'ScalarValue': 'test_repo'}, {'ScalarValue': 'push'}, {'ScalarValue': 'event_metadata'}, {'ScalarValue': '2024-01-06 03:10:00.542000000'}, {'ScalarValue': 'test_metadata'}]
+    }
+]
