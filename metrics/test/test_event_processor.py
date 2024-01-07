@@ -69,16 +69,3 @@ class TestEventProcessor:
             event_processor.write_event_to_db(payload)
         except:
             pytest.fail("write_event_to_db() should not throw an error when payload is valid.")
-
-
-        
-        
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,8 @@
 import json
 import os
 
+import pandas as pd
+
 from src.database.db_connection import DBConnection
 
 class EventProcessor:
@@ -56,7 +58,7 @@ class EventProcessor:
     
     def write_event_to_db(self, payload: dict) -> None:
 
-        self.db_connection.write_event_to_db(payload)
+        self.db_connection.write_event_to_db(pd.DataFrame([payload]))
 
     
 

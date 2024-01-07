@@ -1,8 +1,11 @@
 import os
-import boto3
 from typing import List
-import pandas as pd
 from datetime import datetime, timedelta
+
+import boto3
+import awswrangler as wr
+
+import pandas as pd
 
 from src.database.db_connection import DBConnection
 from datetime import datetime, timezone
@@ -13,38 +16,44 @@ class DBConnectionTimeseries(DBConnection):
     def __init__(self, database_name: str, table_name: str):
         self.database_name = database_name
         self.table_name = table_name
+        self.session = boto3.Session()
 
-    def write_event_to_db(self, payload: dict):
 
-        client = self.create_timestream_client('timestream-write')
-        record = self.prepare_record(payload['repo_name'], payload['event'], payload['metadata'])
-        self.insert_record_into_timestream(client, record)
+    def write_event_to_db(self, event_df: pd.DataFrame) -> None:
+        
+        utc_time = datetime.now(timezone.utc)
+        event_df['time'] = utc_time
+
+        rejected_records = wr.timestream.write(
+            df=event_df,
+            database=self.database_name,
+            table=self.table_name,
+            time_col='time',
+            measure_col='metadata',
+            dimensions_cols=['repo_name', 'event']
+        )
+
+        if len(rejected_records) > 0:
+            raise ValueError(f"Error writing to Timestream: {rejected_records} records were rejected.")
         
     
-    def get_all_repo_events(self, repo_name: str) -> list:
-        client = self.create_timestream_client('timestream-query')
-        query = self.construct_query_for_repo_events(repo_name)
+    def get_all_repo_events(self, repo_name: str) -> pd.DataFrame:
+        query = self.get_query_for_all_repo_events(repo_name)
+        query_result = self.execute_query(query)
 
-        try:
-            response = client.query(QueryString=query)
-            return self.parse_repo_events_response(response)
-        except Exception as e:
-            print(f"Error querying database: {e}")
-            return []
+        return query_result
+        
 
     def get_days_per_week_with_deploy(self, repos: List[str]) -> pd.DataFrame:
         query = self.build_deploy_query(repos)
-        try:
-            query_result = self.execute_query(query)
-            return self.process_deploy_data(query_result)
-        except Exception as e:
-            print(f"Error querying database: {e}")
-            return pd.DataFrame()
+        query_result = self.execute_query(query)
+
+        return self.process_deploy_data(query_result)
         
     
-    def create_timestream_client(self, client_type: str):
-        return boto3.client(client_type)
-
+    def execute_query(self, query: str) -> pd.DataFrame:
+        session = boto3.Session()
+        return wr.timestream.query(query, boto3_session=session)
 
     def build_deploy_query(self, repos: List[str]) -> str:
         repo_names_str = self.format_repo_names(repos)
@@ -67,10 +76,7 @@ class DBConnectionTimeseries(DBConnection):
     def format_repo_names(self, repos: List[str]) -> str:
         return ', '.join(f"'{repo}'" for repo in repos)
 
-    def execute_query(self, query: str):
-        client = self.create_timestream_client('timestream-query')
-        return client.query(QueryString=query)
-
+    
     def process_deploy_data(self, query_response):
         deploy_data = self.parse_query_response(query_response)
         return self.fill_missing_weeks(deploy_data)
@@ -137,18 +143,15 @@ class DBConnectionTimeseries(DBConnection):
             print(f"Error inserting record: {e}")
 
 
-    def construct_query_for_repo_events(self, repo_name: str) -> str:
+    def get_query_for_all_repo_events(self, repo_name: str) -> str:
+        
         return f"""
-            SELECT * FROM "{self.database_name}"."{self.table_name}"
-            WHERE "repo_name" = '{repo_name}'
-        """
-
-
-    def parse_repo_events_response(self, response) -> list:
-        events = []
-        for row in response['Rows']:
-            event = {'Data': row['Data']}
-            events.append(event)
-        return events
-
-
+                    SELECT 
+                        time AS Timestamp, 
+                        repo_name AS Repo, 
+                        event AS Event, 
+                        measure_value::varchar AS Metadata 
+                    FROM "{self.database_name}"."{self.table_name}"
+                    WHERE "repo_name" = '{repo_name}'
+                    ORDER BY time ASC
+                """
