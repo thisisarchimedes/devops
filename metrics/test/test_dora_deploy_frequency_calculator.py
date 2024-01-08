@@ -7,10 +7,9 @@ from src.calculations.dora_deploy_frequency_calculator import DORADeployFrequenc
 
 class TestDORADeployFrequencyCalculator:
 
-    def test_calculate_days_with_deploy_per_week(self):
-
-        # first let's iinit DataFrames with the data we want to test
-        df = pd.DataFrame({
+    def setup_method(self) -> None:
+        
+        self.test_df = pd.DataFrame({
             'Day': [
                 '2023-12-12',
                 '2023-12-18', '2023-12-19',
@@ -23,15 +22,16 @@ class TestDORADeployFrequencyCalculator:
                             1, 1, 1, 3]}
         )
 
+
+    def test_calculate_days_with_deploy_per_week(self):
+
         start_date = dt.date(2023, 12, 1)
         end_date = dt.date(2024, 2, 3)
 
         deploy_freq_calc = DORADeployFrequencyCalculator()
-        res = deploy_freq_calc.get_days_with_deploy_per_week_from_daily_deploy_volume(daily_deploy_volume=df,
+        res = deploy_freq_calc.get_days_with_deploy_per_week_from_daily_deploy_volume(daily_deploy_volume=self.test_df,
                                                                                       start_date=start_date,
                                                                                       end_date=end_date)
-
-        print(res)
 
         # We expect DataFrame with two columns: 'Week' and 'DaysWithDeploy'.
         # 'Week' should be 1,2,3,4
@@ -71,3 +71,35 @@ class TestDORADeployFrequencyCalculator:
         assert res.iloc[9]['DaysWithDeploy'] == 0
 
         assert len(res) == 10
+
+
+    def test_deploy_frequency_zero(self):
+
+        start_date = dt.date(2023, 12, 1)
+        end_date = dt.date(2024, 2, 3)
+
+        deploy_freq_calc = DORADeployFrequencyCalculator()
+        res = deploy_freq_calc.get_deployment_frequency(daily_deploy_volume=self.test_df,
+                                                            start_date=start_date,
+                                                            end_date=end_date)
+        
+        # Test data DaysWithDeploy: 0, 0, 1, 2, 2, 4, 0, 0, 0, 0
+        # 0, 0, 0, 0, 0, 0, 1, 2, 2, 4
+        # Deploy frequency should be 0
+        assert res == 0
+
+    
+    def test_deploy_frequency_two(self):
+
+        start_date = dt.date(2023, 12, 12)
+        end_date = dt.date(2024, 1, 4)
+
+        deploy_freq_calc = DORADeployFrequencyCalculator()
+        res = deploy_freq_calc.get_deployment_frequency(daily_deploy_volume=self.test_df,
+                                                            start_date=start_date,
+                                                            end_date=end_date)
+        
+        # Test data DaysWithDeploy: 0, 0, 1, 2, 2, 4, 0, 0, 0, 0
+        # 0, 0, 0, 0, 0, 0, 1, 2, 2, 4
+        # Deploy frequency should be 0
+        assert res == 2

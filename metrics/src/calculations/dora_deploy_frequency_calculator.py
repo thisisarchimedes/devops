@@ -5,6 +5,13 @@ class DORADeployFrequencyCalculator():
     def __init__(self):
         pass
 
+    def get_deployment_frequency(self, daily_deploy_volume: pd.DataFrame, start_date: date, end_date: date) -> float:
+       
+        weekly_deployment_data = self.get_days_with_deploy_per_week_from_daily_deploy_volume(daily_deploy_volume, start_date, end_date)
+
+        median_deployments = weekly_deployment_data['DaysWithDeploy'].median()
+        
+        return float(median_deployments)
     
     def get_days_with_deploy_per_week_from_daily_deploy_volume(self, daily_deploy_volume: pd.DataFrame, start_date: date, end_date: date) -> pd.DataFrame:
         """
@@ -19,6 +26,7 @@ class DORADeployFrequencyCalculator():
         
         weekly_deploy_count = self._calculate_weekly_deploy_counts(daily_deploy_volume)
         return self._create_output_dataframe(date_range, weekly_deploy_count)
+
 
     def _prepare_daily_volume_data(self, daily_deploy_volume: pd.DataFrame) -> pd.DataFrame:
         """Filter out weekends and convert non-zero deploy counts to 1."""
