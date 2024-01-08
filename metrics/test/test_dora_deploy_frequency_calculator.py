@@ -4,7 +4,6 @@ import pandas as pd
 
 from src.calculations.dora_deploy_frequency_calculator import DORADeployFrequencyCalculator
 
-
 class TestDORADeployFrequencyCalculator:
 
     def setup_method(self) -> None:
