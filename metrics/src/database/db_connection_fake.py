@@ -31,19 +31,9 @@ class DBConnectionFake(DBConnection):
         return df
 
 
-    def get_days_per_week_with_deploy(self, repos_name: List[str]) -> pd.DataFrame:
+    def get_daily_deploy_volume(self, repos_name: List[str] = None) -> pd.DataFrame:
         
         df = pd.read_csv(self.fake_db_file)
-        
-        df = df[df['Repo'].isin(repos_name)]
-        
-        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
-        
-        # Group by week and count unique days
-        df = df.groupby([pd.Grouper(key='Timestamp', freq='W-MON'), 'Repo']).agg({'Timestamp': pd.Series.nunique})
-        df.rename(columns={'Timestamp': 'Number of days with at least one deploy'}, inplace=True)
-        df.reset_index(inplace=True)
-        
         return df
         
 

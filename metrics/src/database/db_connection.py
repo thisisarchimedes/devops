@@ -17,8 +17,8 @@ class DBConnection():
         pass
 
     """
-    |Timestamp|Week of <date>|Number of days with at least one deploy|
+    |Day|DeployCount|
     """
-    def get_days_per_week_with_deploy(self, repos_name: List[str]) -> pd.DataFrame:
+    def get_daily_deploy_volume(self, repos_name: List[str] = None) -> pd.DataFrame:
         pass
 

@@ -4,6 +4,7 @@ from src.database.db_connection import DBConnection
 from src.events.event import Event
 from src.events.event_push import EventPush
 from src.events.event_test_pass import EventTestPass
+from src.events.event_deploy import EventDeploy
 
 class FactoryEvent():
 
@@ -16,6 +17,8 @@ class FactoryEvent():
             event = EventPush(payload, self.db_connection)
         elif payload['event'] == 'test_pass':
             event = EventTestPass(payload, self.db_connection)
+        elif payload['event'] == 'deploy':
+            event = EventDeploy(payload, self.db_connection)
         else:
             raise Exception("Invalid event type.")
         
