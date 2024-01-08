@@ -6,6 +6,12 @@ class DORADeployFrequencyCalculator():
         pass
 
     def get_deployment_frequency(self, daily_deploy_volume: pd.DataFrame, start_date: date, end_date: date) -> float:
+        """
+            daily_deploy_volume: DataFrame with columns 'Day' (date of the day) and 'DeployCount' (integer value of how many deploys we had this day)
+
+            Returns: DeploymentFrequency
+            * DeploymentFrequency is a number of deploys per day
+        """
        
         weekly_deployment_data = self.get_days_with_deploy_per_week_from_daily_deploy_volume(daily_deploy_volume, start_date, end_date)
 
