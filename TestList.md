@@ -18,9 +18,11 @@
 [X] Get check authentication
 [X] Get payload and validate payload correctness
 [X] Get payload and store it in the DB
-[X] Get "test pass" event and apply addition logic (send it to New Relic)
-[X] Get "push" event and apply addition logic (send it to New Relic)
-[] Get "deploy" event and apply addition logic (calculate frequence and send it to New Relic)
+[X] Get "test pass" event and apply addition logic (record to DB)
+[X] Get "push" event and apply addition logic (record to DB)
+[] Get "deploy" event and apply addition logic (calculate frequencey for all repos and record to DB)
+[] Get "deploy" event and apply addition logic (calculate frequencey a subset of repos and record to DB)
+[] repeat the above event tests and also send to New Relic
 
 
 ## Interface
@@ -28,21 +30,10 @@
 
 # Refactor List
 
+[X] Refactor db_connection_timeseris
 [] Replace existing script with the new one
 [] Add auth token to header when sending post request
 
 
+# TODO: 
 
-[
-    {
-        'Data': [
-            {'ScalarValue': 'test_repo'}, {'ScalarValue': 'push'}, {'ScalarValue': 'event_metadata'}, {'ScalarValue': '2024-01-06 03:09:09.508000000'}, {'ScalarValue': 'test_metadata'}]
-    }, 
-    {
-        'Data': [
-            {'ScalarValue': 'test_repo'}, {'ScalarValue': 'push'}, {'ScalarValue': 'event_metadata'}, {'ScalarValue': '2024-01-06 03:09:18.073000000'}, {'ScalarValue': 'test_metadata'}]
-    }, 
-    {
-        'Data': [{'ScalarValue': 'test_repo'}, {'ScalarValue': 'push'}, {'ScalarValue': 'event_metadata'}, {'ScalarValue': '2024-01-06 03:10:00.542000000'}, {'ScalarValue': 'test_metadata'}]
-    }
-]
