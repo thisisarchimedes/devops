@@ -5,7 +5,13 @@ class DORADeployFrequencyCalculator():
     def __init__(self):
         pass
 
+    
     def get_days_with_deploy_per_week_from_daily_deploy_volume(self, daily_deploy_volume: pd.DataFrame, start_date: date, end_date: date) -> pd.DataFrame:
+        """
+            Returns: Week|DaysWithDeploy
+            * Week is a date of the first Monday of the week
+            * DaysWithDeploy is a number of days with at least one deploy during the week
+        """
         # Convert 'Day' column to datetime and filter out weekends
         daily_deploy_volume['Day'] = pd.to_datetime(daily_deploy_volume['Day'])
         daily_deploy_volume = daily_deploy_volume[daily_deploy_volume['Day'].dt.weekday < 5]
