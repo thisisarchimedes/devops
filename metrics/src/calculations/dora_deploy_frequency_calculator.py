@@ -12,34 +12,56 @@ class DORADeployFrequencyCalculator():
             * Week is a date of the first Monday of the week
             * DaysWithDeploy is a number of days with at least one deploy during the week
         """
-        # Convert 'Day' column to datetime and filter out weekends
-        daily_deploy_volume['Day'] = pd.to_datetime(daily_deploy_volume['Day'])
-        daily_deploy_volume = daily_deploy_volume[daily_deploy_volume['Day'].dt.weekday < 5]
 
-        # Convert any non-zero DeployCount to 1
+        daily_deploy_volume = self.prepare_daily_volume_data(daily_deploy_volume)
+        start_date, end_date = self.adjust_date_range(start_date, end_date)
+        date_range = self.create_weekly_date_range(start_date, end_date)
+        
+        weekly_deploy_count = self.calculate_weekly_deploy_counts(daily_deploy_volume)
+        return self.create_output_dataframe(date_range, weekly_deploy_count)
+
+    def prepare_daily_volume_data(self, daily_deploy_volume):
+        """Filter out weekends and convert non-zero deploy counts to 1."""
+
+        daily_deploy_volume['Day'] = pd.to_datetime(daily_deploy_volume['Day'])
+        is_weekday = daily_deploy_volume['Day'].dt.weekday < 5
+        daily_deploy_volume = daily_deploy_volume[is_weekday]
         daily_deploy_volume['DeployCount'] = daily_deploy_volume['DeployCount'].apply(lambda x: 1 if x >= 1 else 0)
 
-        # Adjust the start_date to the nearest past Monday
-        start_date = datetime.combine(start_date, time.min)
-        if start_date.weekday() != 0:
-            start_date -= timedelta(days=start_date.weekday())
+        return daily_deploy_volume
 
-        # Adjust the end_date to the nearest Sunday
-        end_date = datetime.combine(end_date, time.min)
-        if end_date.weekday() != 6:
-            end_date += timedelta(days=6 - end_date.weekday())
+    def adjust_date_range(self, start_date, end_date):
+        """Adjust start and end dates to the nearest Monday and Sunday, respectively."""
 
-        # Create a date range with weekly frequency starting from Mondays
-        date_range = pd.date_range(start=start_date, end=end_date, freq='W-MON')
+        start_date = self.adjust_to_previous_monday(start_date)
+        end_date = self.adjust_to_following_sunday(end_date)
+        return start_date, end_date
 
-        # Map each day to the Monday of its week
+    def adjust_to_previous_monday(self, some_date):
+        """Adjust a date to the previous Monday."""
+
+        return datetime.combine(some_date, time.min) - timedelta(days=some_date.weekday())
+
+    def adjust_to_following_sunday(self, some_date):
+        """Adjust a date to the following Sunday."""
+
+        adjustment = timedelta(days=6 - some_date.weekday())
+        return datetime.combine(some_date, time.min) + adjustment
+
+    def create_weekly_date_range(self, start_date, end_date):
+        """Create a weekly date range starting from Monday."""
+
+        return pd.date_range(start=start_date, end=end_date, freq='W-MON')
+
+    def calculate_weekly_deploy_counts(self, daily_deploy_volume):
+        """Calculate the sum of deployment counts for each week."""
+
         daily_deploy_volume['WeekStart'] = daily_deploy_volume['Day'].apply(lambda x: x - timedelta(days=x.weekday()))
+        return daily_deploy_volume.groupby('WeekStart')['DeployCount'].sum()
 
-        # Group by 'WeekStart' and sum the 'DeployCount' (which is now either 0 or 1)
-        weekly_deploy_count = daily_deploy_volume.groupby('WeekStart')['DeployCount'].sum()
-
-        # Create the output DataFrame
+    def create_output_dataframe(self, date_range, weekly_deploy_counts):
+        """Create the output DataFrame with weeks and deployment counts."""
+        
         output = pd.DataFrame({'Week': date_range})
-        output['DaysWithDeploy'] = output['Week'].apply(lambda d: weekly_deploy_count.get(d, 0))
-
+        output['DaysWithDeploy'] = output['Week'].apply(lambda d: weekly_deploy_counts.get(d, 0))
         return output
