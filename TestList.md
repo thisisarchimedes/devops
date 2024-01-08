@@ -21,7 +21,7 @@
 [X] Get "test pass" event and apply addition logic (record to DB)
 [X] Get "push" event and apply addition logic (record to DB)
 [] Get "deploy" event and apply addition logic (calculate frequencey for all repos and record to DB)
-[] Get "deploy" event and apply addition logic (calculate frequencey a subset of repos and record to DB)
+[] Get "deploy" event and apply addition logic (calculate frequencey a subset of repos and record to DB) - probably need to load config file that define different subsets of repos
 [] repeat the above event tests and also send to New Relic
 
 
