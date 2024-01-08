@@ -48,17 +48,18 @@ class TestDBConnectionTimeseries:
         assert pd.api.types.is_datetime64_any_dtype(result_df['Timestamp']), "'Timestamp' column should be of datetime type"
 
 
+    def test_get_daily_deploy_volume(self):
 
-
-    def test_get_deployment_frequency(self):
-
-        return
-    
         db_connection = DBConnectionTimeseries(self.DATABASE_NAME, self.TABLE_NAME)
 
-        repos = ["test_repo1", "test_repo2", "test_repo3"]
+        result_df = db_connection.get_daily_deploy_volume()
 
-        res = db_connection.get_days_per_week_with_deploy(repos)
-        assert len(res) > 0, "get_deployment_frequency() should return a list of at least one item."
+        assert isinstance(result_df, pd.DataFrame), "Result should be a pandas DataFrame"
 
-        print (res)
+        expected_columns = ['Day', 'DeployCount']
+        assert all(column in result_df.columns for column in expected_columns), "DataFrame should have all the expected columns"
+
+        assert pd.api.types.is_datetime64_any_dtype(result_df['Day']), "'Day' column should be of datetime type"
+        
+
+
