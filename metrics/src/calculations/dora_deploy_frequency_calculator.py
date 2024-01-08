@@ -14,6 +14,8 @@ class DORADeployFrequencyCalculator():
     
     def get_days_with_deploy_per_week_from_daily_deploy_volume(self, daily_deploy_volume: pd.DataFrame, start_date: date, end_date: date) -> pd.DataFrame:
         """
+            daily_deploy_volume: DataFrame with columns 'Day' (date of the day) and 'DeployCount' (integer value of how many deploys we had this day)
+
             Returns: Week|DaysWithDeploy
             * Week is a date of the first Monday of the week
             * DaysWithDeploy is a number of days with at least one deploy during the week
