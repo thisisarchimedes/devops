@@ -9,9 +9,8 @@ class DORADeployFrequencyCalculator():
        
         weekly_deployment_data = self.get_days_with_deploy_per_week_from_daily_deploy_volume(daily_deploy_volume, start_date, end_date)
 
-        median_deployments = weekly_deployment_data['DaysWithDeploy'].median()
+        return weekly_deployment_data['DaysWithDeploy'].median()
         
-        return float(median_deployments)
     
     def get_days_with_deploy_per_week_from_daily_deploy_volume(self, daily_deploy_volume: pd.DataFrame, start_date: date, end_date: date) -> pd.DataFrame:
         """
