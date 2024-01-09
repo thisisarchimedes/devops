@@ -98,6 +98,7 @@ class TestFactoryEvent:
 
         assert event.get_event_type(
         ) == 'calc_deploy_frequency', "process() should write the event to the database."
+
     
     def test_process_deploy_event(self):
 
@@ -105,6 +106,35 @@ class TestFactoryEvent:
             'Time': datetime.now(),
             'Repo': 'test_repo',
             'Event': 'deploy',
+        }
+
+        db_connection = DBConnectionFake()
+
+        event_factory = FactoryEvent(db_connection)
+        event = event_factory.create_event(payload)
+
+        start_date = datetime.now() - timedelta(days=90)
+        res_df = db_connection.get_deploy_frequency_events_since_date(
+            start_date)
+        num_rows_before = len(res_df.index)
+
+        event.process()
+
+        start_date = datetime.now() - timedelta(days=90)
+        res_df = db_connection.get_deploy_frequency_events_since_date(
+            start_date)
+        num_rows_after = len(res_df.index)
+
+        assert num_rows_after == num_rows_before + \
+            1, "process() should write the event to the database."
+        
+    def test_process_calc_deploy_frequency_event(self):
+
+        payload = {
+            'Time': datetime.now(),
+            'Repo': 'ALL',
+            'Event': 'calc_deploy_frequency',
+            'Metadata': {'deploy_frequency': 11.0}
         }
 
         db_connection = DBConnectionFake()
