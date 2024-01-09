@@ -1,5 +1,7 @@
+from datetime import datetime, timedelta
 from typing import List
 import pandas as pd
+
 
 class DBConnection():
 
@@ -10,15 +12,23 @@ class DBConnection():
     def write_event_to_db(self, event_df: pd.DataFrame) -> None:
         pass
 
-    """
-    |Timestamp|Repo|Event|Metadata|
-    """
-    def get_all_repo_events(self, repo_name: str) -> pd.DataFrame:
+    def get_all_events(self) -> pd.DataFrame:
+        """
+        |Timestamp|Repo|Event|Metadata|
+        """
         pass
 
-    """
-    |Day|DeployCount|
-    """
+    def get_repo_events(self, repo_name: str) -> pd.DataFrame:
+        """
+        |Timestamp|Repo|Event|Metadata|
+        """
+        pass
+
     def get_daily_deploy_volume(self, repos_name: List[str] = None) -> pd.DataFrame:
+        """
+        |Day|DeployCount|
+        """
         pass
 
+    def get_deploy_frequency_events_since_date(self, start_date: datetime.date) -> pd.DataFrame:
+        pass
