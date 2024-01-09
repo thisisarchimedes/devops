@@ -1,5 +1,6 @@
 import os
 import dataclasses
+import datetime
 
 from bson import json_util
 import json
@@ -23,29 +24,32 @@ class EventLoggerNewRelic(EventLogger):
             raise EnvironmentError("NEW_RELIC_API_KEY environment variable not set")
         
 
-    def send_event_to_logger(self, event_log_item: pd.DataFrame) -> None:
+    def send_event_to_logger(self, event_log_item: EventLogItem) -> None:
               
         payload = self._get_event_payload_str(event_log_item)
         headers = self._get_request_headers()
+
+        print("\n=========\n")
+        print(payload)
+        print("\n=========\n")
 
         response = requests.post(self.new_relic_url, headers=headers, data=payload)
         if not response.ok:
             raise Exception(f"Failed to send event to New Relic: {response.text}")
         
         
-    def _get_event_payload_str(self, event_log_item: EventLogItem) -> str:
-        repo = event_log_item.event['Repo'].iloc[0]
-        event_type = event_log_item.event['Event'].iloc[0]
-        event_json = event_log_item.event.to_json(orient='records', lines=True)
-        event_log_item = EventLogItem(
-            environment='test',
-            event=event_json,
-            message=f'Repo: {repo} ; Event: {event_type}',
-        )
+    def _get_event_payload_str(self, event_log_item: EventLogItem) -> str:   
+    
+        event_dict = event_log_item.event.to_dict(orient='records')
+        event_dict[0]['Time'] = event_dict[0]['Time'].strftime('%Y-%m-%d %H:%M:%S.%f')
 
-        my_dict = dataclasses.asdict(event_log_item)
-        json_event_log_item = json.dumps(my_dict, default=json_util.default)
-
+        log_item_dict = {
+            'event': event_dict[0],
+            'message': event_log_item.message,
+            'service': event_log_item.service,
+        }
+        
+        json_event_log_item = json.dumps(log_item_dict)
         return json_event_log_item
         
 

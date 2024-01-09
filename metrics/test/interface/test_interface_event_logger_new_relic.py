@@ -23,10 +23,6 @@ class TestEventLoggerNewRelic():
             'Event': 'deploy',
             'Metadata': {'test_id': unique_id},
         })
-        event_log_item = EventLogItem(
-            environment='test',
-            service='test',
-            event=event
-        )
-
+        
+        event_log_item = event_logger.get_event_log_item_from_event(event)
         event_logger.send_event_to_logger(event_log_item)

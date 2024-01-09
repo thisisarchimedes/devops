@@ -6,6 +6,8 @@ import pandas as pd
 from src.event_processor.events.factory_event import FactoryEvent
 from src.event_processor.database.db_connection_fake import DBConnectionFake
 
+from src.event_processor.logger.event_logger_fake import EventLoggerFake
+
 
 class TestFactoryEvent:
 
@@ -19,8 +21,9 @@ class TestFactoryEvent:
         }
 
         db_connection = DBConnectionFake()
+        logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection)
+        event_factory = FactoryEvent(db_connection, logger)
         event = event_factory.create_event(payload)
 
         assert event is not None, "create_event() should return an event object."
@@ -37,8 +40,9 @@ class TestFactoryEvent:
         }
 
         db_connection = DBConnectionFake()
+        logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection)
+        event_factory = FactoryEvent(db_connection, logger)
         event = event_factory.create_event(payload)
 
         event.process()
@@ -63,8 +67,9 @@ class TestFactoryEvent:
         }
 
         db_connection = DBConnectionFake()
+        logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection)
+        event_factory = FactoryEvent(db_connection, logger)
         event = event_factory.create_event(payload)
 
         event.process()
@@ -85,8 +90,9 @@ class TestFactoryEvent:
         }
 
         db_connection = DBConnectionFake()
+        logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection)
+        event_factory = FactoryEvent(db_connection, logger)
         event = event_factory.create_event(payload)
 
         event.process()
@@ -109,8 +115,9 @@ class TestFactoryEvent:
         }
 
         db_connection = DBConnectionFake()
+        logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection)
+        event_factory = FactoryEvent(db_connection, logger)
         event = event_factory.create_event(payload)
 
         start_date = datetime.now() - timedelta(days=90)
@@ -138,8 +145,9 @@ class TestFactoryEvent:
         }
 
         db_connection = DBConnectionFake()
+        logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection)
+        event_factory = FactoryEvent(db_connection, logger)
         event = event_factory.create_event(payload)
 
         start_date = datetime.now() - timedelta(days=90)

@@ -1,10 +1,11 @@
 import pandas as pd
 
 from src.event_processor.database.db_connection import DBConnection
+from src.event_processor.logger.event_logger import EventLogger
 
 class Event():
 
-    def __init__(self, payload: pd.DataFrame | dict, db_connection: DBConnection) -> None:
+    def __init__(self, payload: pd.DataFrame | dict, db_connection: DBConnection, logger: EventLogger) -> None:
        
         if isinstance(payload, dict):
             self.payload = pd.DataFrame([payload])
@@ -14,6 +15,7 @@ class Event():
             raise ValueError("Payload must be a dictionary or a pandas DataFrame")
 
         self.db_connection = db_connection
+        self.logger = logger
 
 
     def get_repo_name(self) -> str:

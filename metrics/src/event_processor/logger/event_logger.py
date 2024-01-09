@@ -8,7 +8,6 @@ DEVOPS_METRICS_SERVICE_LABEL = 'devops-metrics'
 @dataclass
 class EventLogItem():
     
-    environment: str
     event: pd.DataFrame
     message: str = ''
     service: str = DEVOPS_METRICS_SERVICE_LABEL
@@ -16,5 +15,12 @@ class EventLogItem():
 
 class EventLogger():
 
-    def send_event_to_logger(self, event: pd.DataFrame) -> None:
+    def send_event_to_logger(self, event_log_item: EventLogItem) -> None:
         pass
+
+    def get_event_log_item_from_event(self, event: pd.DataFrame) -> EventLogItem:
+        return EventLogItem(
+            event=event,
+            message=f'Repo: {event["Repo"].iloc[0]} ; Event: {event["Event"].iloc[0]}',
+            service=DEVOPS_METRICS_SERVICE_LABEL,
+        )
