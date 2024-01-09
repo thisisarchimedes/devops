@@ -67,7 +67,27 @@ class TestFactoryEvent:
 
         assert event.get_event_type() == 'push', "process() should write the event to the database."
 
-    
+
+    def test_process_calc_deploy_frequency_event(self):
+                
+        payload = {
+            'repo_name': 'test_repo',
+            'event': 'calc_deploy_frequency',
+        }
+
+        db_connection = DBConnectionFake("a", "test_process_calc_deploy_frequency_event")
+            
+        event_factory = FactoryEvent(db_connection)
+        event = event_factory.create_event(payload)
+
+        event.process()
+
+        res_df = db_connection.get_all_repo_events("test_repo")
+        repo_name = str(res_df['repo_name'].iloc[0])
+        assert repo_name == str(payload['repo_name']), "process() should write the event to the database."
+
+        assert event.get_event_type() == 'calc_deploy_frequency', "process() should write the event to the database."
+
     def test_process_deploy_event(self):
                 
         payload = {
@@ -76,7 +96,6 @@ class TestFactoryEvent:
         }
 
         db_connection = DBConnectionFake("db_test_event_factory", "test_process_deploy_event")
-        db_connection.set_db_read_only_flag(True)
             
         event_factory = FactoryEvent(db_connection)
         event = event_factory.create_event(payload)
@@ -92,4 +111,3 @@ class TestFactoryEvent:
         num_rows_after = len(res_df.index)
         
         assert num_rows_after == num_rows_before + 1, "process() should write the event to the database."
-       
