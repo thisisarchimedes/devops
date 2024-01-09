@@ -22,8 +22,10 @@
 [X] Get "push" event and apply addition logic (record to DB)
 [X] Add "calc_deploy_frequency" event (with ALL as repo name) and write to DB
 [X] Get "deploy" event and apply addition logic (calculate frequencey for all repos and record to DB)
-[] Get "deploy" event and apply addition logic (calculate frequencey a subset of repos and record to DB) - probably need to load config file that define different subsets of repos
+[] Interface test with NewRelic
+[] Interface test with Fake NewRelic
 [] repeat the above event tests and also send to New Relic
+[] Get "deploy" event and apply addition logic (calculate frequencey a subset of repos and record to DB) - probably need to load config file that define different subsets of repos
 
 
 ## Interface
@@ -35,6 +37,7 @@
 [X] Create directories under src for backend and CICD script
 [] Replace existing script with the new one
 [] Add auth token to header when sending post request
+[] See if we can replace the free text event with Dataclass
 
 
 # TODO: 
