@@ -1,4 +1,6 @@
 import pytest
+from datetime import datetime, timedelta
+import os
 import pandas as pd
 
 from src.events.factory_event import FactoryEvent
@@ -65,7 +67,7 @@ class TestFactoryEvent:
 
         assert event.get_event_type() == 'push', "process() should write the event to the database."
 
-    """
+    
     def test_process_deploy_event(self):
                 
         payload = {
@@ -79,11 +81,15 @@ class TestFactoryEvent:
         event_factory = FactoryEvent(db_connection)
         event = event_factory.create_event(payload)
 
+        start_date = datetime.now() - timedelta(days=90)
+        res_df = db_connection.get_deploy_frequency_reports_since_date(start_date)
+        num_rows_before = len(res_df.index)
+
         event.process()
 
-        res_df = db_connection.get_all_repo_events("test_repo")
-        repo_name = str(res_df['repo_name'].iloc[0])
-        assert repo_name == str(payload['repo_name']), "process() should write the event to the database."
-
-        assert event.get_event_type() == 'deploy', "process() should write the event to the database."
-    """
+        start_date = datetime.now() - timedelta(days=90)
+        res_df = db_connection.get_deploy_frequency_reports_since_date(start_date)
+        num_rows_after = len(res_df.index)
+        
+        assert num_rows_after == num_rows_before + 1, "process() should write the event to the database."
+       
