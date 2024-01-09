@@ -18,7 +18,7 @@ class TestCICDReportScript:
 
         record = event_reporter.prepare_record("test_repo", "push", "")
     
-        expected = {'repo_name': 'test_repo', 'event': 'push', 'metadata': ''}
+        expected = {'Repo': 'test_repo', 'Event': 'push', 'Metadata': ''}
 
         assert record == expected, "JSON output is not correct."
 

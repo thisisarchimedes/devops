@@ -1,4 +1,5 @@
 import pytest
+from datetime import datetime
 import json
 import os
 from src.event_processor import EventProcessor
@@ -20,9 +21,10 @@ class TestEventProcessor:
         event_processor = EventProcessor("SECRET_TOKEN", None)
 
         payload = {
-            'repo_name': 'test_repo',
-            'event': 'invalid',
-            'metadata': 'test_metadata'
+            'Time': datetime.now(),
+            'Repo': 'test_repo',
+            'Event': 'invalid',
+            'Metadata': 'test_metadata'
         }
 
         res = event_processor.is_payload_valid(payload)
@@ -33,8 +35,9 @@ class TestEventProcessor:
         event_processor = EventProcessor("SECRET_TOKEN", None)
 
         payload = {
-            'repo_name': 'test_repo',
-            'metadata': 'test_metadata'
+            'Time': datetime.now(),
+            'Repo': 'test_repo',
+            'Metadata': 'test_metadata'
         }
 
         res = event_processor.is_payload_valid(payload)
@@ -45,8 +48,9 @@ class TestEventProcessor:
         event_processor = EventProcessor("SECRET_TOKEN", None)
 
         payload = {
-            'repo_name': 'test_repo',
-            'event': 'push',
+            'Time': datetime.now(),
+            'Repo': 'test_repo',
+            'Event': 'push',
         }
 
         res = event_processor.is_payload_valid(payload)
@@ -60,9 +64,10 @@ class TestEventProcessor:
         event_processor = EventProcessor(secret_token, db_connection)
 
         payload = {
-            'repo_name': 'test_repo',
-            'event': 'push',
-            'metadata': 'test_metadata'
+            'Time': datetime.now(),
+            'Repo': 'test_repo',
+            'Rvent': 'push',
+            'Metadata': 'test_metadata'
         }
 
         try:

@@ -1,11 +1,35 @@
+from datetime import datetime, timedelta
+
 from src.events.event import Event
+from src.calculations.dora_deploy_frequency_calculator import DORADeployFrequencyCalculator
 
 class EventDeploy(Event):
+    
+    def __init__(self, payload: dict, db_connection) -> None:
+        super().__init__(payload, db_connection)
+
+        self.deploy_frequency_timewindow_days = 90
 
     def process(self) -> None:
+
         self.db_connection.write_event_to_db(self.payload)
 
-    # Number of days in a week with at least one deploy
-    def get_days_with_deploy(self) -> int:
-        return self.db_connection.get_days_per_week_with_deploy(self.payload['repo_name'])
-    
+        daily_deploy_volume_df = self.db_connection.get_daily_deploy_volume()
+        dora_deploy_frequency_calculator = DORADeployFrequencyCalculator()
+        start_date = datetime.now() - timedelta(days=self.deploy_frequency_timewindow_days)
+        end_date = datetime.now()
+
+        print(daily_deploy_volume_df)
+        
+        deploy_frequency = dora_deploy_frequency_calculator.get_deployment_frequency(daily_deploy_volume=daily_deploy_volume_df,
+                                                                  start_date=start_date,
+                                                                  end_date=end_date)
+
+        event = {
+            'Repo': 'ALL',
+            'Event': 'calc_deploy_frequency',
+            'Metadata': {'deploy_frequency': deploy_frequency}
+        }
+        # USER THE EVENT FACTORY        
+
+        print(daily_deploy_volume_df)

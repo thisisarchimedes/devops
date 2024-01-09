@@ -17,10 +17,10 @@ class Event():
 
 
     def get_repo_name(self) -> str:
-        return self.payload['repo_name'].iloc[0]  
+        return self.payload['Repo'].iloc[0]  
     
     def get_event_type(self) -> str:
-        return self.payload['event'].iloc[0]  
+        return self.payload['Event'].iloc[0]  
     
     def process(self) -> None:
         pass

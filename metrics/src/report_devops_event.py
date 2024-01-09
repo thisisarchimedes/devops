@@ -24,9 +24,9 @@ class DevOpsEventReporter:
 
     def prepare_record(self, repo_name, event, metadata) -> dict:
         record = {
-            'repo_name': repo_name,
-            'event': event,
-            'metadata': metadata
+            'Repo': repo_name,
+            'Event': event,
+            'Metadata': metadata
         }
 
         return record

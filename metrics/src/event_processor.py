@@ -45,13 +45,13 @@ class EventProcessor:
         if payload is None:
             return False
 
-        if 'repo_name' not in payload:
+        if 'Repo' not in payload:
             return False
 
-        if 'event' not in payload:
+        if 'Event' not in payload:
             return False
         
-        if payload['event'] not in self.EVENT_TYPES:
+        if payload['Event'] not in self.EVENT_TYPES:
             return False
 
         return True

@@ -29,8 +29,8 @@ class DBConnectionTimeseries(DBConnection):
             database=self.database_name,
             table=self.table_name,
             time_col='time',
-            measure_col='metadata',
-            dimensions_cols=['repo_name', 'event']
+            measure_col='Metadata',
+            dimensions_cols=['Repo', 'Event']
         )
 
         if len(rejected_records) > 0:
@@ -56,8 +56,7 @@ class DBConnectionTimeseries(DBConnection):
         return query_result
 
     def get_deploy_frequency_events_since_date(self, start_date: datetime.date) -> pd.DataFrame:
-        query = self.get_query_for_deploy_frequency_events_since_date(
-            start_date)
+        query = self.get_query_for_deploy_frequency_events_since_date(start_date)
         query_result = self.execute_query(query)
 
         return query_result
@@ -70,9 +69,9 @@ class DBConnectionTimeseries(DBConnection):
 
         return f"""
                     SELECT 
-                        time AS Timestamp, 
-                        repo_name AS Repo, 
-                        event AS Event, 
+                        time AS Time, 
+                        Repo AS Repo, 
+                        Event AS Event, 
                         measure_value::varchar AS Metadata 
                     FROM "{self.database_name}"."{self.table_name}"
                     ORDER BY time ASC
@@ -84,7 +83,7 @@ class DBConnectionTimeseries(DBConnection):
             query = f"""
                 SELECT date_trunc('day', time) AS Day, COUNT(*) AS DeployCount
                 FROM "{self.database_name}"."{self.table_name}"
-                WHERE "event" = 'deploy'
+                WHERE "Event" = 'deploy'
                 AND time >= date_add('month', -3, current_date)
                 GROUP BY date_trunc('day', time)
             """
@@ -93,7 +92,7 @@ class DBConnectionTimeseries(DBConnection):
             query = f"""
                 SELECT date_trunc('day', time) AS Day, COUNT(*) AS DeployCount
                 FROM "{self.database_name}"."{self.table_name}"
-                WHERE "event" = 'deploy' AND "repo_name" IN ({repo_names_str})
+                WHERE "Event" = 'deploy' AND "Repo" IN ({repo_names_str})
                 AND time >= date_add('month', -3, current_date)
                 GROUP BY date_trunc('day', time)
             """
@@ -107,12 +106,12 @@ class DBConnectionTimeseries(DBConnection):
 
         return f"""
                     SELECT 
-                        time AS Timestamp, 
-                        repo_name AS Repo, 
-                        event AS Event, 
+                        time AS Time, 
+                        Repo AS Repo, 
+                        Event AS Event, 
                         measure_value::varchar AS Metadata 
                     FROM "{self.database_name}"."{self.table_name}"
-                    WHERE "repo_name" = '{repo_name}'
+                    WHERE "Repo" = '{repo_name}'
                     ORDER BY time ASC
                 """
 
@@ -120,12 +119,12 @@ class DBConnectionTimeseries(DBConnection):
 
         return f"""
             SELECT 
-                time AS Timestamp, 
-                repo_name AS Repo, 
-                event AS Event, 
+                time AS Time, 
+                Repo AS Repo, 
+                Event AS Event, 
                 measure_value::varchar AS Metadata 
             FROM "{self.database_name}"."{self.table_name}"
-            WHERE "event" = 'calc_deploy_frequency'
+            WHERE "Event" = 'calc_deploy_frequency'
             AND time >= '{start_date}'
             ORDER BY time ASC
         """

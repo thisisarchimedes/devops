@@ -14,13 +14,13 @@ class FactoryEvent():
 
     def create_event(self, payload: dict) -> Event:
             
-        if payload['event'] == 'push':
+        if payload['Event'] == 'push':
             event = EventPush(payload, self.db_connection)
-        elif payload['event'] == 'test_pass':
+        elif payload['Event'] == 'test_pass':
             event = EventTestPass(payload, self.db_connection)
-        elif payload['event'] == 'deploy':
+        elif payload['Event'] == 'deploy':
             event = EventDeploy(payload, self.db_connection)
-        elif payload['event'] == 'calc_deploy_frequency':
+        elif payload['Event'] == 'calc_deploy_frequency':
             event = EventCalcDeployFrequency(payload, self.db_connection)
         else:
             raise Exception("Invalid event type.")
