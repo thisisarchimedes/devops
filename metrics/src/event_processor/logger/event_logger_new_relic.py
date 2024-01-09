@@ -29,10 +29,6 @@ class EventLoggerNewRelic(EventLogger):
         payload = self._get_event_payload_str(event_log_item)
         headers = self._get_request_headers()
 
-        print("\n=========\n")
-        print(payload)
-        print("\n=========\n")
-
         response = requests.post(self.new_relic_url, headers=headers, data=payload)
         if not response.ok:
             raise Exception(f"Failed to send event to New Relic: {response.text}")

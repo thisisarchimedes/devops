@@ -29,3 +29,18 @@ class FactoryEvent():
             raise Exception("Invalid event type.")
         
         return event
+    
+    
+    @staticmethod
+    def is_event_type_valid(event_type: str) -> bool:
+        
+        if event_type == 'push':
+            return True
+        elif event_type == 'test_pass':
+            return True
+        elif event_type == 'deploy':
+            return True
+        elif event_type == 'calc_deploy_frequency':
+            return True
+        else:
+            return False
