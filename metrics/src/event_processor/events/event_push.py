@@ -1,4 +1,4 @@
-from src.events.event import Event
+from src.event_processor.events.event import Event
 
 class EventPush(Event):
 

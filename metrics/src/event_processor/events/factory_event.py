@@ -1,11 +1,11 @@
 
-from src.database.db_connection import DBConnection
+from src.event_processor.database.db_connection import DBConnection
 
-from src.events.event import Event
-from src.events.event_push import EventPush
-from src.events.event_test_pass import EventTestPass
-from src.events.event_deploy import EventDeploy
-from src.events.event_calc_deploy_freq import EventCalcDeployFrequency
+from src.event_processor.events.event import Event
+from src.event_processor.events.event_push import EventPush
+from src.event_processor.events.event_test_pass import EventTestPass
+from src.event_processor.events.event_deploy import EventDeploy
+from src.event_processor.events.event_calc_deploy_freq import EventCalcDeployFrequency
 
 class FactoryEvent():
 

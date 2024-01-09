@@ -2,7 +2,7 @@ import pytest
 import datetime as dt
 import pandas as pd
 
-from src.calculations.dora_deploy_frequency_calculator import DORADeployFrequencyCalculator
+from src.event_processor.calculations.dora_deploy_frequency_calculator import DORADeployFrequencyCalculator
 
 class TestDORADeployFrequencyCalculator:
 

@@ -2,8 +2,8 @@ import pytest
 from datetime import datetime
 import json
 import os
-from src.event_processor import EventProcessor
-from src.database.db_connection_fake import DBConnectionFake
+from src.event_processor.event_processor import EventProcessor
+from src.event_processor.database.db_connection_fake import DBConnectionFake
 
 class TestEventProcessor:
 

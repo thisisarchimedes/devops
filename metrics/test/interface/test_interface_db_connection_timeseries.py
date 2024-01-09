@@ -4,7 +4,7 @@ import uuid
 import pytest
 import pandas as pd
 
-from src.database.db_connection_timeseries import DBConnectionTimeseries
+from src.event_processor.database.db_connection_timeseries import DBConnectionTimeseries
 
 
 class TestDBConnectionTimeseries:

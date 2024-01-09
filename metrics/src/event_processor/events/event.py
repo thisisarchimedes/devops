@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.database.db_connection import DBConnection
+from src.event_processor.database.db_connection import DBConnection
 
 class Event():
 

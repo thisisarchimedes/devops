@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 import os
 import pandas as pd
 
-from src.events.factory_event import FactoryEvent
-from src.database.db_connection_fake import DBConnectionFake
+from src.event_processor.events.factory_event import FactoryEvent
+from src.event_processor.database.db_connection_fake import DBConnectionFake
 
 
 class TestFactoryEvent:

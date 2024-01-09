@@ -2,7 +2,7 @@ from typing import List
 import pandas as pd
 from datetime import datetime, timedelta
 
-from src.database.db_connection import DBConnection
+from src.event_processor.database.db_connection import DBConnection
 
 
 class DBConnectionFake(DBConnection):

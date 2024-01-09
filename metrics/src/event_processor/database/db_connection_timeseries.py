@@ -7,7 +7,7 @@ import awswrangler as wr
 
 import pandas as pd
 
-from src.database.db_connection import DBConnection
+from src.event_processor.database.db_connection import DBConnection
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 

@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
-from src.events.event import Event
-from src.calculations.dora_deploy_frequency_calculator import DORADeployFrequencyCalculator
+from src.event_processor.events.event import Event
+from src.event_processor.calculations.dora_deploy_frequency_calculator import DORADeployFrequencyCalculator
 
 class EventDeploy(Event):
     

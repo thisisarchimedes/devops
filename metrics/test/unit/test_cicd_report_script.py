@@ -2,7 +2,7 @@ import pytest
 import requests
 import requests_mock
 import subprocess
-from src.report_devops_event import DevOpsEventReporter
+from src.cicd_script.report_devops_event import DevOpsEventReporter
 import json
 
 class TestCICDReportScript:
