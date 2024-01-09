@@ -1,7 +1,9 @@
 from typing import List
 import pandas as pd
+from datetime import datetime, timedelta
 
 from src.database.db_connection import DBConnection
+
 
 class DBConnectionFake(DBConnection):
 
@@ -14,7 +16,7 @@ class DBConnectionFake(DBConnection):
         self.db_read_only = False
 
     def write_event_to_db(self, event_df: pd.DataFrame) -> None:
-        
+
         if self.db_read_only:
             return
 
@@ -22,20 +24,23 @@ class DBConnectionFake(DBConnection):
             raise ValueError("The provided DataFrame is empty.")
 
         with open(self.fake_db_file, 'w+') as f:
-            event_df.to_csv(f, index=False)
+            event_df.to_csv(f, index=False, header=True)
 
-    def get_all_repo_events(self, repo_name: str) -> pd.DataFrame:
+    def get_repo_events(self, repo_name: str) -> pd.DataFrame:
 
         df = pd.read_csv(self.fake_db_file)
-                
-        return df
 
+        return df
 
     def get_daily_deploy_volume(self, repos_name: List[str] = None) -> pd.DataFrame:
-        
+
         df = pd.read_csv(self.fake_db_file)
         return df
-        
+
+    def get_deploy_frequency_events_since_date(self, start_date: datetime.date) -> pd.DataFrame:
+
+        df = pd.read_csv(self.fake_db_file)
+        return df
 
     def set_db_read_only_flag(self, flag: bool) -> None:
         self.db_read_only = flag
