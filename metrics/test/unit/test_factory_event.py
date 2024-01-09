@@ -36,8 +36,7 @@ class TestFactoryEvent:
             'Metadata': {'time: 50'}
         }
 
-        db_connection = DBConnectionFake(
-            "db_test_event_factory", "test_process_test_pass_event")
+        db_connection = DBConnectionFake()
 
         event_factory = FactoryEvent(db_connection)
         event = event_factory.create_event(payload)
@@ -63,8 +62,7 @@ class TestFactoryEvent:
             'Event': 'push',
         }
 
-        db_connection = DBConnectionFake(
-            "db_test_event_factory", "test_process_push_event")
+        db_connection = DBConnectionFake()
 
         event_factory = FactoryEvent(db_connection)
         event = event_factory.create_event(payload)
@@ -86,8 +84,7 @@ class TestFactoryEvent:
             'Event': 'calc_deploy_frequency',
         }
 
-        db_connection = DBConnectionFake(
-            "a", "test_process_calc_deploy_frequency_event")
+        db_connection = DBConnectionFake()
 
         event_factory = FactoryEvent(db_connection)
         event = event_factory.create_event(payload)
@@ -101,7 +98,7 @@ class TestFactoryEvent:
 
         assert event.get_event_type(
         ) == 'calc_deploy_frequency', "process() should write the event to the database."
-    """
+    
     def test_process_deploy_event(self):
 
         payload = {
@@ -110,8 +107,7 @@ class TestFactoryEvent:
             'Event': 'deploy',
         }
 
-        db_connection = DBConnectionFake(
-            "db_test_event_factory", "test_process_deploy_event")
+        db_connection = DBConnectionFake()
 
         event_factory = FactoryEvent(db_connection)
         event = event_factory.create_event(payload)
@@ -130,4 +126,4 @@ class TestFactoryEvent:
 
         assert num_rows_after == num_rows_before + \
             1, "process() should write the event to the database."
-    """
+    

@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import pandas as df
 
 from src.event_processor.events.event import Event
 from src.event_processor.calculations.dora_deploy_frequency_calculator import DORADeployFrequencyCalculator
@@ -26,10 +27,10 @@ class EventDeploy(Event):
                                                                   end_date=end_date)
 
         event = {
+            'Time': datetime.now(),
             'Repo': 'ALL',
             'Event': 'calc_deploy_frequency',
             'Metadata': {'deploy_frequency': deploy_frequency}
         }
-        # USER THE EVENT FACTORY        
-
-        print(daily_deploy_volume_df)
+        event_df = df.DataFrame(event)
+        self.db_connection.write_event_to_db(event_df)
