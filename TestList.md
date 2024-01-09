@@ -34,6 +34,7 @@
 [X] Refactor db_connection_timeseris
 [] Replace existing script with the new one
 [] Add auth token to header when sending post request
+[] Create directories under src for backend and CICD script
 
 
 # TODO: 
