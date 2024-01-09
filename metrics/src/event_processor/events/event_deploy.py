@@ -10,6 +10,7 @@ class EventDeploy(Event):
         super().__init__(payload, db_connection)
 
         self.deploy_frequency_timewindow_days = 90
+        
 
     def process(self) -> None:
 
