@@ -19,13 +19,11 @@ class EventDeploy(Event):
         dora_deploy_frequency_calculator = DORADeployFrequencyCalculator()
         start_date = datetime.now() - timedelta(days=self.deploy_frequency_timewindow_days)
         end_date = datetime.now()
-
-        print(daily_deploy_volume_df)
         
         deploy_frequency = dora_deploy_frequency_calculator.get_deployment_frequency(daily_deploy_volume=daily_deploy_volume_df,
                                                                   start_date=start_date,
                                                                   end_date=end_date)
-
+        
         event = {
             'Time': datetime.now(),
             'Repo': 'ALL',
