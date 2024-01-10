@@ -22,3 +22,7 @@ DATABASE_NAME = 'DORAStats'
         Time must be a string
         Metadata have to be a string
         Every thing is a json string or just a string
+
+
+
+        SECRET_STORE_NAME=DevOpsSecretStore

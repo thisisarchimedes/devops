@@ -30,13 +30,15 @@ class EventDeploy(Event):
                                                                                      start_date=start_date,
                                                                                      end_date=end_date)
 
+        metadata = '{"deploy_frequency": ' + str(deploy_frequency) + '}'
         event = {
             'Time': datetime.now(),
             'Repo': 'ALL',
             'Event': 'calc_deploy_frequency',
-            'Metadata': [f'{deploy_frequency: {deploy_frequency}}']
+            'Metadata': metadata
         }
-        event_df = df.DataFrame(event)
+        #'Metadata':f'{"deploy_frequency": {deploy_frequency}}'
+        event_df = df.DataFrame([event])
         self.db_connection.write_event_to_db(event_df)
 
         res = self.logger.get_event_log_item_from_df_event(event_df)

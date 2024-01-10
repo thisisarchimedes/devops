@@ -24,6 +24,10 @@ class DBConnectionTimeseries(DBConnection):
         utc_time = datetime.now(timezone.utc)
         event_df['time'] = utc_time
 
+        # Metadata is optional
+        if 'Metadata' not in event_df.columns:
+            event_df['Metadata'] = 'Empty'
+
         rejected_records = wr.timestream.write(
             df=event_df,
             database=self.database_name,

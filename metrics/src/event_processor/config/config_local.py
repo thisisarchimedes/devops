@@ -1,5 +1,4 @@
 import os
-
 from dotenv import load_dotenv
 
 from src.event_processor.config.config import Config

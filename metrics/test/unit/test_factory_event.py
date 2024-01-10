@@ -139,9 +139,9 @@ class TestFactoryEvent:
 
         payload = {
             'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            'Repo': 'ALL',
+            'Repo': 'test_repo',
             'Event': 'calc_deploy_frequency',
-            'Metadata': "{'deploy_frequency': 11.0}"
+            'Metadata': '{"deploy_frequency": 12.5}'
         }
 
         db_connection = DBConnectionFake()
