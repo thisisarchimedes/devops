@@ -49,6 +49,6 @@
 
 # TODO: 
 
-[] AWS/Local config
+[X] AWS/Local config (add timeframe)
 [] Create TF/AWS Sam deploy script that also set the environment variables on AWS
 [] Run tests as part of the CICD pipeline
