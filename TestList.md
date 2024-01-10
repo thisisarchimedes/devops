@@ -25,7 +25,7 @@
 [X] Interface test with NewRelic
 [X] Interface test with Fake NewRelic
 [X] repeat the above event tests and also send to New Relic
-[] Event handler get raw event and process it
+[X] Event handler get raw event and process it
 [] Get "deploy" event and apply addition logic (calculate frequencey a subset of repos and record to DB) - probably need to load config file that define different subsets of repos
 
 
@@ -33,7 +33,7 @@
 [X] Interface Timeseries DB
 
 ## End to End
-[] Run Backend API and see that it works end to end
+[X] Run Backend API and see that it works end to end
 
 # Refactor List
 
@@ -41,9 +41,9 @@
 [X] Create directories under src for backend and CICD script
 [] Replace existing script with the new one
 [] Add auth token to header when sending post request
-[] See if we can replace the free text event with Dataclass
+[] Replace the free text event with Dataclass/Pydantic
 [] Read log line from NewRelic to verify write
-[] pydantic for input validation
+
 
 
 # TODO: 
