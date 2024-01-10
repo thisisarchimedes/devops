@@ -1,22 +1,20 @@
-import os
 import uuid
-import requests
 import pytest
-import json
 from datetime import datetime, timedelta
-
 import pandas as pd
-from dotenv import load_dotenv
 
 from src.event_processor.logger.event_logger import EventLogItem
 from src.event_processor.logger.event_logger_new_relic import EventLoggerNewRelic
+from src.event_processor.config.config_local import ConfigLocal
 
 
 class TestEventLoggerNewRelic():
 
     def test_send_event_to_logger(self) -> None:
 
-        event_logger = EventLoggerNewRelic()
+        config = ConfigLocal()
+        event_logger = EventLoggerNewRelic(config.get_logger_api_key())
+
         unique_id = str(uuid.uuid4())
         event = pd.DataFrame({
             'Time': datetime.now(),

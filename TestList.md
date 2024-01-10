@@ -37,6 +37,7 @@
 
 # Refactor List
 
+[] load also from .env file
 [X] Refactor db_connection_timeseris
 [X] Create directories under src for backend and CICD script
 [] Replace existing script with the new one
@@ -48,5 +49,6 @@
 
 # TODO: 
 
+[] AWS/Local config
 [] Create TF/AWS Sam deploy script that also set the environment variables on AWS
 [] Run tests as part of the CICD pipeline

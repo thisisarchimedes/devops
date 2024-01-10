@@ -1,7 +1,7 @@
 import pytest
 from datetime import datetime
 
-from src.event_processor.lambda_entry import process_new_event
+from src.event_processor.entrance_local_process_event import entry_point_local
 
 class TestIntegrationProcessEvent():
 
@@ -11,9 +11,9 @@ class TestIntegrationProcessEvent():
             'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'Repo': 'test_repo',
             'Event': 'calc_deploy_frequency',
-            'Metadata': '{deploy_frequency: 7.5}'
+            'Metadata': '{deploy_frequency: 8.5}'
         }
         
-        process_new_event(event_payload)
+        entry_point_local(event_payload)
         
         

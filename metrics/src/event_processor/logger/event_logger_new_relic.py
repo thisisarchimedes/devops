@@ -7,19 +7,16 @@ import json
 
 import requests
 import pandas as pd
-from dotenv import load_dotenv
 
 from src.event_processor.logger.event_logger import EventLogItem, EventLogger
 
 
 class EventLoggerNewRelic(EventLogger):
 
-    def __init__(self) -> None:
-
-        load_dotenv()
+    def __init__(self, api_key: str) -> None:
 
         self.new_relic_url = "https://log-api.newrelic.com/log/v1"
-        self.api_key = os.getenv("NEW_RELIC_API_KEY")
+        self.api_key = api_key
         if not self.api_key:
             raise EnvironmentError("NEW_RELIC_API_KEY environment variable not set")
         

@@ -1,5 +1,5 @@
 
-from src.event_processor.simple_authenticator import SimpleAuthenticator
+from src.event_processor.config.simple_authenticator import SimpleAuthenticator
 
 class TestSimpleAuthenticator:
 
