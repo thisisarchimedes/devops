@@ -21,14 +21,27 @@ class ConfigAWS(Config):
         return self._extract_value_from_secret(secret, 'LOGGER_API_KEY')
 
     def get_db_name(self) -> str:
-        pass
+        db_name = os.getenv('DEVOPS_DB_NAME')
+        if not db_name:
+            raise ValueError("DEVOPS_DB_NAME environment variable is not set.")
+        return db_name
+        
 
     def get_db_table_name(self) -> str:
-        pass
+        db_table_name = os.getenv('DEVOPS_TABLE_NAME')
+        if not db_table_name:
+            raise ValueError("DEVOPS_TABLE_NAME environment variable is not set.")
+        return db_table_name
     
+    def get_deployment_freq_timeframe_days(self) -> int:
+        days = os.getenv('DEPLOYMENT_FREQ_TIMEFRAME_DAY')
+        if not days:
+            raise ValueError("DEPLOYMENT_FREQ_TIMEFRAME_DAY environment variable is not set.")
+        
+        return int(days)
+        
 
     def _load_environment_variables(self):
-        load_dotenv()
         self.secret_store_name = os.getenv('SECRET_STORE_NAME')
         if not self.secret_store_name:
             raise ValueError("SECRET_STORE_NAME environment variable is not set.")

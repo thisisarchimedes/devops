@@ -18,7 +18,6 @@ class TestConfigAWS:
 
         assert len(logger_api_key) > 10
 
-"""
     def test_get_db_name(self):
 
         config = ConfigAWS()
@@ -26,10 +25,18 @@ class TestConfigAWS:
 
         assert db_name == "DORAStats" 
 
+
     def test_get_db_table_name(self):
 
         config = ConfigAWS()
         db_name = config.get_db_table_name()
 
         assert db_name == "DORARawEventsTest"
-"""
+
+    
+    def test_get_deploy_frequency_days(self):
+
+        config = ConfigAWS()
+        days = config.get_deployment_freq_timeframe_days()
+
+        assert days > 14

@@ -30,3 +30,10 @@ class TestConfigLocal:
         db_name = config.get_db_table_name()
 
         assert db_name == "DORARawEventsTest"
+
+    def test_get_deploy_frequency_days(self):
+
+        config = ConfigLocal()
+        days = config.get_deployment_freq_timeframe_days()
+
+        assert days > 14

@@ -12,4 +12,9 @@ class Config():
 
     def get_db_table_name(self) -> str:
         pass
-    
+
+    def get_deployment_freq_timeframe_days(self) -> int:
+        pass
+
+        
+        
