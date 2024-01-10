@@ -23,7 +23,7 @@ class TestFactoryEvent:
         db_connection = DBConnectionFake()
         logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection, logger)
+        event_factory = FactoryEvent(db_connection, logger, 10)
         event = event_factory.create_event(payload)
 
         assert event is not None, "create_event() should return an event object."
@@ -42,7 +42,7 @@ class TestFactoryEvent:
         db_connection = DBConnectionFake()
         logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection, logger)
+        event_factory = FactoryEvent(db_connection, logger, 10)
         event = event_factory.create_event(payload)
 
         event.process()
@@ -69,7 +69,7 @@ class TestFactoryEvent:
         db_connection = DBConnectionFake()
         logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection, logger)
+        event_factory = FactoryEvent(db_connection, logger, 10)
         event = event_factory.create_event(payload)
 
         event.process()
@@ -92,7 +92,7 @@ class TestFactoryEvent:
         db_connection = DBConnectionFake()
         logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection, logger)
+        event_factory = FactoryEvent(db_connection, logger, 10)
         event = event_factory.create_event(payload)
 
         event.process()
@@ -117,7 +117,7 @@ class TestFactoryEvent:
         db_connection = DBConnectionFake()
         logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection, logger)
+        event_factory = FactoryEvent(db_connection, logger, 10)
         event = event_factory.create_event(payload)
 
         start_date = datetime.now() - timedelta(days=90)
@@ -147,7 +147,7 @@ class TestFactoryEvent:
         db_connection = DBConnectionFake()
         logger = EventLoggerFake()
 
-        event_factory = FactoryEvent(db_connection, logger)
+        event_factory = FactoryEvent(db_connection, logger, 10)
         event = event_factory.create_event(payload)
 
         start_date = datetime.now() - timedelta(days=90)

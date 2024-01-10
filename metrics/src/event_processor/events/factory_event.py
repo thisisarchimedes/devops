@@ -11,9 +11,14 @@ from src.event_processor.logger.event_logger import EventLogger
 
 class FactoryEvent():
 
-    def __init__(self, db_connection: DBConnection, logger: EventLogger) -> None:
+    def __init__(self, 
+                 db_connection: DBConnection, 
+                 logger: EventLogger, 
+                 deploy_frequency_timewindow_days: int) -> None:
+        
         self.db_connection = db_connection
         self.logger = logger
+        self.deploy_frequency_timewindow_days = deploy_frequency_timewindow_days
 
     def create_event(self, payload: dict) -> Event:
             
@@ -22,7 +27,7 @@ class FactoryEvent():
         elif payload['Event'] == 'test_pass':
             event = EventTestPass(payload, self.db_connection, self.logger)
         elif payload['Event'] == 'deploy':
-            event = EventDeploy(payload, self.db_connection, self.logger)
+            event = EventDeploy(payload, self.db_connection, self.logger, self.deploy_frequency_timewindow_days)
         elif payload['Event'] == 'calc_deploy_frequency':
             event = EventCalcDeployFrequency(payload, self.db_connection, self.logger)
         else:

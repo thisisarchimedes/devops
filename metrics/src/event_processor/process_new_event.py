@@ -12,8 +12,9 @@ def process_new_event(event_payload: dict, config: Config) -> None:
       
     db_connection = DBConnectionTimeseries(config.get_db_name(), config.get_db_table_name())
     event_logger = EventLoggerNewRelic(config.get_logger_api_key())
+    deploy_frequency_timewindow_days = config.get_deployment_freq_timeframe_days()
 
-    factory_event = FactoryEvent(db_connection, event_logger)
+    factory_event = FactoryEvent(db_connection, event_logger, deploy_frequency_timewindow_days)
     event = factory_event.create_event(event_payload)
     event.process()
     

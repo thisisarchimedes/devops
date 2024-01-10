@@ -9,10 +9,14 @@ from src.event_processor.logger.event_logger import EventLogger
 
 class EventDeploy(Event):
 
-    def __init__(self, payload: dict, db_connection: DBConnection, logger: EventLogger) -> None:
+    def __init__(self, 
+                 payload: dict, 
+                 db_connection: DBConnection, 
+                 logger: EventLogger, 
+                 deploy_frequency_timewindow_days: int) -> None:
         super().__init__(payload, db_connection, logger)
 
-        self.deploy_frequency_timewindow_days = 90
+        self.deploy_frequency_timewindow_days = deploy_frequency_timewindow_days
 
     def process(self) -> None:
 
