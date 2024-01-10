@@ -1,5 +1,5 @@
 
-class SimpleAuthenticator:
+class SimpleAuthenticator():
 
     def __init__(self, secret: str) -> None:
         self.secret = secret

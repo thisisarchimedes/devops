@@ -14,10 +14,10 @@ class TestFactoryEvent:
     def test_create_event(self):
 
         payload = {
-            'Time': datetime.now(),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'Repo': 'test_repo',
             'Event': 'push',
-            'Metadata': {'test_metadata'}
+            'Metadata': "{'test_metadata'}"
         }
 
         db_connection = DBConnectionFake()
@@ -33,10 +33,10 @@ class TestFactoryEvent:
     def test_process_test_pass_event(self):
 
         payload = {
-            'Time': datetime.now(),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'Repo': 'test_repo',
             'Event': 'test_pass',
-            'Metadata': {'time: 50'}
+            'Metadata': '{time: 50}'
         }
 
         db_connection = DBConnectionFake()
@@ -50,7 +50,7 @@ class TestFactoryEvent:
         res_df = db_connection.get_repo_events("test_repo")
 
         metadata_value = str(res_df['Metadata'].iloc[len(res_df.index) - 1])
-        assert metadata_value == str("{'time: 50'}") , "process() should write the event to the database."
+        assert metadata_value == "{time: 50}" , "process() should write the event to the database."
             
         event_value = str(res_df['Event'].iloc[len(res_df.index) - 1])
         assert event_value == str("test_pass") , "process() should write the event to the database."
@@ -61,7 +61,7 @@ class TestFactoryEvent:
     def test_process_push_event(self):
 
         payload = {
-            'Time': datetime.now(),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'Repo': 'test_repo',
             'Event': 'push',
         }
@@ -84,7 +84,7 @@ class TestFactoryEvent:
     def test_process_calc_deploy_frequency_event(self):
 
         payload = {
-            'Time': datetime.now(),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'Repo': 'test_repo',
             'Event': 'calc_deploy_frequency',
         }
@@ -109,9 +109,9 @@ class TestFactoryEvent:
     def test_process_deploy_event(self):
 
         payload = {
-            'Time': datetime.now(),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'Repo': 'test_repo',
-            'Event': 'deploy',
+            'Event': 'deploy'
         }
 
         db_connection = DBConnectionFake()
@@ -138,10 +138,10 @@ class TestFactoryEvent:
     def test_process_calc_deploy_frequency_event(self):
 
         payload = {
-            'Time': datetime.now(),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'Repo': 'ALL',
             'Event': 'calc_deploy_frequency',
-            'Metadata': {'deploy_frequency': 11.0}
+            'Metadata': "{'deploy_frequency': 11.0}"
         }
 
         db_connection = DBConnectionFake()

@@ -2,6 +2,7 @@ import os
 import uuid
 import requests
 import pytest
+import json
 from datetime import datetime, timedelta
 
 import pandas as pd
@@ -21,7 +22,7 @@ class TestEventLoggerNewRelic():
             'Time': datetime.now(),
             'Repo': 'test_logger',
             'Event': 'deploy',
-            'Metadata': {'test_id': unique_id},
+            'Metadata': ["{'test_id': unique_id}"],
         })
 
         event_log_item = event_logger.get_event_log_item_from_df_event(event)

@@ -78,7 +78,7 @@ class TestDBConnectionFake:
             "Time": datetime.now(),
             "Repo": 'test_repo',
             "Event": 'calc_deploy_frequency',
-            "Metadata": {'deploy_frequency': 1}
+            "Metadata": "{'deploy_frequency': 1}"
         }]))
 
         start_date = datetime.now() - timedelta(days=90)

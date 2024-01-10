@@ -16,5 +16,9 @@ DATABASE_NAME = 'DORAStats'
             "Time": [datetime.now()],
             "Repo": 'test_repo',
             "Event": 'calc_deploy_frequency',
-            "Metadata": 'test_metadata'
+            "Metadata": '{test_metadata: value}'
         }]))
+
+        Time must be a string
+        Metadata have to be a string
+        Every thing is a json string or just a string

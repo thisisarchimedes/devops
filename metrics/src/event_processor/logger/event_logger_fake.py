@@ -10,7 +10,7 @@ class EventLoggerFake(EventLogger):
 
     def send_event_to_logger(self, event_log_item: EventLogItem) -> None:
         
-        event_df = event_log_item.event
+        event_df = pd.read_json(event_log_item.event)
 
         repo = event_df['Repo'].iloc[0]
         event_type = event_df['Event'].iloc[0]

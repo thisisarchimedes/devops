@@ -36,11 +36,8 @@ class EventLoggerNewRelic(EventLogger):
         
     def _get_event_payload_str(self, event_log_item: EventLogItem) -> str:   
     
-        event_dict = event_log_item.event.to_dict(orient='records')
-        event_dict[0]['Time'] = event_dict[0]['Time'].strftime('%Y-%m-%d %H:%M:%S.%f')
-
         log_item_dict = {
-            'event': event_dict[0],
+            'event': event_log_item.event,
             'message': event_log_item.message,
             'service': event_log_item.service,
         }

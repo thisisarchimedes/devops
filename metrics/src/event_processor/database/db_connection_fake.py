@@ -17,9 +17,6 @@ class DBConnectionFake(DBConnection):
         if event_df.empty:
             raise ValueError("The provided DataFrame is empty.")
 
-        # Format the datetime column to string
-        event_df['Time'] = event_df['Time'].dt.strftime('%Y-%m-%d %H:%M:%S.000')
-
         with open(self.FAKE_DB_FILE_PATH, 'a') as f:
             event_df.to_csv(f, index=False, header=False)
 
@@ -41,7 +38,7 @@ class DBConnectionFake(DBConnection):
     def get_daily_deploy_volume(self, repos_name: List[str] = None) -> pd.DataFrame:
 
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
-        df['Time'] = pd.to_datetime(df['Time'])
+        df['Time'] = pd.to_datetime(df['Time'], format='mixed')
 
         # Filter for 'deploy' events
         df = df[df['Event'] == 'deploy']
