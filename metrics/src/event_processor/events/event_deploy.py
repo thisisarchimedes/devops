@@ -37,7 +37,7 @@ class EventDeploy(Event):
             'Event': 'calc_deploy_frequency',
             'Metadata': metadata
         }
-        #'Metadata':f'{"deploy_frequency": {deploy_frequency}}'
+        
         event_df = df.DataFrame([event])
         self.db_connection.write_event_to_db(event_df)
 
