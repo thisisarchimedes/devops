@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 import pandas as pd
-import json
 
 DEVOPS_METRICS_SERVICE_LABEL = 'devops-metrics'
 
