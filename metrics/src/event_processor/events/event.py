@@ -1,9 +1,10 @@
 import pandas as pd
+from abc import ABC, abstractmethod
 
 from src.event_processor.database.db_connection import DBConnection
 from src.event_processor.logger.event_logger import EventLogger
 
-class Event():
+class Event(ABC):
 
     def __init__(self, payload: pd.DataFrame | dict, db_connection: DBConnection, logger: EventLogger) -> None:
        
@@ -24,5 +25,6 @@ class Event():
     def get_event_type(self) -> str:
         return self.payload['Event'].iloc[0]  
     
+    @abstractmethod
     def process(self) -> None:
         pass

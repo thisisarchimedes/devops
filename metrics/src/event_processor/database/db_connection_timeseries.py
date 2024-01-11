@@ -1,6 +1,6 @@
 import os
-from typing import List
-from datetime import datetime, timedelta
+from typing import List, Optional
+from datetime import datetime, date
 
 import boto3
 import awswrangler as wr
@@ -53,13 +53,13 @@ class DBConnectionTimeseries(DBConnection):
 
         return query_result
 
-    def get_daily_deploy_volume(self, repos_name: List[str] = None) -> pd.DataFrame:
+    def get_daily_deploy_volume(self, repos_name: Optional[List[str]]) -> pd.DataFrame:
         query = self.get_daily_deploy_volume_query(repos_name)
         query_result = self.execute_query(query)
 
         return query_result
 
-    def get_deploy_frequency_events_since_date(self, start_date: datetime.date) -> pd.DataFrame:
+    def get_deploy_frequency_events_since_date(self, start_date: date) -> pd.DataFrame:
         query = self.get_query_for_deploy_frequency_events_since_date(start_date)
         query_result = self.execute_query(query)
 
@@ -81,7 +81,7 @@ class DBConnectionTimeseries(DBConnection):
                     ORDER BY time ASC
                 """
 
-    def get_daily_deploy_volume_query(self, repos: List[str] = None) -> str:
+    def get_daily_deploy_volume_query(self, repos: Optional[List[str]]) -> str:
         query = ""
         if (repos is None):
             query = f"""
@@ -119,7 +119,7 @@ class DBConnectionTimeseries(DBConnection):
                     ORDER BY time ASC
                 """
 
-    def get_query_for_deploy_frequency_events_since_date(self, start_date: datetime.date) -> str:
+    def get_query_for_deploy_frequency_events_since_date(self, start_date: date) -> str:
 
         return f"""
             SELECT 

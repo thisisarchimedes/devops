@@ -1,5 +1,6 @@
 
-from src.event_processor.config.config_aws import ConfigAWS
+from src.event_processor.params.config_aws import ConfigAWS
+
 
 class TestConfigAWS:
 
@@ -9,7 +10,6 @@ class TestConfigAWS:
         expected_auth_token = config.get_expected_auth_token()
 
         assert len(expected_auth_token) > 10
-
 
     def test_get_logger_api_key(self):
 
@@ -23,8 +23,7 @@ class TestConfigAWS:
         config = ConfigAWS()
         db_name = config.get_db_name()
 
-        assert db_name == "DORAStats" 
-
+        assert db_name == "DORAStats"
 
     def test_get_db_table_name(self):
 
@@ -33,7 +32,6 @@ class TestConfigAWS:
 
         assert db_name == "DORARawEventsTest"
 
-    
     def test_get_deploy_frequency_days(self):
 
         config = ConfigAWS()

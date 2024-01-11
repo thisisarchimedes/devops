@@ -4,7 +4,7 @@ from datetime import datetime
 import pandas as pd
 
 from src.event_processor.logger.event_logger_new_relic import EventLoggerNewRelic
-from src.event_processor.config.config_local import ConfigLocal
+from src.event_processor.params.config_local import ConfigLocal
 
 
 class TestEventLoggerNewRelic():

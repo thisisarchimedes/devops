@@ -25,7 +25,7 @@ class EventDeploy(Event):
         res = self.logger.get_event_log_item_from_df_event(self.payload)
         self.logger.send_event_to_logger(res)
 
-        daily_deploy_volume_df = self.db_connection.get_daily_deploy_volume()
+        daily_deploy_volume_df = self.db_connection.get_daily_deploy_volume(None)
         dora_deploy_frequency_calculator = DORADeployFrequencyCalculator()
         start_date = datetime.now() - timedelta(days=self.deploy_frequency_timewindow_days)
         end_date = datetime.now()

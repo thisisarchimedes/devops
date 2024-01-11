@@ -75,7 +75,7 @@ class DORADeployFrequencyCalculator():
         daily_deploy_volume['WeekStart'] = daily_deploy_volume['Day'].apply(lambda x: x - timedelta(days=x.weekday()))
         return daily_deploy_volume.groupby('WeekStart')['DeployCount'].sum()
 
-    def _create_output_dataframe(self, date_range, weekly_deploy_counts: pd.Series) -> pd.DataFrame():
+    def _create_output_dataframe(self, date_range, weekly_deploy_counts: pd.Series) -> pd.DataFrame:
         """Create the output DataFrame with weeks and deployment counts."""
 
         output = pd.DataFrame({'Week': date_range})

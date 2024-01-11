@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from src.event_processor.database.db_connection import DBConnection
 
@@ -9,7 +9,7 @@ class DBConnectionFake(DBConnection):
 
     FAKE_DB_FILE_PATH = 'test/fake_db/db.csv'
 
-    def __init__(self, database_name: str = None, table_name: str = None):
+    def __init__(self, database_name: Optional[str], table_name: Optional[str]):
         pass
         
 
@@ -35,7 +35,7 @@ class DBConnectionFake(DBConnection):
         return filtered_df
     
 
-    def get_daily_deploy_volume(self, repos_name: List[str] = None) -> pd.DataFrame:
+    def get_daily_deploy_volume(self, repos_name: Optional[List[str]]) -> pd.DataFrame:
 
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
         df['Time'] = pd.to_datetime(df['Time'], format='mixed')
@@ -58,7 +58,7 @@ class DBConnectionFake(DBConnection):
         return deploy_volume
     
 
-    def get_deploy_frequency_events_since_date(self, start_date: datetime.date) -> pd.DataFrame:
+    def get_deploy_frequency_events_since_date(self, start_date: date) -> pd.DataFrame:
 
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
         filtered_df = df[df['Event'] == 'calc_deploy_frequency']

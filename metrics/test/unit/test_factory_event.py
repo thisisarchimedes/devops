@@ -20,7 +20,7 @@ class TestFactoryEvent:
             'Metadata': "{'test_metadata'}"
         }
 
-        db_connection = DBConnectionFake()
+        db_connection = DBConnectionFake(None, None)
         logger = EventLoggerFake()
 
         event_factory = FactoryEvent(db_connection, logger, 10)
@@ -39,7 +39,7 @@ class TestFactoryEvent:
             'Metadata': '{time: 50}'
         }
 
-        db_connection = DBConnectionFake()
+        db_connection = DBConnectionFake(None, None)
         logger = EventLoggerFake()
 
         event_factory = FactoryEvent(db_connection, logger, 10)
@@ -66,7 +66,7 @@ class TestFactoryEvent:
             'Event': 'push',
         }
 
-        db_connection = DBConnectionFake()
+        db_connection = DBConnectionFake(None, None)
         logger = EventLoggerFake()
 
         event_factory = FactoryEvent(db_connection, logger, 10)
@@ -89,7 +89,7 @@ class TestFactoryEvent:
             'Event': 'calc_deploy_frequency',
         }
 
-        db_connection = DBConnectionFake()
+        db_connection = DBConnectionFake(None, None)
         logger = EventLoggerFake()
 
         event_factory = FactoryEvent(db_connection, logger, 10)
@@ -114,7 +114,7 @@ class TestFactoryEvent:
             'Event': 'deploy'
         }
 
-        db_connection = DBConnectionFake()
+        db_connection = DBConnectionFake(None, None)
         logger = EventLoggerFake()
 
         event_factory = FactoryEvent(db_connection, logger, 10)
@@ -144,7 +144,7 @@ class TestFactoryEvent:
             'Metadata': '{"deploy_frequency": 12.5}'
         }
 
-        db_connection = DBConnectionFake()
+        db_connection = DBConnectionFake(None, None)
         logger = EventLoggerFake()
 
         event_factory = FactoryEvent(db_connection, logger, 10)

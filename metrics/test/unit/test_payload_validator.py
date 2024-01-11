@@ -2,7 +2,8 @@ import pytest
 from datetime import datetime
 import json
 import os
-from src.event_processor.config.payload_validator import PayloadValidator
+from src.event_processor.params.payload_validator import PayloadValidator
+
 
 class TestPayloadValidator:
 

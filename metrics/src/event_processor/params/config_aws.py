@@ -2,7 +2,8 @@ import os
 import json
 from dotenv import load_dotenv
 import boto3
-from src.event_processor.config.config import Config
+
+from src.event_processor.params.config import Config
 
 class ConfigAWS(Config):
 

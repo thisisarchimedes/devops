@@ -1,5 +1,6 @@
 
-from src.event_processor.config.config_local import ConfigLocal
+from src.event_processor.params.config_local import ConfigLocal
+
 
 class TestConfigLocal:
 
@@ -22,7 +23,7 @@ class TestConfigLocal:
         config = ConfigLocal()
         db_name = config.get_db_name()
 
-        assert db_name == "DORAStats" 
+        assert db_name == "DORAStats"
 
     def test_get_db_table_name(self):
 

@@ -1,5 +1,5 @@
-
 from dataclasses import dataclass
+from abc import ABC, abstractmethod
 import pandas as pd
 import json
 
@@ -14,8 +14,9 @@ class EventLogItem():
     service: str = DEVOPS_METRICS_SERVICE_LABEL
 
 
-class EventLogger():
+class EventLogger(ABC):
 
+    @abstractmethod
     def send_event_to_logger(self, event_log_item: EventLogItem) -> None:
         pass
 

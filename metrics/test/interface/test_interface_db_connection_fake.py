@@ -60,7 +60,7 @@ class TestDBConnectionFake:
         db_connection = DBConnectionFake(
         self.DATABASE_NAME, self.TABLE_NAME)
         
-        result_df = db_connection.get_daily_deploy_volume()
+        result_df = db_connection.get_daily_deploy_volume(None)
         
         expected_columns = ['Day', 'DeployCount']
         assert all(

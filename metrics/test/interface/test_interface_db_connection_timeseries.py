@@ -73,7 +73,7 @@ class TestDBConnectionTimeseries:
         db_connection = DBConnectionTimeseries(
             self.DATABASE_NAME, self.TABLE_NAME)
 
-        result_df = db_connection.get_daily_deploy_volume()
+        result_df = db_connection.get_daily_deploy_volume(None)
 
         assert isinstance(
             result_df, pd.DataFrame), "Result should be a pandas DataFrame"

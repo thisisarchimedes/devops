@@ -1,5 +1,6 @@
 
-from src.event_processor.config.simple_authenticator import SimpleAuthenticator
+from src.event_processor.params.simple_authenticator import SimpleAuthenticator
+
 
 class TestSimpleAuthenticator:
 
@@ -18,6 +19,3 @@ class TestSimpleAuthenticator:
         res = event_processor.is_autherized("SECRET_TOKEN")
 
         assert res == True, "is_autherized() should return True when correct auth token is provided."
-
-
-    

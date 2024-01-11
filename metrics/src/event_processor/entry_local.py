@@ -1,4 +1,4 @@
-from src.event_processor.config.config_local import ConfigLocal
+from src.event_processor.params.config_local import ConfigLocal
 from src.event_processor.process_new_event import process_new_event
 
 

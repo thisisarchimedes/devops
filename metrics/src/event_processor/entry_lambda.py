@@ -1,7 +1,7 @@
 import json
 
-from src.event_processor.config.simple_authenticator import SimpleAuthenticator
-from src.event_processor.config.config_aws import ConfigAWS
+from src.event_processor.params.simple_authenticator import SimpleAuthenticator
+from src.event_processor.params.config_aws import ConfigAWS
 from src.event_processor.process_new_event import process_new_event
 
 def entry_point_lambda(raw_event, context):
@@ -47,7 +47,7 @@ def _get_headers(event) -> dict:
     return payload
 
     
-def _get_response():
+def _get_response() -> dict:
      # Always return 200 success for security reasons
     response =  {
         'statusCode': 200,

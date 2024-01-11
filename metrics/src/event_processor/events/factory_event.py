@@ -14,14 +14,16 @@ class FactoryEvent():
     def __init__(self, 
                  db_connection: DBConnection, 
                  logger: EventLogger, 
-                 deploy_frequency_timewindow_days: int) -> None:
+                 deploy_frequency_timewindow_days: int = 30) -> None:
         
         self.db_connection = db_connection
         self.logger = logger
         self.deploy_frequency_timewindow_days = deploy_frequency_timewindow_days
 
     def create_event(self, payload: dict) -> Event:
-            
+        
+        event: Event
+        
         if payload['Event'] == 'push':
             event = EventPush(payload, self.db_connection, self.logger)
         elif payload['Event'] == 'test_pass':

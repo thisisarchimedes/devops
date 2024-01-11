@@ -13,7 +13,7 @@ from src.event_processor.logger.event_logger import EventLogItem, EventLogger
 
 class EventLoggerNewRelic(EventLogger):
 
-    def __init__(self, api_key: str) -> None:
+    def __init__(self, api_key: str | None) -> None:
 
         self.new_relic_url = "https://log-api.newrelic.com/log/v1"
         self.api_key = api_key

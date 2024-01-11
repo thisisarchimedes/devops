@@ -7,7 +7,7 @@ EVENT_TYPES = ['push', 'deploy', 'test pass']
 
 class DevOpsEventReporter:
 
-    def __init__(self, target_url: str, secret_token: str = None) -> None:
+    def __init__(self, target_url: str, secret_token: str = "") -> None:
         self.target_url = target_url
         self.secret_token = secret_token
 
