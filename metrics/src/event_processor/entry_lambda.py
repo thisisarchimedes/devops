@@ -30,7 +30,7 @@ def _authenticate(headers, config: ConfigAWS):
     client_auth_token = _get_auth_token(headers)
     expected_auth_token = config.get_expected_auth_token()
     if SimpleAuthenticator(expected_auth_token).is_autherized(client_auth_token) == False:
-            raise Exception('Error: Unauthorized request')
+        raise Exception('Error: Unauthorized request')
         
 
 def _get_auth_token(headers) -> str:
