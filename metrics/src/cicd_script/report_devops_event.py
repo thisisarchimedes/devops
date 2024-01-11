@@ -22,7 +22,7 @@ class DevOpsEventReporter:
         return parser.parse_args()
 
 
-    def prepare_record(self, repo_name, event, metadata) -> dict:
+    def prepare_record(self, repo_name: str, event: str, metadata: str) -> dict:
         record = {
             'Repo': repo_name,
             'Event': event,
