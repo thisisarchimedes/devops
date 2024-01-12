@@ -4,6 +4,17 @@ A service that accepts DevOps events (like: push to Github, Deploy etc..), store
 - **cicd_script:** A script that runs on the CI/CD pipeline and sends the events to the service.
 - **event_processor:** The backend service.
 
+## Table of Contents
+
+- [Components](#components)
+- [Quick Start](#quick-start)
+    - [In your CICD script](#in-your-cicd-script)
+- [Run the backend service locally](#run-the-backend-service-locally)
+- [Production Backend](#production-backend)
+    - [Files and Directories](#files-and-directories)
+    - [Deploy the backend](#deploy-the-backend)
+    - [Components](#components-1)
+
 ## Quick Start
 
 ### In your CICD script
