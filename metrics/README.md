@@ -13,6 +13,7 @@ A service that accepts DevOps events (like: push to Github, Deploy etc..), store
     - [Components](#components)
     - [Files and Directories](#files-and-directories)
     - [Deploy the backend](#deploy-the-backend)
+- [Tests](#tests)
     
 
 ## Quick Start
@@ -157,4 +158,11 @@ We currently use: DevOps.pem (check our internal Notion).
 terraform init
 terraform plan
 terraform apply
+```
+
+## Tests
+
+We are using pytest for testins. See `test/` directory for tests.
+```bash
+python -m pytest test/ -s
 ```
