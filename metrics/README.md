@@ -8,11 +8,12 @@ A service that accepts DevOps events (like: push to Github, Deploy etc..), store
 
 - [Quick Start](#quick-start)
     - [In your CICD script](#in-your-cicd-script)
-- [Run the backend service locally](#run-the-backend-service-locally)
+    - [Run the backend service locally](#run-the-backend-service-locally)
 - [Production Backend](#production-backend)
+    - [Components](#components)
     - [Files and Directories](#files-and-directories)
     - [Deploy the backend](#deploy-the-backend)
-    - [Components](#components)
+    
 
 ## Quick Start
 
@@ -73,6 +74,47 @@ python event_processor/entry_flask.py
 
 The production backend runs a Docker container on an EC2 instance. The container is running a flask server with gunicorn and listens to port 8000.
 
+### Components
+
+Events are sent to the backend and stored both in the DB and NewRelic.
+
+_AWS Components:_
+- **AWS Region**: us-east-1
+- **AWS Timeseries DB**: Stores the events data.
+    - **Database**: DORAStats
+    - **Table**: DORARawEvents (test: DORARawEventsTest)
+- **AWS Secrets Manager**: Stores the secret token (Name: DevOpsSecretStore).
+
+_External Components:_
+- **New Relic**: Logging an reporting
+
+
+_Event structure:_
+
+```json
+{
+    "Time": Event timestamp,
+    "Repo": Repo name,
+    "Event": push/deploy/test pass,
+    "Metadata": <Optional>
+}
+```
+Example:
+```json
+{
+    "Time": "2021-01-01 00:00:00",
+    "Repo": "test_repo",
+    "Event": "push",
+    "Metadata": "{test_metadata: value}"
+}
+```
+
+Supported events
+- push
+- deploy
+- test pass
+- calc_deployment_freq (internal event - calculated by the BE and sent to logs and DB - not part of CICD script)
+
 ### Files and Directories
 _Project root directory:_
 - build_devops_ec2.tf: Terraform script that creates the EC2 instance and the relevant security groups.
@@ -116,44 +158,3 @@ terraform init
 terraform plan
 terraform apply
 ```
-
-### Components
-
-Events are sent to the backend and stored both in the DB and NewRelic.
-
-_AWS Components:_
-- **AWS Region**: us-east-1
-- **AWS Timeseries DB**: Stores the events data.
-    - **Database**: DORAStats
-    - **Table**: DORARawEvents (test: DORARawEventsTest)
-- **AWS Secrets Manager**: Stores the secret token (Name: DevOpsSecretStore).
-
-_External Components:_
-- **New Relic**: Logging an reporting
-
-
-_Event structure:_
-
-```json
-{
-    "Time": Event timestamp,
-    "Repo": Repo name,
-    "Event": push/deploy/test pass,
-    "Metadata": <Optional>
-}
-```
-Example:
-```json
-{
-    "Time": "2021-01-01 00:00:00",
-    "Repo": "test_repo",
-    "Event": "push",
-    "Metadata": "{test_metadata: value}"
-}
-```
-
-Supported events
-- push
-- deploy
-- test pass
-- calc_deployment_freq (internal event - calculated by the BE and sent to logs and DB - not part of CICD script)
