@@ -2,6 +2,7 @@ import os
 import argparse
 import json
 import requests
+from dotenv import load_dotenv
 
 EVENT_TYPES = ['push', 'deploy', 'test pass']
 
@@ -45,6 +46,8 @@ class DevOpsEventReporter:
 
 def main():
 
+    load_dotenv()
+
     target_url = get_target_url()
     secret_token = get_secret_token()
     event_reporter = DevOpsEventReporter(target_url, secret_token)
@@ -56,7 +59,7 @@ def main():
     if response.status_code == 200:
         print("Event logged successfully.")
     else:
-        print("Event logging failed.")
+        print(f"Event logging failed. {response.status_code} {response.text}")
 
 
 def get_target_url() -> str:

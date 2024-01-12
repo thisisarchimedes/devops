@@ -15,7 +15,6 @@ def process_new_event(event_payload: dict, config: Config) -> None:
     deploy_frequency_timewindow_days = config.get_deployment_freq_timeframe_days()
 
     factory_event = FactoryEvent(db_connection, event_logger, deploy_frequency_timewindow_days)
-    
     event = factory_event.create_event(event_payload)
     event.process()
     
