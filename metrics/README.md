@@ -116,7 +116,7 @@ Supported events
 - calc_deployment_freq (internal event - calculated by the BE and sent to logs and DB - not part of CICD script)
 
 ### Files and Directories
-_Project root directory:_
+
 - **build_devops_ec2.tf**: Terraform script that creates the EC2 instance and the relevant security groups.
 - **requirements.txt**: Python dependencies.
 - **.env**: Environment variables that are used by the backend service.
