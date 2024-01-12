@@ -117,17 +117,17 @@ Supported events
 
 ### Files and Directories
 _Project root directory:_
-- build_devops_ec2.tf: Terraform script that creates the EC2 instance and the relevant security groups.
-- requirements.txt: Python dependencies.
-- .env: Environment variables that are used by the backend service.
-- DevOps.pem: AWS certificate that is used to connect to the EC2.
+- **build_devops_ec2.tf**: Terraform script that creates the EC2 instance and the relevant security groups.
+- **requirements.txt**: Python dependencies.
+- **.env**: Environment variables that are used by the backend service.
+- **DevOps.pem**: AWS certificate that is used to connect to the EC2.
 
-- script/build_container.sh: Used by the TF script to  builds the Docker image and pushes it to EC2.
-- script/run_container.sh: Run every time the EC2 is rebooted. Runs the Docker container (set in cron).
-- script/Dockerfile: Dockerfile that builds the Docker image.
-- script/entry_point.sh: Script that runs inside the Docker container, set some environment variables and starts the gunicorn server.
+- **script/build_container.sh**: Used by the TF script to  builds the Docker image and pushes it to EC2.
+- **script/run_container.sh**: Run every time the EC2 is rebooted. Runs the Docker container (set in cron).
+- **script/Dockerfile**: Dockerfile that builds the Docker image.
+- **script/entry_point.sh**: Script that runs inside the Docker container, set some environment variables and starts the gunicorn server.
 
-- src/event_processor/: Python code of the backend service.
+- **src/event_processor/**: Python code of the backend service.
 
 ### Deploy the backend
 
