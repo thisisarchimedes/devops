@@ -4,6 +4,8 @@ A service that accepts DevOps events (like: push to Github, Deploy etc..), store
 - **cicd_script:** A script that runs on the CI/CD pipeline and sends the events to the service.
 - **event_processor:** The backend service.
 
+More info here in our [internal Notion](https://www.notion.so/archimedesfi/Adding-DevOps-Metric-to-a-Repo-721c4732e115437dbb4926a821e565c8?pvs=4)
+
 ## Table of Contents
 
 - [Quick Start](#quick-start)
