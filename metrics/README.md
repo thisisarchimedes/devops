@@ -34,7 +34,7 @@ python report_devops_event.py <Repo name> <Event> --metadata <Metadata>
 OR
 node report_devops_event.js <Repo name> <Event> --metadata <Metadata>
 OR
-./report_devops_event.sh <Repo name> <Event> --metadata <Metadata>
+./report_devops_event.sh <Repo name> <Event> <Metadata>
 
 ```
 
