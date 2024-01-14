@@ -31,6 +31,11 @@ export DEVOPS_EVENTS_SECRET_TOKEN="..." # The secret token that is used to authe
 2. Call the script with the relevant parameters
 ```bash
 python report_devops_event.py <Repo name> <Event> --metadata <Metadata>
+OR
+node report_devops_event.js <Repo name> <Event> --metadata <Metadata>
+OR
+./report_devops_event.sh <Repo name> <Event> --metadata <Metadata>
+
 ```
 
 - _Repo name_: The name of the repo that the event is related to or ALL if the event is not related to a specific repo.
