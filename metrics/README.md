@@ -184,8 +184,10 @@ Netlify send a webhook on a successful deploy. We use it to calculate the deploy
 We catch the event with a Lambda function and send it to the backend service.
 - **Lambda function**: `devops-metrics-netlify-deploy`
 - **Lambda function code**: `DevOps/metrics/src/webhook_catchers/netlify`
-- **Lambda function URL**: `https://gady39zo5b.execute-api.us-east-1.amazonaws.com/Prod/netlify-hook/`
+- **Lambda function URL**: `https://e99yaa2k7h.execute-api.us-east-1.amazonaws.com/Prod/netlify-hook/`
 
 Deploy the Lambda function:
 1. Change role in `src/webhook_catchers/netlify/`
 2. Run `src/webhook_catchers/netlify/deploy_lambda.sh`
+
+NOTE: The DevOps Event catcher URL is read from AWS Secret store.
