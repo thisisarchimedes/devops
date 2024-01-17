@@ -16,6 +16,8 @@ More info in our [internal Notion](https://www.notion.so/archimedesfi/Adding-Dev
     - [Files and Directories](#files-and-directories)
     - [Deploy the backend](#deploy-the-backend)
 - [Tests](#tests)
+- [Incomming webhooks](#incomming-webhooks)
+    - [Netlify deploy](#netlify-deploy)
     
 
 ## Quick Start
@@ -173,3 +175,17 @@ We are using pytest for testins. See `test/` directory for tests.
 ```bash
 python -m pytest test/ -s
 ```
+
+## Incomming webhooks
+
+### Netlify deploy
+
+Netlify send a webhook on a successful deploy. We use it to calculate the deployment frequency.
+We catch the event with a Lambda function and send it to the backend service.
+- **Lambda function**: `devops-metrics-netlify-deploy`
+- **Lambda function code**: `DevOps/metrics/src/webhook_catchers/netlify`
+- **Lambda function URL**: `https://gady39zo5b.execute-api.us-east-1.amazonaws.com/Prod/netlify-hook/`
+
+Deploy the Lambda function:
+1. Change role in `src/webhook_catchers/netlify/`
+2. Run `src/webhook_catchers/netlify/deploy_lambda.sh`
