@@ -10,10 +10,11 @@ echo   "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/doc
 sudo apt-get update -y
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
+cd ~
 pip install --no-cache-dir -r requirements.txt
 sudo apt-get install awscli -y
 
-cd ~
+
 sudo docker build --no-cache -t devops-event-processor . -f script/Dockerfile
 
 (crontab -l 2>/dev/null; echo "@reboot /home/ubuntu/script/run_container.sh >> /home/ubuntu/script/logfile.log 2>&1") | crontab -
