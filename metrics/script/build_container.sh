@@ -14,7 +14,6 @@ cd ~
 pip install --no-cache-dir -r requirements.txt
 sudo apt-get install awscli -y
 
-
 sudo docker build --no-cache -t devops-event-processor . -f script/Dockerfile
 
 (crontab -l 2>/dev/null; echo "@reboot /home/ubuntu/script/run_container.sh >> /home/ubuntu/script/logfile.log 2>&1") | crontab -
