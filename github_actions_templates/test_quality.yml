@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Run Test Suit
+      - name: Run Test Suite
         id: test_suite
         continue-on-error: true
         run: |
