@@ -5,7 +5,6 @@ on:
     - cron: '0 0 * * *'
 
 env:
-  PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
   API_DEVOPS_EVENT_CATCHER: ${{ vars.API_DEVOPS_EVENT_CATCHER }}
   DEVOPS_EVENTS_SECRET_TOKEN: ${{ secrets.DEVOPS_EVENTS_SECRET_TOKEN }}
 
