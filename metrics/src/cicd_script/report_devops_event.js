@@ -1,7 +1,7 @@
 const axios = require('axios');
 require('dotenv').config();
 
-const EVENT_TYPES = ['push', 'deploy', 'test_pass'];
+const EVENT_TYPES = ['push', 'deploy', 'test_pass', 'test_run'];
 
 class DevOpsEventReporter {
     constructor(targetUrl, secretToken = "") {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Constants
-EVENT_TYPES=("push" "deploy" "test_pass")
+EVENT_TYPES=("push" "deploy" "test_pass", "test_run")
 
 # Function to get the target URL from environment variable
 get_target_url() {
