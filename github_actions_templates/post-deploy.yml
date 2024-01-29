@@ -1,4 +1,4 @@
-name: Post-Deploy - Get All the Deployed Commits from PR merge
+name: Post-Deploy Stage
 
 on:
   workflow_run:

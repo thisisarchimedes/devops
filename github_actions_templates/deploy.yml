@@ -1,4 +1,4 @@
-name: Deploy to Production
+name: Deploy to Prod Stage
 
 on:
   push:
@@ -46,28 +46,6 @@ jobs:
       - name: Deploy to production
         run: |
           echo "placeholder"
-
-      - name: Get PR number
-        run: |
-            API_RESPONSE=$(curl -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
-                                 "https://api.github.com/repos/thisisarchimedes/TransactionExecutorService/pulls?state=closed&head=refs/heads/main")
-            echo "API Response: $API_RESPONSE"
-            PR_NUMBER=$(echo $API_RESPONSE | jq '.[0].number')
-            echo "PR Number: $PR_NUMBER"
-        
-  
-      - name: Get Commit IDs
-        run: |
-            COMMIT_IDS=$(curl -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
-                              "https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.pr.outputs.number }}/commits" \
-                              | jq '.[].sha')
-            echo $COMMIT_IDS
-            echo "COMMIT_IDS=$COMMIT_IDS" >> $GITHUB_ENV
-        
-      - name: Report stage result
-        run: |
-            yarn add axios dotenv
-            node devops/metrics/src/cicd_script/report_devops_event.js ${{ github.repository }} deploy '{commit_ids: [${{ env.COMMIT_IDS }}]}'
 
       - name: Slack Notification
         if: always()
