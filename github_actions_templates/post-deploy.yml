@@ -6,6 +6,12 @@ on:
     types:
       - completed
 
+env:
+  PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+  API_DEVOPS_EVENT_CATCHER: ${{ secrets.API_DEVOPS_EVENT_CATCHER }}
+  DEVOPS_EVENTS_SECRET_TOKEN: ${{ secrets.DEVOPS_EVENTS_SECRET_TOKEN }}
+  
+
 jobs:
   get-commits:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -23,7 +29,9 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install
+        run: |
+          yarn install
+          yarn add axios dotenv
 
       - name: Get PR commits
         id: pr-commits
@@ -77,14 +85,6 @@ jobs:
           COMMIT_SHAS_JSON=$(jq -n --argjson shas "$(jq -n '$ARGS.positional' --args "${COMMITS[@]}")" '$shas')
           echo "All Commit SHAs as JSON Array: $COMMIT_SHAS_JSON"
 
-          # save the commit shas to an environment variable
-          echo "COMMIT_IDS=$COMMIT_SHAS_JSON" >> $GITHUB_ENV
-       
-        env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          node devops/metrics/src/cicd_script/report_devops_event.js ${{ github.repository }} deploy "{commit_ids: $COMMIT_SHAS_JSON}"
 
-      - name: Report stage result
-        run: |
-          yarn add axios dotenv
-          node devops/metrics/src/cicd_script/report_devops_event.js ${{ github.repository }} deploy '{commit_ids: "${{ env.COMMIT_IDS }}"}'
   
