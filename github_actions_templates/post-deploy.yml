@@ -1,4 +1,4 @@
-name: Get All the Deployed Commits from PR merge
+name: Post-Deploy - Get All the Deployed Commits from PR merge
 
 on:
   workflow_run:
@@ -86,6 +86,4 @@ jobs:
 
           echo "All Commit SHAs as JSON Array: $COMMIT_SHAS_JSON"
 
-          node devops/metrics/src/cicd_script/report_devops_event.js ${{ github.repository }} deploy "{commit_ids: $COMMIT_SHAS_JSON}"
-
-  
+          node devops/metrics/src/cicd_script/report_devops_event.js ${{ github.repository }} deploy "{\"commit_ids\": \"$COMMIT_SHAS_JSON\"}"
