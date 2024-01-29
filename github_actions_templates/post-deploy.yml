@@ -82,7 +82,8 @@ jobs:
           done
 
           # Convert bash array to a JSON array-like string
-          COMMIT_SHAS_JSON=$(jq -n --argjson shas "$(jq -n '$ARGS.positional' --args "${COMMITS[@]}")" '$shas')
+          COMMIT_SHAS_JSON=$(jq -n --argjson shas "$(jq -n '$ARGS.positional' --args "${COMMITS[@]}")" '$shas' | sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\n')
+
           echo "All Commit SHAs as JSON Array: $COMMIT_SHAS_JSON"
 
           node devops/metrics/src/cicd_script/report_devops_event.js ${{ github.repository }} deploy "{commit_ids: $COMMIT_SHAS_JSON}"
