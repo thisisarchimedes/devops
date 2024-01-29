@@ -66,7 +66,9 @@ jobs:
 
           echo "::set-output name=passed::$?"
 
-          echo "COVERAGE_FUNC=`grep "All files" tmp_coverage.txt | awk '{print $(NF-2)}'| sed 's/^[ \t]*//;s/[ \t]*$//`" >> $GITHUB_ENV
+          cat tmp_coverage.txt
+          echo "COVERAGE_FUNC=`grep "All files" tmp_coverage.txt | awk -F '|' '{print $4}' | sed 's/^[ \t]*//;s/[ \t]*$//'`" >> $GITHUB_ENV
+          
 
       - name: Set Test Result Env Variable
         run: |
@@ -80,7 +82,8 @@ jobs:
         id: mutation_testing
         run : |  
           yarn stryker run > stryker_log.txt
-          echo "COVERAGE_STRYKER_FUNC=`cat stryker_log.txt | grep "All files" | awk -F '|' '{print $4}' | sed 's/^[ \t]*//;s/[ \t]*$//`" >> $GITHUB_ENV
+          cat stryker_log.txt
+          echo "COVERAGE_STRYKER_FUNC=`cat stryker_log.txt | grep "All files" | awk -F '|' '{print $4}' | sed 's/^[ \t]*//;s/[ \t]*$//'`" >> $GITHUB_ENV
           echo Stryker Mutator score: ${{ env.COVERAGE_STRYKER_FUNC}}
       
       - name: Run lint on tests
