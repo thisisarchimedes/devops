@@ -31,18 +31,8 @@ class TestDORALeadTimeToChangeCalculator:
             'Event': 'push',
             'Metadata': '{"commit_id": "3"}'
         }
-
-
-        db_connection = DBConnectionFake(None, None)
-        logger = EventLoggerFake()
-
-        event_factory = FactoryEvent(db_connection, logger, 10)
         
-        event1 = event_factory.create_event(payload1)
-        event2 = event_factory.create_event(payload2)
-        event3 = event_factory.create_event(payload3)
-        
-        self.push_events = [event1, event2, event3]
+        self.push_events = pd.DataFrame([payload1, payload2, payload3]) 
         self.deploy_event_date = "2024-01-20"
 
         # commit 1: 11 days

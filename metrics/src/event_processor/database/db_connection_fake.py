@@ -27,6 +27,12 @@ class DBConnectionFake(DBConnection):
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
         return df
 
+    def get_most_recent_event(self, event_type: str) -> pd.DataFrame:
+
+        df = pd.read_csv(self.FAKE_DB_FILE_PATH)
+        filtered_df = df[df['Event'] == event_type]
+
+        return filtered_df.tail(1)
 
     def get_repo_events(self, repo_name: str) -> pd.DataFrame:
 
@@ -67,11 +73,11 @@ class DBConnectionFake(DBConnection):
         return filtered_df
 
 
-    def get_repo_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
+    def get_repo_push_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
         
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
         
-        filtered_df = df[(df['Repo'] == repo_name) & (df['Metadata'].str.contains(commit_id, na=False))]
+        filtered_df = df[(df['Repo'] == repo_name) & (df['Event'] == 'push') & (df['Metadata'].str.contains(commit_id, na=False))]
 
         return filtered_df.tail(1)
 

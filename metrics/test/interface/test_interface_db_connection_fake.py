@@ -112,7 +112,7 @@ class TestDBConnectionFake:
 
         db_connection.write_event_to_db(events_df)
 
-        result_df = db_connection.get_repo_events_by_commit_id(repo_name, "caa3fdd16ce75c2fb361905e2767602d95f6d33b")
+        result_df = db_connection.get_repo_push_events_by_commit_id(repo_name, "caa3fdd16ce75c2fb361905e2767602d95f6d33b")
 
         assert isinstance(
             result_df, pd.DataFrame), "Result should be a pandas DataFrame"

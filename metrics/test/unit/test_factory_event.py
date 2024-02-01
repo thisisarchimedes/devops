@@ -2,6 +2,7 @@ import pytest
 from datetime import datetime, timedelta
 import os
 import pandas as pd
+import json
 
 from src.event_processor.events.factory_event import FactoryEvent
 from src.event_processor.database.db_connection_fake import DBConnectionFake
@@ -111,7 +112,7 @@ class TestFactoryEvent:
         payload = {
             'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'Repo': 'test_repo',
-            'Event': 'deploy'
+            'Event': 'deploy',
         }
 
         db_connection = DBConnectionFake(None, None)
@@ -192,4 +193,65 @@ class TestFactoryEvent:
         assert event_value == str("test_run") , "process() should write the event to the database."
 
         assert event.get_event_type() == 'test_run', "process() should write the event to the database."
+
+     
+    def test_process_deploy_event_get_commit_ids(self):
+
+        db_connection = DBConnectionFake(None, None)
+        logger = EventLoggerFake()
+        event_factory = FactoryEvent(db_connection, logger, 10)
+
+        date_format = "%Y-%m-%d %H:%M:%S"
+
+        payload = {
+            'Time': datetime.strptime("2024-01-07", "%Y-%m-%d").strftime(date_format),
+            'Repo': 'test_repo',
+            'Event': 'push',
+            'Metadata': '{"commit_id": "100"}'
+        }
+        event_push_1 = event_factory.create_event(payload)
+        event_push_1.process()
+
+        payload = {
+            'Time': datetime.strptime("2024-01-03", "%Y-%m-%d").strftime(date_format),
+            'Repo': 'test_repo',
+            'Event': 'push',
+            'Metadata': '{"commit_id": "200"}'
+        }
+        event_push_2 = event_factory.create_event(payload)
+        event_push_2.process()
+
+        payload = {
+            'Time': datetime.strptime("2024-01-08", "%Y-%m-%d").strftime(date_format),
+            'Repo': 'test_repo',
+            'Event': 'push',
+            'Metadata': '{"commit_id": "300"}'
+        }
+        event_push_3 = event_factory.create_event(payload)
+        event_push_3.process()
+
+        payload = {
+            'Time': datetime.strptime("2024-01-09", "%Y-%m-%d").strftime(date_format),
+            'Repo': 'test_repo',
+            'Event': 'deploy',
+            'Metadata': '{"commit_ids": ["100","200","300"]}'
+        }
+        event_deploy = event_factory.create_event(payload)
+        
+        event_deploy.process()
+        # commit 1: 2 days
+        # commit 2: 6 days
+        # commit 3: 1 day
+        # median: 2 days
+        
+        df = db_connection.get_most_recent_event('calc_deploy_lead_time')
+        
+        # metadata --> {"deploy_lead_time": "2"}
+        metadata = df['Metadata'].iloc[0]
+        metadata_dict = json.loads(metadata)
+        print(metadata_dict)
+        deploy_median_lead_time = metadata_dict['deploy_lead_time']        
+
+        assert deploy_median_lead_time == 2, "process() should write the event to the database."
+        
     

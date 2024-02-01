@@ -40,5 +40,5 @@ class DBConnection(ABC):
         pass
 
     @abstractmethod
-    def get_repo_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
+    def get_repo_push_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
         pass

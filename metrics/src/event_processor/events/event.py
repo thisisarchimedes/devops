@@ -28,7 +28,10 @@ class Event(ABC):
     def get_event_type(self) -> str:
         return self.payload['Event'].iloc[0]  
     
-    def get_metadata(self) -> str:
+    def get_metadata(self) -> str | None:
+        if 'Metadata' not in self.payload.columns:
+            return None
+        
         return self.payload['Metadata'].iloc[0]
     
     @abstractmethod

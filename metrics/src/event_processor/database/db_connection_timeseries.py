@@ -110,7 +110,7 @@ class DBConnectionTimeseries(DBConnection):
         return ', '.join(f"'{repo}'" for repo in repos)
 
 
-    def get_repo_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
+    def get_repo_push_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
 
         query = self.get_query_for_event_by_commit_id(repo_name, commit_id)
         query_result = self.execute_query(query)
