@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 import uuid
-
+import json
 import pytest
 import pandas as pd
 
@@ -140,3 +140,25 @@ class TestDBConnectionTimeseries:
             column in result_df.columns for column in expected_columns), "DataFrame should have all the expected columns"
 
         assert result_df['Metadata'].iloc[0] == event_metadata, "Metadata should match the event metadata"
+
+    def test_commit_id_in_push_jsonify_able(self):
+
+        db_connection = DBConnectionTimeseries(
+            self.DATABASE_NAME, self.TABLE_NAME)
+        
+        repo_name = 'test_repo1'
+
+        event_metadata = '{"pass": "true", "commit_id": "caa3fdd16ce75c2fb361905e2767602d95f6d33b" ,"report_url": "https://github.com/thisisarchimedes/OffchainLeverageLedgerBuilder/actions/runs/7743500877"}'
+        events_df = pd.DataFrame([{
+            "Time": datetime.now(),
+            "Repo": repo_name,
+            "Event": 'push',
+            "Metadata": event_metadata
+        }])
+
+        db_connection.write_event_to_db(events_df)
+
+        result_df = db_connection.get_repo_events_by_commit_id(repo_name, "caa3fdd16ce75c2fb361905e2767602d95f6d33b")
+    
+        metadata = json.loads(result_df['Metadata'].iloc[0])
+        assert metadata['commit_id'] == "caa3fdd16ce75c2fb361905e2767602d95f6d33b", "Metadata should be jsonified"

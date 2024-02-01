@@ -19,11 +19,17 @@ class Event(ABC):
         self.logger = logger
 
 
+    def get_time(self) -> str:
+        return self.payload['Time'].iloc[0]
+    
     def get_repo_name(self) -> str:
         return self.payload['Repo'].iloc[0]  
     
     def get_event_type(self) -> str:
         return self.payload['Event'].iloc[0]  
+    
+    def get_metadata(self) -> str:
+        return self.payload['Metadata'].iloc[0]
     
     @abstractmethod
     def process(self) -> None:
