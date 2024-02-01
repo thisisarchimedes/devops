@@ -65,3 +65,13 @@ class DBConnectionFake(DBConnection):
         filtered_df = df[df['Event'] == 'calc_deploy_frequency']
 
         return filtered_df
+
+
+    def get_repo_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
+        
+        df = pd.read_csv(self.FAKE_DB_FILE_PATH)
+        
+        filtered_df = df[(df['Repo'] == repo_name) & (df['Metadata'].str.contains(commit_id, na=False))]
+
+        return filtered_df.tail(1)
+

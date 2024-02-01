@@ -95,3 +95,30 @@ class TestDBConnectionFake:
         assert all(
             result_df['Event'] == 'calc_deploy_frequency'), "Event type should be 'calc_deploy_frequency'"
         
+    def test_get_repo_push_event_that_matches_commit_id(self):
+
+        db_connection = DBConnectionFake(
+            self.DATABASE_NAME, self.TABLE_NAME)
+        
+        repo_name = 'test_repo1'
+
+        event_metadata = '{"pass": "true", "commit_id": "caa3fdd16ce75c2fb361905e2767602d95f6d33b" ,"report_url": "https://github.com/thisisarchimedes/OffchainLeverageLedgerBuilder/actions/runs/7743500877"}'
+        events_df = pd.DataFrame([{
+            "Time": datetime.now(),
+            "Repo": repo_name,
+            "Event": 'push',
+            "Metadata": event_metadata
+        }])
+
+        db_connection.write_event_to_db(events_df)
+
+        result_df = db_connection.get_repo_events_by_commit_id(repo_name, "caa3fdd16ce75c2fb361905e2767602d95f6d33b")
+
+        assert isinstance(
+            result_df, pd.DataFrame), "Result should be a pandas DataFrame"
+
+        expected_columns = ['Time', 'Repo', 'Event', 'Metadata']
+        assert all(
+            column in result_df.columns for column in expected_columns), "DataFrame should have all the expected columns"
+
+        assert result_df['Metadata'].iloc[0] == event_metadata, "Metadata should match the event metadata"

@@ -109,6 +109,15 @@ class DBConnectionTimeseries(DBConnection):
     def format_repo_names(self, repos: List[str]) -> str:
         return ', '.join(f"'{repo}'" for repo in repos)
 
+
+    def get_repo_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
+
+        query = self.get_query_for_event_by_commit_id(repo_name, commit_id)
+        query_result = self.execute_query(query)
+
+        return query_result
+    
+    
     def get_query_for_repo_events(self, repo_name: str) -> str:
 
         return f"""
@@ -135,3 +144,21 @@ class DBConnectionTimeseries(DBConnection):
             AND time >= '{start_date}'
             ORDER BY time ASC
         """
+
+    def get_query_for_event_by_commit_id(self, repo_name: str, commit_id: str) -> str:
+
+        return f"""
+            SELECT 
+                time AS Time, 
+                Repo AS Repo, 
+                Event AS Event, 
+                measure_value::varchar AS Metadata 
+            FROM "{self.database_name}"."{self.table_name}"
+            WHERE "Event" = 'push'
+            AND "Repo" = '{repo_name}'
+            AND measure_value::varchar LIKE '%{commit_id}%'
+            ORDER BY time DESC
+            LIMIT 1
+        """
+
+        

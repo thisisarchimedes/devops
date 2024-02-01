@@ -38,3 +38,7 @@ class DBConnection(ABC):
     @abstractmethod
     def get_deploy_frequency_events_since_date(self, start_date: date) -> pd.DataFrame:
         pass
+
+    @abstractmethod
+    def get_repo_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
+        pass
