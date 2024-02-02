@@ -22,7 +22,7 @@ class EventDeploy(Event):
     def process(self) -> None:
         self._write_event_to_db()
         self._log_event()
-        self._calculate_and_report_deploy_metrics()
+        self._calculate_and_report_dora_metrics()
 
     def _write_event_to_db(self):
         self.db_connection.write_event_to_db(self.payload)
@@ -31,7 +31,7 @@ class EventDeploy(Event):
         res = self.logger.get_event_log_item_from_df_event(self.payload)
         self.logger.send_event_to_logger(res)
 
-    def _calculate_and_report_deploy_metrics(self) -> None:
+    def _calculate_and_report_dora_metrics(self) -> None:
         deploy_frequency = self._calculate_deploy_frequency()
         self._report_deploy_frequency(deploy_frequency)
 
