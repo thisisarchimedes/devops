@@ -1,4 +1,3 @@
-
 from src.event_processor.database.db_connection import DBConnection
 
 from src.event_processor.events.event import Event
@@ -7,6 +6,7 @@ from src.event_processor.events.event_test_pass import EventTestPass
 from src.event_processor.events.event_deploy import EventDeploy
 from src.event_processor.events.event_calc_deploy_freq import EventCalcDeployFrequency
 from src.event_processor.events.event_test_run import EventTestRun
+from src.event_processor.events.event_types import EventTypes
 
 from src.event_processor.logger.event_logger import EventLogger
 
@@ -25,15 +25,15 @@ class FactoryEvent():
         
         event: Event
         
-        if payload['Event'] == 'push':
+        if payload['Event'] == EventTypes.PUSH:
             event = EventPush(payload, self.db_connection, self.logger)
-        elif payload['Event'] == 'test_pass':
+        elif payload['Event'] == EventTypes.TEST_PASS:
             event = EventTestPass(payload, self.db_connection, self.logger)
-        elif payload['Event'] == 'deploy':
+        elif payload['Event'] == EventTypes.DEPLOY:
             event = EventDeploy(payload, self.db_connection, self.logger, self.deploy_frequency_timewindow_days)
-        elif payload['Event'] == 'calc_deploy_frequency':
+        elif payload['Event'] == EventTypes.CALC_DEPLOY_FREQUENCY:
             event = EventCalcDeployFrequency(payload, self.db_connection, self.logger)
-        elif payload['Event'] == 'test_run':
+        elif payload['Event'] == EventTypes.TEST_RUN:
             event = EventTestRun(payload, self.db_connection, self.logger)
         else:
             raise Exception("Invalid event type.")

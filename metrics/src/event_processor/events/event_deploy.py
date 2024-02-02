@@ -3,6 +3,8 @@ import pandas as pd
 import json
 
 from src.event_processor.events.event import Event
+from src.event_processor.events.event_types import EventTypes
+
 from src.event_processor.calculations.dora_deploy_frequency_calculator import DORADeployFrequencyCalculator
 from src.event_processor.calculations.dora_lead_time_to_change_calculator import DORALeadTimeToChangeCalculator
 
@@ -54,7 +56,7 @@ class EventDeploy(Event):
         )
     
     def _report_deploy_frequency(self, deploy_frequency: float):
-        self._report_event('calc_deploy_frequency', {"deploy_frequency": deploy_frequency})
+        self._report_event(EventTypes.CALC_DEPLOY_FREQUENCY, {"deploy_frequency": deploy_frequency})
         
     def _calculate_median_lead_time_for_deploy(self) -> int:
         
@@ -64,7 +66,7 @@ class EventDeploy(Event):
         return self._calculate_median_lead_time(push_events)
     
     def _report_median_lead_time(self, median_lead_time: int) -> None:
-        self._report_event('calc_deploy_lead_time', {"deploy_lead_time": median_lead_time})
+        self._report_event(EventTypes.CALC_DEPLOY_LEAD_TIME, {"deploy_lead_time": median_lead_time})
     
 
     def _extract_metadata_dict(self) -> dict:
