@@ -5,6 +5,7 @@ from src.event_processor.events.factory_event import FactoryEvent
 from src.event_processor.logger.event_logger_fake import EventLoggerFake
 from src.event_processor.calculations.dora_lead_time_to_change_calculator import DORALeadTimeToChangeCalculator
 
+
 class TestDORALeadTimeToChangeCalculator:
 
     def prep_test_data(self) -> None:
@@ -28,15 +29,15 @@ class TestDORALeadTimeToChangeCalculator:
             'Event': 'push',
             'Metadata': '{"commit_id": "3"}'
         }
-        
-        self.push_events = [pd.DataFrame([payload1]), pd.DataFrame([payload2]), pd.DataFrame([payload3])]
+
+        self.push_events = [pd.DataFrame([payload1]), pd.DataFrame(
+            [payload2]), pd.DataFrame([payload3])]
         self.deploy_event_date = pd.Timestamp("2024-01-20 19:41:03.154531")
 
         # commit 1: 11 days
         # commit 2: 8 days
         # commit 3: 1 day
         # median: 8 days
-
 
     def test_calculate_median_day_lead_time_for_deploy(self):
 

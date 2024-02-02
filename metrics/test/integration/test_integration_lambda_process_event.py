@@ -16,7 +16,7 @@ class TestIntegrationLambdaProcessEvent():
             'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'deploy',
-            'Metadata': 'LAMBDA'
+            'Metadata': '{"commit_ids": [1,2,3]}'
         }
 
         aws_event = {

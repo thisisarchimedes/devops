@@ -5,6 +5,7 @@ import boto3
 import awswrangler as wr
 from src.event_processor.database.db_connection import DBConnection
 
+
 class DBConnectionTimeseries(DBConnection):
 
     def __init__(self, database_name: str, table_name: str):
@@ -14,25 +15,27 @@ class DBConnectionTimeseries(DBConnection):
 
     def write_event_to_db(self, event_df: pd.DataFrame) -> None:
         utc_time = pd.Timestamp.now(tz='UTC')
-        event_df['time'] = utc_time
+        event_df['Time'] = utc_time
 
         # Metadata is optional
         if 'Metadata' not in event_df.columns or len(event_df['Metadata']) == 0:
             event_df['Metadata'] = 'Empty'
         else:
-            event_df['Metadata'] = event_df['Metadata'].replace('', 'Empty').fillna('Empty')
+            event_df['Metadata'] = event_df['Metadata'].replace(
+                '', 'Empty').fillna('Empty')
 
         rejected_records = wr.timestream.write(
             df=event_df,
             database=self.database_name,
             table=self.table_name,
-            time_col='time',
+            time_col='Time',
             measure_col='Metadata',
             dimensions_cols=['Repo', 'Event']
         )
 
         if len(rejected_records) > 0:
-            raise ValueError(f"Error writing to Timestream: {rejected_records} records were rejected.")
+            raise ValueError(
+                f"Error writing to Timestream: {rejected_records} records were rejected.")
 
     def get_all_events(self) -> pd.DataFrame:
         query = self.get_query_for_all_events()
@@ -50,14 +53,15 @@ class DBConnectionTimeseries(DBConnection):
         return query_result
 
     def get_deploy_frequency_events_since_date(self, start_date: pd.Timestamp) -> pd.DataFrame:
-        query = self.get_query_for_deploy_frequency_events_since_date(start_date)
+        query = self.get_query_for_deploy_frequency_events_since_date(
+            start_date)
         query_result = self.execute_query(query)
         return query_result
 
     def execute_query(self, query: str) -> pd.DataFrame:
         session = boto3.Session()
         return wr.timestream.query(query, boto3_session=session)
-    
+
     def get_query_for_all_events(self) -> str:
 
         return f"""
@@ -95,15 +99,13 @@ class DBConnectionTimeseries(DBConnection):
     def format_repo_names(self, repos: List[str]) -> str:
         return ', '.join(f"'{repo}'" for repo in repos)
 
-
     def get_repo_push_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
 
         query = self.get_query_for_event_by_commit_id(repo_name, commit_id)
         query_result = self.execute_query(query)
 
         return query_result
-    
-    
+
     def get_query_for_repo_events(self, repo_name: str) -> str:
 
         return f"""
@@ -120,7 +122,7 @@ class DBConnectionTimeseries(DBConnection):
     def get_query_for_deploy_frequency_events_since_date(self, start_date: pd.Timestamp) -> str:
 
         formatted_start_date = start_date.strftime('%Y-%m-%d %H:%M:%S.%f')
-    
+
         return f"""
             SELECT 
                 time AS Time, 
@@ -132,7 +134,7 @@ class DBConnectionTimeseries(DBConnection):
             AND time >= '{formatted_start_date}'
             ORDER BY time ASC
         """
-    
+
     def get_query_for_event_by_commit_id(self, repo_name: str, commit_id: str) -> str:
 
         return f"""
@@ -148,5 +150,3 @@ class DBConnectionTimeseries(DBConnection):
             ORDER BY time DESC
             LIMIT 1
         """
-
-        

@@ -31,7 +31,8 @@ class TestDBConnectionTimeseries:
             pytest.fail(f"Error writing to database: {e}")
 
         res = db_connection.get_repo_events(random_uuid)
-        assert len(res) == 1, "write_event_to_db() should write one event to the database."
+        assert len(
+            res) == 1, "write_event_to_db() should write one event to the database."
 
     def test_get_all_events_response_format(self):
 
@@ -49,7 +50,7 @@ class TestDBConnectionTimeseries:
 
         assert pd.api.types.is_datetime64_any_dtype(
             result_df['Time']), "'Time' column should be of datetime type"
-        
+
     def test_get_all_repo_events_response_format(self):
 
         db_connection = DBConnectionTimeseries(
@@ -112,12 +113,12 @@ class TestDBConnectionTimeseries:
 
         assert all(
             result_df['Event'] == 'calc_deploy_frequency'), "Event type should be 'calc_deploy_frequency'"
-        
+
     def test_get_repo_push_event_that_matches_commit_id(self):
 
         db_connection = DBConnectionTimeseries(
             self.DATABASE_NAME, self.TABLE_NAME)
-        
+
         repo_name = 'test_repo1'
 
         event_metadata = '{"pass": "true", "commit_id": "caa3fdd16ce75c2fb361905e2767602d95f6d33b" ,"report_url": "https://github.com/thisisarchimedes/OffchainLeverageLedgerBuilder/actions/runs/7743500877"}'
@@ -130,7 +131,8 @@ class TestDBConnectionTimeseries:
 
         db_connection.write_event_to_db(events_df)
 
-        result_df = db_connection.get_repo_push_events_by_commit_id(repo_name, "caa3fdd16ce75c2fb361905e2767602d95f6d33b")
+        result_df = db_connection.get_repo_push_events_by_commit_id(
+            repo_name, "caa3fdd16ce75c2fb361905e2767602d95f6d33b")
 
         assert isinstance(
             result_df, pd.DataFrame), "Result should be a pandas DataFrame"
@@ -145,7 +147,7 @@ class TestDBConnectionTimeseries:
 
         db_connection = DBConnectionTimeseries(
             self.DATABASE_NAME, self.TABLE_NAME)
-        
+
         repo_name = 'test_repo1'
 
         event_metadata = '{"pass": "true", "commit_id": "caa3fdd16ce75c2fb361905e2767602d95f6d33b" ,"report_url": "https://github.com/thisisarchimedes/OffchainLeverageLedgerBuilder/actions/runs/7743500877"}'
@@ -158,7 +160,8 @@ class TestDBConnectionTimeseries:
 
         db_connection.write_event_to_db(events_df)
 
-        result_df = db_connection.get_repo_push_events_by_commit_id(repo_name, "caa3fdd16ce75c2fb361905e2767602d95f6d33b")
-    
+        result_df = db_connection.get_repo_push_events_by_commit_id(
+            repo_name, "caa3fdd16ce75c2fb361905e2767602d95f6d33b")
+
         metadata = json.loads(result_df['Metadata'].iloc[0])
         assert metadata['commit_id'] == "caa3fdd16ce75c2fb361905e2767602d95f6d33b", "Metadata should be jsonified"

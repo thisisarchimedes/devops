@@ -50,7 +50,8 @@ class DBConnectionFake(DBConnection):
 
         # Group by day and count
         df['Day'] = df['Time'].dt.floor('D')
-        deploy_volume = df.groupby('Day').size().reset_index(name='DeployCount')
+        deploy_volume = df.groupby(
+            'Day').size().reset_index(name='DeployCount')
 
         return deploy_volume
 
@@ -61,5 +62,6 @@ class DBConnectionFake(DBConnection):
 
     def get_repo_push_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
-        filtered_df = df[(df['Repo'] == repo_name) & (df['Event'] == 'push') & (df['Metadata'].str.contains(commit_id, na=False))]
+        filtered_df = df[(df['Repo'] == repo_name) & (df['Event'] == 'push') & (
+            df['Metadata'].str.contains(commit_id, na=False))]
         return filtered_df.tail(1)
