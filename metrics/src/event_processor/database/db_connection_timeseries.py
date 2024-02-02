@@ -1,16 +1,9 @@
 import os
 from typing import List, Optional
-from datetime import datetime, date
-
+import pandas as pd
 import boto3
 import awswrangler as wr
-
-import pandas as pd
-
 from src.event_processor.database.db_connection import DBConnection
-from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
-
 
 class DBConnectionTimeseries(DBConnection):
 
@@ -20,8 +13,7 @@ class DBConnectionTimeseries(DBConnection):
         self.session = boto3.Session()
 
     def write_event_to_db(self, event_df: pd.DataFrame) -> None:
-
-        utc_time = datetime.now(timezone.utc)
+        utc_time = pd.Timestamp.now(tz='UTC')
         event_df['time'] = utc_time
 
         # Metadata is optional
@@ -29,7 +21,6 @@ class DBConnectionTimeseries(DBConnection):
             event_df['Metadata'] = 'Empty'
         else:
             event_df['Metadata'] = event_df['Metadata'].replace('', 'Empty').fillna('Empty')
-
 
         rejected_records = wr.timestream.write(
             df=event_df,
@@ -41,31 +32,26 @@ class DBConnectionTimeseries(DBConnection):
         )
 
         if len(rejected_records) > 0:
-            raise ValueError(
-                f"Error writing to Timestream: {rejected_records} records were rejected.")
-    
+            raise ValueError(f"Error writing to Timestream: {rejected_records} records were rejected.")
+
     def get_all_events(self) -> pd.DataFrame:
         query = self.get_query_for_all_events()
         query_result = self.execute_query(query)
-
         return query_result
 
     def get_repo_events(self, repo_name: str) -> pd.DataFrame:
         query = self.get_query_for_repo_events(repo_name)
         query_result = self.execute_query(query)
-
         return query_result
 
     def get_daily_deploy_volume(self, repos_name: Optional[List[str]]) -> pd.DataFrame:
         query = self.get_daily_deploy_volume_query(repos_name)
         query_result = self.execute_query(query)
-
         return query_result
 
-    def get_deploy_frequency_events_since_date(self, start_date: date) -> pd.DataFrame:
+    def get_deploy_frequency_events_since_date(self, start_date: pd.Timestamp) -> pd.DataFrame:
         query = self.get_query_for_deploy_frequency_events_since_date(start_date)
         query_result = self.execute_query(query)
-
         return query_result
 
     def execute_query(self, query: str) -> pd.DataFrame:
@@ -131,8 +117,10 @@ class DBConnectionTimeseries(DBConnection):
                     ORDER BY time ASC
                 """
 
-    def get_query_for_deploy_frequency_events_since_date(self, start_date: date) -> str:
+    def get_query_for_deploy_frequency_events_since_date(self, start_date: pd.Timestamp) -> str:
 
+        formatted_start_date = start_date.strftime('%Y-%m-%d %H:%M:%S.%f')
+    
         return f"""
             SELECT 
                 time AS Time, 
@@ -141,10 +129,10 @@ class DBConnectionTimeseries(DBConnection):
                 measure_value::varchar AS Metadata 
             FROM "{self.database_name}"."{self.table_name}"
             WHERE "Event" = 'calc_deploy_frequency'
-            AND time >= '{start_date}'
+            AND time >= '{formatted_start_date}'
             ORDER BY time ASC
         """
-
+    
     def get_query_for_event_by_commit_id(self, repo_name: str, commit_id: str) -> str:
 
         return f"""

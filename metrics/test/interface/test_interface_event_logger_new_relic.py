@@ -1,6 +1,5 @@
 import uuid
 import pytest
-from datetime import datetime
 import pandas as pd
 
 from src.event_processor.logger.event_logger_new_relic import EventLoggerNewRelic
@@ -16,7 +15,7 @@ class TestEventLoggerNewRelic():
 
         unique_id = str(uuid.uuid4())
         event = pd.DataFrame({
-            'Time': datetime.now(),
+            'Time': pd.Timestamp.now(),
             'Repo': 'test_logger',
             'Event': 'deploy',
             'Metadata': ["{'test_id': unique_id}"],

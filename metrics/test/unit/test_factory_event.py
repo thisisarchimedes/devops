@@ -1,5 +1,4 @@
 import pytest
-from datetime import datetime, timedelta
 import os
 import pandas as pd
 import json
@@ -15,7 +14,7 @@ class TestFactoryEvent:
     def test_create_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
+            'Time': pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'push',
             'Metadata': "{'test_metadata'}"
@@ -34,7 +33,7 @@ class TestFactoryEvent:
     def test_process_test_pass_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
+            'Time': pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'test_pass',
             'Metadata': '{time: 50}'
@@ -62,7 +61,7 @@ class TestFactoryEvent:
     def test_process_push_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
+            'Time': pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'push',
         }
@@ -85,7 +84,7 @@ class TestFactoryEvent:
     def test_process_calc_deploy_frequency_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
+            'Time': pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'calc_deploy_frequency',
         }
@@ -105,12 +104,12 @@ class TestFactoryEvent:
 
         assert event.get_event_type(
         ) == 'calc_deploy_frequency', "process() should write the event to the database."
-
     
+
     def test_process_deploy_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
+            'Time': pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'deploy',
         }
@@ -121,25 +120,25 @@ class TestFactoryEvent:
         event_factory = FactoryEvent(db_connection, logger, 10)
         event = event_factory.create_event(payload)
 
-        start_date = datetime.now() - timedelta(days=90)
-        res_df = db_connection.get_deploy_frequency_events_since_date(
-            start_date)
+        # Use pd.Timestamp for start_date
+        start_date = pd.Timestamp.now() - pd.Timedelta(days=90)
+        res_df = db_connection.get_deploy_frequency_events_since_date(start_date)
         num_rows_before = len(res_df.index)
 
         event.process()
 
-        start_date = datetime.now() - timedelta(days=90)
-        res_df = db_connection.get_deploy_frequency_events_since_date(
-            start_date)
+        # Use pd.Timestamp for start_date again after processing
+        start_date = pd.Timestamp.now() - pd.Timedelta(days=90)
+        res_df = db_connection.get_deploy_frequency_events_since_date(start_date)
         num_rows_after = len(res_df.index)
 
         assert num_rows_after == num_rows_before + \
             1, "process() should write the event to the database."
+
         
     def test_process_calc_deploy_frequency_event(self):
-
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
+            'Time': pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'calc_deploy_frequency',
             'Metadata': '{"deploy_frequency": 12.5}'
@@ -151,26 +150,26 @@ class TestFactoryEvent:
         event_factory = FactoryEvent(db_connection, logger, 10)
         event = event_factory.create_event(payload)
 
-        start_date = datetime.now() - timedelta(days=90)
+        start_date = pd.Timestamp.now() - pd.Timedelta(days=90)
         res_df = db_connection.get_deploy_frequency_events_since_date(
             start_date)
         num_rows_before = len(res_df.index)
 
         event.process()
 
-        start_date = datetime.now() - timedelta(days=90)
+        start_date = pd.Timestamp.now() - pd.Timedelta(days=90)
         res_df = db_connection.get_deploy_frequency_events_since_date(
             start_date)
         num_rows_after = len(res_df.index)
 
         assert num_rows_after == num_rows_before + \
             1, "process() should write the event to the database."
-        
+
 
     def test_test_run_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
+            'Time': pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'test_run',
             'Metadata': '{"pass": true, "time": 50}'

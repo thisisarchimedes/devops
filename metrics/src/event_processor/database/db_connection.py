@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from datetime import date
 from typing import List, Optional
 import pandas as pd
 
@@ -36,7 +35,7 @@ class DBConnection(ABC):
         pass
     
     @abstractmethod
-    def get_deploy_frequency_events_since_date(self, start_date: date) -> pd.DataFrame:
+    def get_deploy_frequency_events_since_date(self, start_date: pd.Timestamp) -> pd.DataFrame:
         pass
 
     @abstractmethod

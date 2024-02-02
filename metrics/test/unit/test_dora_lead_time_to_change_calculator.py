@@ -1,39 +1,36 @@
 import pytest
-from datetime import datetime
 import pandas as pd
 from src.event_processor.database.db_connection_fake import DBConnectionFake
 from src.event_processor.events.factory_event import FactoryEvent
 from src.event_processor.logger.event_logger_fake import EventLoggerFake
-
 from src.event_processor.calculations.dora_lead_time_to_change_calculator import DORALeadTimeToChangeCalculator
 
 class TestDORALeadTimeToChangeCalculator:
 
     def prep_test_data(self) -> None:
 
-        date_format = "%Y-%m-%d %H:%M:%S.%f"
-
+        # Convert datetime string directly to pd.Timestamp without intermediate datetime object
         payload1 = {
-            'Time': datetime.strptime("2024-01-09 19:41:03.154531", "%Y-%m-%d %H:%M:%S.%f").strftime(date_format),
+            'Time': pd.Timestamp("2024-01-09 19:41:03.154531"),
             'Repo': 'test_repo',
             'Event': 'push',
             'Metadata': '{"commit_id": "1"}'
         }
         payload2 = {
-            'Time': datetime.strptime("2024-01-12 19:41:03.154531", "%Y-%m-%d %H:%M:%S.%f").strftime(date_format),
+            'Time': pd.Timestamp("2024-01-12 19:41:03.154531"),
             'Repo': 'test_repo',
             'Event': 'push',
             'Metadata': '{"commit_id": "2"}'
         }
         payload3 = {
-            'Time': datetime.strptime("2024-01-19 19:41:03.154531", "%Y-%m-%d %H:%M:%S.%f").strftime(date_format),
+            'Time': pd.Timestamp("2024-01-19 19:41:03.154531"),
             'Repo': 'test_repo',
             'Event': 'push',
             'Metadata': '{"commit_id": "3"}'
         }
         
         self.push_events = [pd.DataFrame([payload1]), pd.DataFrame([payload2]), pd.DataFrame([payload3])]
-        self.deploy_event_date = "2024-01-20 19:41:03.154531"
+        self.deploy_event_date = pd.Timestamp("2024-01-20 19:41:03.154531")
 
         # commit 1: 11 days
         # commit 2: 8 days
@@ -53,5 +50,3 @@ class TestDORALeadTimeToChangeCalculator:
         )
 
         assert median_lead_time == 8, "Median lead time should be 8 days"
-
-       

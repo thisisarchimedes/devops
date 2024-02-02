@@ -19,8 +19,8 @@ class Event(ABC):
         self.logger = logger
 
 
-    def get_time(self) -> str:
-        return self.payload['Time'].iloc[0]
+    def get_time(self) -> pd.Timestamp:
+        return pd.Timestamp(self.payload['Time'].iloc[0])
     
     def get_repo_name(self) -> str:
         return self.payload['Repo'].iloc[0]  

@@ -1,4 +1,3 @@
-from datetime import datetime, timedelta
 import pandas as pd
 import json
 
@@ -43,8 +42,8 @@ class EventDeploy(Event):
             pass
 
     def _calculate_deploy_frequency(self) -> float:
-        start_date = datetime.now() - timedelta(days=self.deploy_frequency_timewindow_days)
-        end_date = datetime.now()
+        start_date = pd.Timestamp.now() - pd.Timedelta(days=self.deploy_frequency_timewindow_days)
+        end_date = pd.Timestamp.now()
         daily_deploy_volume_df = self.db_connection.get_daily_deploy_volume(None)
         dora_deploy_frequency_calculator = DORADeployFrequencyCalculator()
         return dora_deploy_frequency_calculator.get_deployment_frequency(daily_deploy_volume_df, start_date, end_date)
@@ -66,7 +65,7 @@ class EventDeploy(Event):
     def _create_event_dict(self, event_type: str, metadata: dict) -> dict:
         """Create an event dictionary."""
         return {
-            'Time': datetime.now(),
+            'Time': pd.Timestamp.now(),
             'Repo': self.get_repo_name(),
             'Event': event_type,
             'Metadata': json.dumps(metadata)

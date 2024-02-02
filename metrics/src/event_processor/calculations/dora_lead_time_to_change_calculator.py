@@ -1,37 +1,26 @@
-from datetime import datetime
 import pandas as pd
-
-from src.event_processor.events.event_push import EventPush
 
 class DORALeadTimeToChangeCalculator():
 
-    def __init__(self):
-        self.date_format = "%Y-%m-%d %H:%M:%S.%f"
-
-    def calculate_median_day_lead_time_for_deploy(self, push_events: list[pd.DataFrame], deploy_event_date: str) -> int:
-        deploy_date = self._parse_date(deploy_event_date)        
-        lead_times = self._calculate_lead_times(push_events, deploy_date)
-        
+    def calculate_median_day_lead_time_for_deploy(self, push_events: list[pd.DataFrame], deploy_event_date: pd.Timestamp) -> float:
+        """Calculate the median lead time for deployment based on push events and deployment date."""
+        lead_times = self._calculate_lead_times(push_events, deploy_event_date)
         return self._calculate_median(lead_times)
     
 
-    def _parse_date(self, date_str: str) -> datetime:
-        return datetime.strptime(date_str, self.date_format)
-
-    def _calculate_lead_times(self, push_events: list[pd.DataFrame], deploy_date: datetime) -> [int]:
+    def _calculate_lead_times(self, push_events: list[pd.DataFrame], deploy_date: pd.Timestamp) -> list[int]:
+        """Calculate lead times for each push event."""
         lead_times = []
-        for i in range(len(push_events)):
-            event_df = push_events[i]  # Accessing the DataFrame directly from the list
+        for event_df in push_events:
             if not event_df.empty and 'Time' in event_df.columns:
-                push_date_str = event_df['Time'].iloc[0]  # Assuming the 'Time' column has the date string
-                push_date = self._parse_date(push_date_str)
+                push_date = pd.to_datetime(event_df['Time'].iloc[0])  # Convert the 'Time' column to pd.Timestamp
                 lead_time = (deploy_date - push_date).days
                 lead_times.append(lead_time)
         return lead_times
 
-
     @staticmethod
-    def _calculate_median(values: [int]) -> float:
+    def _calculate_median(values: list[int]) -> float:
+        """Calculate the median of a list of values."""
         values.sort()
         n = len(values)
         mid = n // 2
