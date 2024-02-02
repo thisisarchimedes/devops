@@ -1,15 +1,9 @@
 import os
 from typing import List, Optional
-from datetime import datetime, date
-
+import pandas as pd
 import boto3
 import awswrangler as wr
-
-import pandas as pd
-
 from src.event_processor.database.db_connection import DBConnection
-from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
 
 
 class DBConnectionTimeseries(DBConnection):
@@ -20,22 +14,21 @@ class DBConnectionTimeseries(DBConnection):
         self.session = boto3.Session()
 
     def write_event_to_db(self, event_df: pd.DataFrame) -> None:
-
-        utc_time = datetime.now(timezone.utc)
-        event_df['time'] = utc_time
+        utc_time = pd.Timestamp.now(tz='UTC')
+        event_df['Time'] = utc_time
 
         # Metadata is optional
         if 'Metadata' not in event_df.columns or len(event_df['Metadata']) == 0:
             event_df['Metadata'] = 'Empty'
         else:
-            event_df['Metadata'] = event_df['Metadata'].replace('', 'Empty').fillna('Empty')
-
+            event_df['Metadata'] = event_df['Metadata'].replace(
+                '', 'Empty').fillna('Empty')
 
         rejected_records = wr.timestream.write(
             df=event_df,
             database=self.database_name,
             table=self.table_name,
-            time_col='time',
+            time_col='Time',
             measure_col='Metadata',
             dimensions_cols=['Repo', 'Event']
         )
@@ -43,35 +36,32 @@ class DBConnectionTimeseries(DBConnection):
         if len(rejected_records) > 0:
             raise ValueError(
                 f"Error writing to Timestream: {rejected_records} records were rejected.")
-    
+
     def get_all_events(self) -> pd.DataFrame:
         query = self.get_query_for_all_events()
         query_result = self.execute_query(query)
-
         return query_result
 
     def get_repo_events(self, repo_name: str) -> pd.DataFrame:
         query = self.get_query_for_repo_events(repo_name)
         query_result = self.execute_query(query)
-
         return query_result
 
     def get_daily_deploy_volume(self, repos_name: Optional[List[str]]) -> pd.DataFrame:
         query = self.get_daily_deploy_volume_query(repos_name)
         query_result = self.execute_query(query)
-
         return query_result
 
-    def get_deploy_frequency_events_since_date(self, start_date: date) -> pd.DataFrame:
-        query = self.get_query_for_deploy_frequency_events_since_date(start_date)
+    def get_deploy_frequency_events_since_date(self, start_date: pd.Timestamp) -> pd.DataFrame:
+        query = self.get_query_for_deploy_frequency_events_since_date(
+            start_date)
         query_result = self.execute_query(query)
-
         return query_result
 
     def execute_query(self, query: str) -> pd.DataFrame:
         session = boto3.Session()
         return wr.timestream.query(query, boto3_session=session)
-    
+
     def get_query_for_all_events(self) -> str:
 
         return f"""
@@ -109,6 +99,13 @@ class DBConnectionTimeseries(DBConnection):
     def format_repo_names(self, repos: List[str]) -> str:
         return ', '.join(f"'{repo}'" for repo in repos)
 
+    def get_repo_push_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
+
+        query = self.get_query_for_event_by_commit_id(repo_name, commit_id)
+        query_result = self.execute_query(query)
+
+        return query_result
+
     def get_query_for_repo_events(self, repo_name: str) -> str:
 
         return f"""
@@ -122,7 +119,9 @@ class DBConnectionTimeseries(DBConnection):
                     ORDER BY time ASC
                 """
 
-    def get_query_for_deploy_frequency_events_since_date(self, start_date: date) -> str:
+    def get_query_for_deploy_frequency_events_since_date(self, start_date: pd.Timestamp) -> str:
+
+        formatted_start_date = start_date.strftime('%Y-%m-%d %H:%M:%S.%f')
 
         return f"""
             SELECT 
@@ -132,6 +131,22 @@ class DBConnectionTimeseries(DBConnection):
                 measure_value::varchar AS Metadata 
             FROM "{self.database_name}"."{self.table_name}"
             WHERE "Event" = 'calc_deploy_frequency'
-            AND time >= '{start_date}'
+            AND time >= '{formatted_start_date}'
             ORDER BY time ASC
+        """
+
+    def get_query_for_event_by_commit_id(self, repo_name: str, commit_id: str) -> str:
+
+        return f"""
+            SELECT 
+                time AS Time, 
+                Repo AS Repo, 
+                Event AS Event, 
+                measure_value::varchar AS Metadata 
+            FROM "{self.database_name}"."{self.table_name}"
+            WHERE "Event" = 'push'
+            AND "Repo" = '{repo_name}'
+            AND measure_value::varchar LIKE '%{commit_id}%'
+            ORDER BY time DESC
+            LIMIT 1
         """

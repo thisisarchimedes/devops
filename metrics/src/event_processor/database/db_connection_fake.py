@@ -1,6 +1,5 @@
 from typing import List, Optional
 import pandas as pd
-from datetime import datetime, timedelta, date
 
 from src.event_processor.database.db_connection import DBConnection
 
@@ -12,7 +11,6 @@ class DBConnectionFake(DBConnection):
     # Fake DB Stab
     def __init__(self, database_name: Optional[str], table_name: Optional[str]):
         pass
-        
 
     def write_event_to_db(self, event_df: pd.DataFrame) -> None:
         if event_df.empty:
@@ -21,31 +19,29 @@ class DBConnectionFake(DBConnection):
         with open(self.FAKE_DB_FILE_PATH, 'a') as f:
             event_df.to_csv(f, index=False, header=False)
 
-        
     def get_all_events(self) -> pd.DataFrame:
-        
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
         return df
 
+    def get_most_recent_event(self, event_type: str) -> pd.DataFrame:
+        df = pd.read_csv(self.FAKE_DB_FILE_PATH)
+        filtered_df = df[df['Event'] == event_type]
+        return filtered_df.tail(1)
 
     def get_repo_events(self, repo_name: str) -> pd.DataFrame:
-
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
         filtered_df = df[df['Repo'] == repo_name]
-
         return filtered_df
-    
 
     def get_daily_deploy_volume(self, repos_name: Optional[List[str]]) -> pd.DataFrame:
-
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
-        df['Time'] = pd.to_datetime(df['Time'], format='mixed')
+        df['Time'] = pd.to_datetime(df['Time'])
 
         # Filter for 'deploy' events
         df = df[df['Event'] == 'deploy']
 
         # Filter for events in the last 3 months
-        three_months_ago = datetime.now() - timedelta(days=90)
+        three_months_ago = pd.Timestamp.now() - pd.Timedelta(days=90)
         df = df[df['Time'] >= three_months_ago]
 
         # If a list of repos is provided, filter by those repos
@@ -53,15 +49,19 @@ class DBConnectionFake(DBConnection):
             df = df[df['Repo'].isin(repos_name)]
 
         # Group by day and count
-        df['Day'] = df['Time'].dt.date
-        deploy_volume = df.groupby('Day').size().reset_index(name='DeployCount')
+        df['Day'] = df['Time'].dt.floor('D')
+        deploy_volume = df.groupby(
+            'Day').size().reset_index(name='DeployCount')
 
         return deploy_volume
-    
 
-    def get_deploy_frequency_events_since_date(self, start_date: date) -> pd.DataFrame:
-
+    def get_deploy_frequency_events_since_date(self, start_date: pd.Timestamp) -> pd.DataFrame:
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
         filtered_df = df[df['Event'] == 'calc_deploy_frequency']
-
         return filtered_df
+
+    def get_repo_push_events_by_commit_id(self, repo_name: str, commit_id: str) -> pd.DataFrame:
+        df = pd.read_csv(self.FAKE_DB_FILE_PATH)
+        filtered_df = df[(df['Repo'] == repo_name) & (df['Event'] == 'push') & (
+            df['Metadata'].str.contains(commit_id, na=False))]
+        return filtered_df.tail(1)

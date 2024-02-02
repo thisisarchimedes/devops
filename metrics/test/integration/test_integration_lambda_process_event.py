@@ -13,10 +13,10 @@ class TestIntegrationLambdaProcessEvent():
         auth_token = ConfigAWS().get_expected_auth_token()
 
         devops_event_payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'deploy',
-            'Metadata': 'LAMBDA'
+            'Metadata': '{"commit_ids": [1,2,3]}'
         }
 
         aws_event = {
