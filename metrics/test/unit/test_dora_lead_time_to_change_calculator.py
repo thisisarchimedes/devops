@@ -11,29 +11,29 @@ class TestDORALeadTimeToChangeCalculator:
 
     def prep_test_data(self) -> None:
 
-        date_format = "%Y-%m-%d %H:%M:%S"
+        date_format = "%Y-%m-%d %H:%M:%S.%f"
 
         payload1 = {
-            'Time': datetime.strptime("2024-01-09", "%Y-%m-%d").strftime(date_format),
+            'Time': datetime.strptime("2024-01-09 19:41:03.154531", "%Y-%m-%d %H:%M:%S.%f").strftime(date_format),
             'Repo': 'test_repo',
             'Event': 'push',
             'Metadata': '{"commit_id": "1"}'
         }
         payload2 = {
-            'Time': datetime.strptime("2024-01-12", "%Y-%m-%d").strftime(date_format),
+            'Time': datetime.strptime("2024-01-12 19:41:03.154531", "%Y-%m-%d %H:%M:%S.%f").strftime(date_format),
             'Repo': 'test_repo',
             'Event': 'push',
             'Metadata': '{"commit_id": "2"}'
         }
         payload3 = {
-            'Time': datetime.strptime("2024-01-19", "%Y-%m-%d").strftime(date_format),
+            'Time': datetime.strptime("2024-01-19 19:41:03.154531", "%Y-%m-%d %H:%M:%S.%f").strftime(date_format),
             'Repo': 'test_repo',
             'Event': 'push',
             'Metadata': '{"commit_id": "3"}'
         }
         
-        self.push_events = pd.DataFrame([payload1, payload2, payload3]) 
-        self.deploy_event_date = "2024-01-20"
+        self.push_events = [pd.DataFrame([payload1]), pd.DataFrame([payload2]), pd.DataFrame([payload3])]
+        self.deploy_event_date = "2024-01-20 19:41:03.154531"
 
         # commit 1: 11 days
         # commit 2: 8 days

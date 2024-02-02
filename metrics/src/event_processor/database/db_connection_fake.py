@@ -45,7 +45,7 @@ class DBConnectionFake(DBConnection):
     def get_daily_deploy_volume(self, repos_name: Optional[List[str]]) -> pd.DataFrame:
 
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
-        df['Time'] = pd.to_datetime(df['Time'], format='mixed')
+        df['Time'] = pd.to_datetime(df['Time'], format='%Y-%m-%d %H:%M:%S.%f')
 
         # Filter for 'deploy' events
         df = df[df['Event'] == 'deploy']
@@ -78,6 +78,7 @@ class DBConnectionFake(DBConnection):
         df = pd.read_csv(self.FAKE_DB_FILE_PATH)
         
         filtered_df = df[(df['Repo'] == repo_name) & (df['Event'] == 'push') & (df['Metadata'].str.contains(commit_id, na=False))]
+        
 
         return filtered_df.tail(1)
 

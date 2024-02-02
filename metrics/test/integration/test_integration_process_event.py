@@ -8,7 +8,7 @@ class TestIntegrationProcessEvent():
     def test_process_event_deploy(self):
         
         event_payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'deploy',
             'Metadata': 'N/A'
@@ -19,7 +19,7 @@ class TestIntegrationProcessEvent():
     def test_process_event_calc_frequency(self):
         
         event_payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'calc_deploy_frequency',
             'Metadata': '{"deploy_frequency": 2.5}'
@@ -30,7 +30,7 @@ class TestIntegrationProcessEvent():
     def test_process_event_push(self):
         
         event_payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'push',
         }
@@ -40,7 +40,7 @@ class TestIntegrationProcessEvent():
     def test_process_event_test_pass(self):
             
         event_payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'test_pass',
             'Metadata': '{"time": 50}'
@@ -51,7 +51,7 @@ class TestIntegrationProcessEvent():
     def test_process_event_test_run(self):
             
         event_payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'test_run',
             'Metadata': '{"pass": true, "time": 50}'

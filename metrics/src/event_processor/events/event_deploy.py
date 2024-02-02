@@ -26,56 +26,14 @@ class EventDeploy(Event):
         deploy_frequency = self._calculate_deploy_frequency()
         self._report_deploy_frequency(deploy_frequency)
 
+        # If no commit ids - skip
         try:
-            self._calculate_median_lead_time_for_deploy()
+            median_lead_time = self._calculate_median_lead_time_for_deploy()
+            self._report_median_lead_time(median_lead_time)
         except ValueError as e:
             pass
-
-    def _calculate_median_lead_time_for_deploy(self) -> int:
-
-        # event meta data is '{"commit_ids": ["6074dabea1a77f5040cdd3349b66aa03b2db208a","d6316a779419bff4b9a46c544799e6cf2525bb13"]}'    
-        # get commit ids from meta data
-
-        metadata = self.get_metadata()
-        if metadata is None:
-            exception_message = "EventDeploy: Metadata is None"
-            raise ValueError(exception_message)
-
         
-        metadata_dict = json.loads(metadata)
-        if not isinstance(metadata_dict['commit_ids'], list):
-            exception_message = "EventDeploy: Metadata is not a list"
-            raise ValueError(exception_message)
         
-        commit_ids = metadata_dict['commit_ids']
-
-        push_events = []
-        for commit_id in commit_ids:
-            event_df = self.db_connection.get_repo_push_events_by_commit_id(self.get_repo_name(), commit_id)
-            push_events.append(event_df)
-
-        calc = DORALeadTimeToChangeCalculator()
-        median_lead_time = calc.calculate_median_day_lead_time_for_deploy(
-            push_events,
-            self.get_time()
-        )
-
-        metadata = json.dumps({"deploy_lead_time": median_lead_time})
-        event = {
-            'Time': datetime.now(),
-            'Repo': self.get_repo_name(),
-            'Event': 'calc_deploy_lead_time',
-            'Metadata': metadata
-        }
-        
-        event_df = pd.DataFrame([event])
-        self.db_connection.write_event_to_db(event_df)
-        res = self.logger.get_event_log_item_from_df_event(event_df)
-        self.logger.send_event_to_logger(res)
-
-            
-
-
     def _write_event_to_db(self):
         self.db_connection.write_event_to_db(self.payload)
 
@@ -94,16 +52,54 @@ class EventDeploy(Event):
             start_date=start_date,
             end_date=end_date
         )
-
+    
     def _report_deploy_frequency(self, deploy_frequency: float):
-        metadata = json.dumps({"deploy_frequency": deploy_frequency})
+        self._report_event('calc_deploy_frequency', {"deploy_frequency": deploy_frequency})
+        
+    def _calculate_median_lead_time_for_deploy(self) -> int:
+        
+        metadata_dict = self._extract_metadata_dict()
+        commit_ids = self._validate_and_get_commit_ids(metadata_dict)
+        push_events = self._get_push_events(commit_ids)
+        return self._calculate_median_lead_time(push_events)
+    
+    def _report_median_lead_time(self, median_lead_time: int) -> None:
+        self._report_event('calc_deploy_lead_time', {"deploy_lead_time": median_lead_time})
+    
+
+    def _extract_metadata_dict(self) -> dict:
+        metadata = self.get_metadata()
+        if metadata is None:
+            raise ValueError("EventDeploy: Metadata is None")
+        return json.loads(metadata)
+
+    def _validate_and_get_commit_ids(self, metadata_dict: dict) -> [str]:
+        if 'commit_ids' not in metadata_dict or not isinstance(metadata_dict['commit_ids'], list):
+            raise ValueError("EventDeploy: 'commit_ids' not found or is not a list in Metadata")
+        return metadata_dict['commit_ids']
+
+    def _get_push_events(self, commit_ids: [str]) -> [pd.DataFrame]:
+        push_events: [pd.DataFrame] = []
+        for commit_id in commit_ids:
+            event_df = self.db_connection.get_repo_push_events_by_commit_id(self.get_repo_name(), str(commit_id))
+            push_events.append(event_df)
+        return push_events
+
+
+    def _calculate_median_lead_time(self, push_events: list[pd.DataFrame]) -> int:
+        calc = DORALeadTimeToChangeCalculator()
+        return calc.calculate_median_day_lead_time_for_deploy(
+            push_events,
+            self.get_time()
+        )
+    
+    def _report_event(self, event_type: str, metadata: dict) -> None:
         event = {
             'Time': datetime.now(),
-            'Repo': 'ALL',
-            'Event': 'calc_deploy_frequency',
-            'Metadata': metadata
+            'Repo': self.get_repo_name(),
+            'Event': event_type,
+            'Metadata': json.dumps(metadata)
         }
-        
         event_df = pd.DataFrame([event])
         self.db_connection.write_event_to_db(event_df)
         res = self.logger.get_event_log_item_from_df_event(event_df)

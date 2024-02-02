@@ -15,7 +15,7 @@ class TestFactoryEvent:
     def test_create_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'push',
             'Metadata': "{'test_metadata'}"
@@ -34,7 +34,7 @@ class TestFactoryEvent:
     def test_process_test_pass_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'test_pass',
             'Metadata': '{time: 50}'
@@ -62,7 +62,7 @@ class TestFactoryEvent:
     def test_process_push_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'push',
         }
@@ -85,7 +85,7 @@ class TestFactoryEvent:
     def test_process_calc_deploy_frequency_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'calc_deploy_frequency',
         }
@@ -110,7 +110,7 @@ class TestFactoryEvent:
     def test_process_deploy_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'deploy',
         }
@@ -139,7 +139,7 @@ class TestFactoryEvent:
     def test_process_calc_deploy_frequency_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'calc_deploy_frequency',
             'Metadata': '{"deploy_frequency": 12.5}'
@@ -170,7 +170,7 @@ class TestFactoryEvent:
     def test_test_run_event(self):
 
         payload = {
-            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'Time': datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"),
             'Repo': 'test_repo',
             'Event': 'test_run',
             'Metadata': '{"pass": true, "time": 50}'
@@ -201,40 +201,38 @@ class TestFactoryEvent:
         logger = EventLoggerFake()
         event_factory = FactoryEvent(db_connection, logger, 10)
 
-        date_format = "%Y-%m-%d %H:%M:%S"
-
         payload = {
-            'Time': datetime.strptime("2024-01-07", "%Y-%m-%d").strftime(date_format),
+            'Time': '2024-01-07 17:31:41.449864',
             'Repo': 'test_repo',
             'Event': 'push',
-            'Metadata': '{"commit_id": "100"}'
+            'Metadata': '{"commit_id": 100}'
         }
         event_push_1 = event_factory.create_event(payload)
         event_push_1.process()
 
         payload = {
-            'Time': datetime.strptime("2024-01-03", "%Y-%m-%d").strftime(date_format),
+            'Time': '2024-01-03 17:31:41.449864',
             'Repo': 'test_repo',
             'Event': 'push',
-            'Metadata': '{"commit_id": "200"}'
+            'Metadata': '{"commit_id": 200}'
         }
         event_push_2 = event_factory.create_event(payload)
         event_push_2.process()
 
         payload = {
-            'Time': datetime.strptime("2024-01-08", "%Y-%m-%d").strftime(date_format),
+            'Time': '2024-01-08 17:31:41.449864',
             'Repo': 'test_repo',
             'Event': 'push',
-            'Metadata': '{"commit_id": "300"}'
+            'Metadata': '{"commit_id": 300}'
         }
         event_push_3 = event_factory.create_event(payload)
         event_push_3.process()
 
         payload = {
-            'Time': datetime.strptime("2024-01-09", "%Y-%m-%d").strftime(date_format),
+            'Time': '2024-01-09 17:31:41.449864',
             'Repo': 'test_repo',
             'Event': 'deploy',
-            'Metadata': '{"commit_ids": ["100","200","300"]}'
+            'Metadata': '{"commit_ids": [100,200,300]}'
         }
         event_deploy = event_factory.create_event(payload)
         

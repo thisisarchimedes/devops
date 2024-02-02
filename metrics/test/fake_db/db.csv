@@ -121,3 +121,400 @@ Time,Repo,Event,Metadata
 2024-01-09 11:23:09.000,test_repo,test_pass,{'time: 50'}
 2024-01-09 11:23:09.000,test_repo,push
 2024-01-09 11:23:09.000,test_repo,calc_deploy_frequency
+2024-02-01 17:20:12.666163,test_repo,test_pass,{time: 50}
+2024-02-01 17:20:12.666163,test_repo,push
+2024-02-01 17:20:12.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 17:20:12.666163,test_repo,deploy
+2024-02-01 17:20:12.783888,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:20:12.666163,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 00:00:00.666163,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 00:00:00.666163,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 00:00:00.666163,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 00:00:00.666163,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 17:20:12.794465,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:23:25.666163,test_repo,test_pass,{time: 50}
+2024-02-01 17:23:25.666163,test_repo,push
+2024-02-01 17:23:25.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 17:23:25.666163,test_repo,deploy
+2024-02-01 17:23:25.399817,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:23:25.666163,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 00:00:00.666163,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 00:00:00.666163,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 00:00:00.666163,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 00:00:00.666163,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 17:23:25.410067,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:24:56.666163,test_repo,test_pass,{time: 50}
+2024-02-01 17:24:56.666163,test_repo,push
+2024-02-01 17:24:56.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 17:24:56.666163,test_repo,deploy
+2024-02-01 17:24:56.706220,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:24:56.666163,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 00:00:00.666163,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 00:00:00.666163,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 00:00:00.666163,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 00:00:00.666163,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 17:24:56.718862,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:25:17.666163,test_repo,test_pass,{time: 50}
+2024-02-01 17:25:17.666163,test_repo,push
+2024-02-01 17:25:17.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 17:25:17.666163,test_repo,deploy
+2024-02-01 17:25:17.879539,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:25:17.666163,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 00:00:00.666163,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 00:00:00.666163,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 00:00:00.666163,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 00:00:00.666163,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 17:25:17.919660,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:26:12.666163,test_repo,test_pass,{time: 50}
+2024-02-01 17:26:12.666163,test_repo,push
+2024-02-01 17:26:12.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 17:26:12.666163,test_repo,deploy
+2024-02-01 17:26:12.743379,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:26:12.666163,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 00:00:00.000000,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 00:00:00.000000,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 00:00:00.000000,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 00:00:00.000000,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 17:26:12.788014,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:26:18.666163,test_repo,test_pass,{time: 50}
+2024-02-01 17:26:18.666163,test_repo,push
+2024-02-01 17:26:18.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 17:26:18.666163,test_repo,deploy
+2024-02-01 17:26:18.873576,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:26:18.666163,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 00:00:00.000000,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 00:00:00.000000,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 00:00:00.000000,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 00:00:00.000000,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 17:26:18.913771,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:26:32.666163,test_repo,test_pass,{time: 50}
+2024-02-01 17:26:32.666163,test_repo,push
+2024-02-01 17:26:32.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 17:26:32.666163,test_repo,deploy
+2024-02-01 17:26:32.711699,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:26:32.666163,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 00:00:00.000000,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 00:00:00.000000,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 00:00:00.000000,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 00:00:00.000000,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 17:26:32.752828,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:28:26.666163,test_repo,test_pass,{time: 50}
+2024-02-01 17:28:26.666163,test_repo,push
+2024-02-01 17:28:26.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 17:28:26.666163,test_repo,deploy
+2024-02-01 17:28:26.061150,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:28:26.666163,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 00:00:00.000000,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 00:00:00.000000,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 00:00:00.000000,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 00:00:00.000000,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 17:28:26.076150,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:28:46.666163,test_repo,test_pass,{time: 50}
+2024-02-01 17:28:46.666163,test_repo,push
+2024-02-01 17:28:46.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 17:28:46.666163,test_repo,deploy
+2024-02-01 17:28:46.666163,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 17:28:46.666163,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 00:00:00.000000,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 00:00:00.000000,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 00:00:00.000000,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 00:00:00.000000,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 17:28:46.680563,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 20:26:45.471373,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 20:27:04.822103,test_repo,test_pass,{time: 50}
+2024-02-01 20:27:04.824821,test_repo,push
+2024-02-01 20:27:04.826550,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 20:27:04.828798,test_repo,deploy
+2024-02-01 20:27:04.833383,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 20:27:04.865610,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 20:27:04.872295,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 20:52:29.543735,test_repo,deploy
+2024-02-01 20:52:29.555105,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 20:53:52.908543,test_repo,deploy
+2024-02-01 20:53:52.915338,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 20:53:58.137085,test_repo,test_pass,{time: 50}
+2024-02-01 20:53:58.140276,test_repo,push
+2024-02-01 20:53:58.142005,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 20:53:58.144101,test_repo,deploy
+2024-02-01 20:53:58.148427,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 20:53:58.151154,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 20:53:58.157669,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:01:12.782722,test_repo,test_pass,{time: 50}
+2024-02-01 21:01:12.786496,test_repo,push
+2024-02-01 21:01:12.788385,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:01:12.790289,test_repo,deploy
+2024-02-01 21:01:12.794326,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:01:12.796645,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:01:12.803347,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:01:20.983410,test_repo,test_pass,{time: 50}
+2024-02-01 21:01:20.986753,test_repo,push
+2024-02-01 21:01:20.988800,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:01:20.991299,test_repo,deploy
+2024-02-01 21:01:20.996738,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:01:20.999425,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:01:21.006177,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:02:07.044586,test_repo,test_pass,{time: 50}
+2024-02-01 21:02:07.047998,test_repo,push
+2024-02-01 21:02:07.049841,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:02:07.053065,test_repo,deploy
+2024-02-01 21:02:07.057685,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:02:07.060175,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:02:07.068362,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:06:02.170086,test_repo,test_pass,{time: 50}
+2024-02-01 21:06:02.174264,test_repo,push
+2024-02-01 21:06:02.175807,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:06:02.177823,test_repo,deploy
+2024-02-01 21:06:02.182839,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:06:02.185865,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:06:02.192941,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:06:02.196346,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
+2024-02-01 21:06:27.090728,test_repo,test_pass,{time: 50}
+2024-02-01 21:06:27.094517,test_repo,push
+2024-02-01 21:06:27.096137,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:06:27.098259,test_repo,deploy
+2024-02-01 21:06:27.102280,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:06:27.104389,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:06:27.111191,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:06:27.115324,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
+2024-02-01 21:08:04.665673,test_repo,test_pass,{time: 50}
+2024-02-01 21:08:04.670460,test_repo,push
+2024-02-01 21:08:04.672395,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:08:04.674403,test_repo,deploy
+2024-02-01 21:08:04.679195,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:08:04.682392,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:08:04.689461,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:09:39.040858,test_repo,test_pass,{time: 50}
+2024-02-01 21:09:39.045089,test_repo,push
+2024-02-01 21:09:39.046711,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:09:39.049296,test_repo,deploy
+2024-02-01 21:09:39.055100,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:09:39.057950,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:09:39.064885,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:09:59.915816,test_repo,test_pass,{time: 50}
+2024-02-01 21:09:59.919469,test_repo,push
+2024-02-01 21:09:59.921011,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:09:59.922977,test_repo,deploy
+2024-02-01 21:09:59.926997,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:09:59.929696,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:09:59.936900,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:09:59.940572,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
+2024-02-01 21:10:08.502539,test_repo,test_pass,{time: 50}
+2024-02-01 21:10:08.505397,test_repo,push
+2024-02-01 21:10:08.507389,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:10:08.509863,test_repo,deploy
+2024-02-01 21:10:08.513920,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:10:08.516462,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:10:08.523673,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:11:40.397324,test_repo,test_pass,{time: 50}
+2024-02-01 21:11:40.402015,test_repo,push
+2024-02-01 21:11:40.403782,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:11:40.405847,test_repo,deploy
+2024-02-01 21:11:40.411575,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:11:40.414255,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:11:40.420554,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:11:40.424099,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
+2024-02-01 21:12:27.676346,test_repo,test_pass,{time: 50}
+2024-02-01 21:12:27.680864,test_repo,push
+2024-02-01 21:12:27.682501,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:12:27.684692,test_repo,deploy
+2024-02-01 21:12:27.690933,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:12:27.693537,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:12:27.700866,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:12:27.705189,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
+2024-02-01 21:14:49.234332,test_repo,test_pass,{time: 50}
+2024-02-01 21:14:49.238737,test_repo,push
+2024-02-01 21:14:49.240388,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:14:49.242867,test_repo,deploy
+2024-02-01 21:14:49.247547,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:14:49.249907,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:14:49.256433,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:15:04.247481,test_repo,test_pass,{time: 50}
+2024-02-01 21:15:04.251923,test_repo,push
+2024-02-01 21:15:04.253723,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:15:04.256226,test_repo,deploy
+2024-02-01 21:15:04.261397,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:15:04.264185,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:15:04.270837,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:15:16.531373,test_repo,test_pass,{time: 50}
+2024-02-01 21:15:16.534011,test_repo,push
+2024-02-01 21:15:16.535572,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:15:16.537755,test_repo,deploy
+2024-02-01 21:15:16.542354,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:15:16.544870,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:15:16.551727,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:15:22.598635,test_repo,test_pass,{time: 50}
+2024-02-01 21:15:22.601176,test_repo,push
+2024-02-01 21:15:22.602827,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:15:22.604943,test_repo,deploy
+2024-02-01 21:15:22.609191,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:15:22.611561,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:15:22.619148,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:15:22.623449,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
+2024-02-01 21:16:42.710311,test_repo,test_pass,{time: 50}
+2024-02-01 21:16:42.714268,test_repo,push
+2024-02-01 21:16:42.716227,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:16:42.718934,test_repo,deploy
+2024-02-01 21:16:42.724715,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:16:42.727127,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:16:42.734322,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:16:42.738283,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
+2024-02-01 21:36:30.119385,test_repo,test_pass,{time: 50}
+2024-02-01 21:36:30.123647,test_repo,push
+2024-02-01 21:36:30.125692,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:36:30.128695,test_repo,deploy
+2024-02-01 21:36:30.133986,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:36:30.137466,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:36:30.144913,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:38:54.378761,test_repo,test_pass,{time: 50}
+2024-02-01 21:38:54.383484,test_repo,push
+2024-02-01 21:38:54.385577,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:38:54.388870,test_repo,deploy
+2024-02-01 21:38:54.396226,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:38:54.399785,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:38:54.407510,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:41:58.327060,test_repo,test_pass,{time: 50}
+2024-02-01 21:41:58.332777,test_repo,push
+2024-02-01 21:41:58.334603,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:41:58.336743,test_repo,deploy
+2024-02-01 21:41:58.342546,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:41:58.345790,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:41:58.353312,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:52:50.179568,test_repo,test_pass,{time: 50}
+2024-02-01 21:52:50.184221,test_repo,push
+2024-02-01 21:52:50.186328,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:52:50.188497,test_repo,deploy
+2024-02-01 21:52:50.192638,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:52:50.195392,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:52:50.202757,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:52:50.206825,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
+2024-02-01 21:56:02.849492,test_repo,test_pass,{time: 50}
+2024-02-01 21:56:02.854765,test_repo,push
+2024-02-01 21:56:02.856414,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:56:02.858951,test_repo,deploy
+2024-02-01 21:56:02.865126,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:56:02.867914,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:56:02.875157,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:56:02.880216,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
+2024-02-01 21:56:22.010156,test_repo,deploy,test_metadata
+2024-02-01 21:56:22.018485,test_repo,calc_deploy_frequency,{'deploy_frequency': 1}
+2024-02-01 21:56:22.020833,test_repo1,push,"{""pass"": ""true"", ""commit_id"": ""caa3fdd16ce75c2fb361905e2767602d95f6d33b"" ,""report_url"": ""https://github.com/thisisarchimedes/OffchainLeverageLedgerBuilder/actions/runs/7743500877""}"
+2024-02-01 21:56:29.271815,test_repo,test_pass,{time: 50}
+2024-02-01 21:56:29.274367,test_repo,push
+2024-02-01 21:56:29.276311,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 12.5}"
+2024-02-01 21:56:29.278943,test_repo,deploy
+2024-02-01 21:56:29.283853,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:56:29.286126,test_repo,test_run,"{""pass"": true, ""time"": 50}"
+2024-01-07 17:31:41.449864,test_repo,push,"{""commit_id"": 100}"
+2024-01-03 17:31:41.449864,test_repo,push,"{""commit_id"": 200}"
+2024-01-08 17:31:41.449864,test_repo,push,"{""commit_id"": 300}"
+2024-01-09 17:31:41.449864,test_repo,deploy,"{""commit_ids"": [100,200,300]}"
+2024-02-01 21:56:29.299603,test_repo,calc_deploy_frequency,"{""deploy_frequency"": 0.5}"
+2024-02-01 21:56:29.305282,test_repo,calc_deploy_lead_time,"{""deploy_lead_time"": 2}"
