@@ -161,7 +161,9 @@ AWS_SECRET_ACCESS_KEY=
 
 2. Get the AWS certificate
 
-We currently use: DevOps.pem (check our internal Notion).
+We currently use DevOps.pem:
+- check our internal Notion
+- Don't forget to `chmod 400 DevOps.pem`
 
 3. Run Terraform from the project root directory
 
