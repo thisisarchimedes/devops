@@ -77,7 +77,10 @@ DEPLOYMENT_FREQ_TIMEFRAME_DAY=30
 4. Run the service with a flask dev server
 
 ```bash
-python event_processor/entry_flask.py
+cd event_processor
+export FLASK_APP=entry_flask.py
+python -m flask run
+
 ```
 
 ## Production Backend
