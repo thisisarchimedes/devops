@@ -80,7 +80,6 @@ DEPLOYMENT_FREQ_TIMEFRAME_DAY=30
 cd event_processor
 export FLASK_APP=entry_flask.py
 python -m flask run
-
 ```
 
 ## Production Backend
