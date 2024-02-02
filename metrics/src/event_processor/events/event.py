@@ -21,11 +21,7 @@ class Event(ABC):
         self.logger = logger
 
     def get_time(self) -> pd.Timestamp:
-        print(f'get_time() - 0 \n payload: {self.payload}')
-        tmp = self.payload['Time'].iloc[0]
-        print(f'1 ----> {tmp}')
         res = pd.Timestamp(self.payload['Time'].iloc[0])
-        print(f'2 ----> {res}')
         return res
 
     def get_repo_name(self) -> str:

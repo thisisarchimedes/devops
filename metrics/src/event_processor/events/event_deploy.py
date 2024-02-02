@@ -35,16 +35,8 @@ class EventDeploy(Event):
         deploy_frequency = self._calculate_deploy_frequency()
         self._report_deploy_frequency(deploy_frequency)
 
-        # if no commits - skip lead time calculation
-        #try:
-        print(f'_calculate_and_report_dora_metrics - 0')
         median_lead_time = self._calculate_median_lead_time_for_deploy()
-        print(
-            f'_calculate_and_report_dora_metrics - 1 median_lead_time: {median_lead_time}')
         self._report_median_lead_time(median_lead_time)
-        print(f'_calculate_and_report_dora_metrics - 2')
-        #except Exception as e:
-         #   print(f'Warning: problem while calculating median lead time: {e}')
 
     def _calculate_deploy_frequency(self) -> float:
         start_date = pd.Timestamp.now() - pd.Timedelta(days=self.deploy_frequency_timewindow_days)
@@ -60,18 +52,12 @@ class EventDeploy(Event):
         self._write_and_log_event(event_dict)
 
     def _calculate_median_lead_time_for_deploy(self) -> int:
-        print(f'_calculate_median_lead_time_for_deploy - 0')
         metadata_dict = self._extract_metadata_dict()
-        print(
-            f'_calculate_median_lead_time_for_deploy - 1 metadata_dict: {metadata_dict}')
         commit_ids = self._validate_and_get_commit_ids(metadata_dict)
-        print(
-            f'_calculate_median_lead_time_for_deploy - 2 commit_ids: {commit_ids}')
+        
         push_events = self._get_push_events(commit_ids)
-        print(
-            f'_calculate_median_lead_time_for_deploy - 3 push_events: {push_events}')
         res = self._calculate_median_lead_time(push_events)
-        print(f'_calculate_median_lead_time_for_deploy - 4 res: {res}')
+
         return res
 
     def _report_median_lead_time(self, median_lead_time: int):
@@ -80,7 +66,7 @@ class EventDeploy(Event):
         self._write_and_log_event(event_dict)
 
     def _create_event_dict(self, event_type: str, metadata: dict) -> dict:
-        """Create an event dictionary."""
+
         return {
             'Time': pd.Timestamp.now(),
             'Repo': self.get_repo_name(),
@@ -89,7 +75,7 @@ class EventDeploy(Event):
         }
 
     def _write_and_log_event(self, event_dict: dict) -> None:
-        """Write the event to the database and log it."""
+
         event_df = pd.DataFrame([event_dict])
         self.db_connection.write_event_to_db(event_df)
         res = self.logger.get_event_log_item_from_df_event(event_df)
@@ -116,11 +102,6 @@ class EventDeploy(Event):
         return push_events
 
     def _calculate_median_lead_time(self, push_events: list[pd.DataFrame]) -> int:
-        print(f'_calculate_median_lead_time - 0  \n{push_events}\n')
         calc = DORALeadTimeToChangeCalculator()
-        print(f'_calculate_median_lead_time - 1')
-        tmp = self.get_time()
-        print(f'_calculate_median_lead_time - 1.5')
-        res = calc.calculate_median_day_lead_time_for_deploy(push_events, tmp)
-        print(f'_calculate_median_lead_time - 2 res: {res}')
+        res = calc.calculate_median_day_lead_time_for_deploy(push_events, self.get_time())
         return res

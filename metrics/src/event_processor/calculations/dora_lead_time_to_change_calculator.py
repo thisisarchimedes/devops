@@ -3,14 +3,9 @@ import pandas as pd
 
 class DORALeadTimeToChangeCalculator():
 
-    def calculate_median_day_lead_time_for_deploy(self, push_events: list[pd.DataFrame], deploy_event_date: pd.Timestamp) -> float:
-        print(
-            f'calculate_median_day_lead_time_for_deploy - 0 \n{push_events} \n{deploy_event_date}')
-        lead_times = self._calculate_lead_times(push_events, deploy_event_date)
-        print(
-            f'calculate_median_day_lead_time_for_deploy - 1 lead_times: {lead_times}')
+    def calculate_median_day_lead_time_for_deploy(self, push_events: list[pd.DataFrame], deploy_event_date: pd.Timestamp) -> float: 
+        lead_times = self._calculate_lead_times(push_events, deploy_event_date) 
         res = self._calculate_median(lead_times)
-        print(f'calculate_median_day_lead_time_for_deploy - 2 res: {res}')
         return res
 
     def _calculate_lead_times(self, push_events: list[pd.DataFrame], deploy_date: pd.Timestamp) -> list[int]:
