@@ -8,13 +8,7 @@ on:
       - 'src/**'
   
 env:
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
   PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-  ALCHEMY_RPC_URL: ${{ secrets.ALCHEMY_RPC_URL }}
-  INFURA_RPC_URL: ${{ secrets.INFURA_RPC_URL }}
-  ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
-  INFURA_GAS_API_KEY: ${{ secrets.INFURA_GAS_API_KEY }}
-  INFURA_GAS_API_SECRET: ${{ secrets.INFURA_GAS_API_SECRET }}
   API_DEVOPS_EVENT_CATCHER: ${{ vars.API_DEVOPS_EVENT_CATCHER }}
   DEVOPS_EVENTS_SECRET_TOKEN: ${{ secrets.DEVOPS_EVENTS_SECRET_TOKEN }}
   
@@ -28,22 +22,10 @@ jobs:
           submodules: 'recursive'
           fetch-depth: 0
 
-      - name: Run docker-compose
-        uses: isbang/compose-action@v1.5.1
-        with:
-          compose-file: './docker-compose.yml'
-          services: |
-            db
-
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-
-      - name: Run install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
+          node-version: 'latest'
 
       - name: Deploy to production
         run: |
