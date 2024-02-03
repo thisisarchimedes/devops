@@ -8,4 +8,4 @@ Workflow example file for commit, acceptance, deploy, post-deploy and nightly fl
 
 ## Metrics
 
-Collectes metrics we care about (like time it takes for a PR test to complete). This is always a work in progress, and we add and remove metrics as we go. see `metrics/README.md`
+Collectes metrics we care about (DORA & some others). This is always a work in progress, and we add and remove metrics as we go. see `metrics/README.md`
