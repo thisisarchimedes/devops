@@ -7,7 +7,7 @@ data "aws_key_pair" "existing_deployer" {
 }
 
 resource "aws_iam_role" "ec2_role" {
-  name = "ec2_role"
+  name = "ec2_role_devops"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -45,13 +45,13 @@ data "aws_security_group" "devops_ec2_sg" {
 
 resource "aws_instance" "devops_ec2" {
   ami                  = "ami-0c7217cdde317cfec"
-  instance_type        = "t2.small"
+  instance_type        = "t2.xlarge"
   iam_instance_profile = data.aws_iam_instance_profile.ec2_profile.name
   security_groups      = [data.aws_security_group.devops_ec2_sg.name]
   key_name             = data.aws_key_pair.existing_deployer.key_name
 
   tags = {
-    Name = "DevOps EC2 Instance 2"
+    Name = "DevOps EC2 Instance"
   }
 
 provisioner "local-exec" {
@@ -62,12 +62,6 @@ provisioner "local-exec" {
     
     for i in $(seq 1 $RETRIES); do
       scp -i ${path.module}/DevOps.pem -o StrictHostKeyChecking=no -r ${path.module}/script ubuntu@${self.public_ip}:/home/ubuntu/ && break
-      echo "Attempt $i failed! Waiting $DELAY seconds..."
-      sleep $DELAY
-    done
-    
-    for i in $(seq 1 $RETRIES); do
-      scp -i ${path.module}/DevOps.pem -o StrictHostKeyChecking=no -r ${path.module}/src ubuntu@${self.public_ip}:/home/ubuntu/ && break
       echo "Attempt $i failed! Waiting $DELAY seconds..."
       sleep $DELAY
     done
@@ -90,8 +84,7 @@ provisioner "local-exec" {
   provisioner "remote-exec" {
     inline = [
       "git clone https://github.com/thisisarchimedes/devops.git",
-      "cd script",
-      "./build_container.sh"
+      "./script/build_container.sh"
     ]
   }
 
