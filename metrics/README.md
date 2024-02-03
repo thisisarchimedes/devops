@@ -15,6 +15,7 @@ More info in our [internal Notion](https://www.notion.so/archimedesfi/Adding-Dev
     - [Components](#components)
     - [Files and Directories](#files-and-directories)
     - [Deploy the backend](#deploy-the-backend)
+    - [Production Configuration](#production-configuration)
 - [Tests](#tests)
 - [Incomming webhooks](#incomming-webhooks)
     - [Netlify deploy](#netlify-deploy)
@@ -172,6 +173,10 @@ terraform init
 terraform plan
 terraform apply
 ```
+
+### Production Configuration
+
+Local run use `.env` file for configuration. The production backend uses AWS Secrets Manager Param Store of the configuration.
 
 ## Tests
 
