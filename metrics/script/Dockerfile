@@ -1,21 +1,17 @@
 # Use an official Python runtime as a parent image
 FROM python:3.12
 
+# Install git. The python image is based on Debian, so use apt-get to install packages.
+RUN apt-get update && apt-get install -y git
+
 # Set the working directory in the container to /app
 WORKDIR /app
 
-RUN mkdir /app/src
-RUN mkdir /app/src/event_processor
+# Clone the specific git repository
+RUN git clone https://github.com/thisisarchimedes/devops.git
 
 COPY requirements.txt /app/
 COPY .env /app/
-
-COPY src/event_processor/* /app/src/event_processor/
-COPY src/event_processor/calculations /app/src/event_processor/calculations
-COPY src/event_processor/database /app/src/event_processor/database
-COPY src/event_processor/events /app/src/event_processor/events
-COPY src/event_processor/logger /app/src/event_processor/logger
-COPY src/event_processor/params /app/src/event_processor/params
 
 COPY script/entry_point.sh /app/
 
