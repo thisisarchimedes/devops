@@ -1,8 +1,9 @@
 # DevOps Toolkit: Metrics
 
-A service that accepts DevOps events (like: push to Github, Deploy etc..), store them and process them. It also sends the data to logger and dashboard (NewRelic).
+A service that accepts DevOps events (like: push to Github, Deploy etc..), store them and process them (e.g.: Calculates the DORA metrics). It also sends the data to logger and dashboard (NewRelic).
 - **cicd_script:** A script that runs on the CI/CD pipeline and sends the events to the service.
 - **event_processor:** The backend service.
+- **webhook_catchers:** Handles 3rd party event web hooks (like: Netlify deploy), and send the to the Event Processor.
 
 More info in our [internal Notion](https://www.notion.so/archimedesfi/Adding-DevOps-Metric-to-a-Repo-721c4732e115437dbb4926a821e565c8?pvs=4)
 
