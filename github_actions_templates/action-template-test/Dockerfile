@@ -9,4 +9,4 @@ COPY entry_point.sh entry_point.sh
 RUN chmod +x entry_point.sh
 
 # Code file to execute when the docker container starts up (`entrypoint.sh`)
-ENTRYPOINT ["/entry_point.sh"]
+ENTRYPOINT ["./app/entry_point.sh"]
