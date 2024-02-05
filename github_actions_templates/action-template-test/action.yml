@@ -1,0 +1,14 @@
+name: 'Action Template Test'
+description: 'Testing template'
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+outputs:
+  PR_NUMBER:
+    description: 'Test template'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.GITHUB_TOKEN }}
