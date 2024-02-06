@@ -30,9 +30,9 @@ jobs:
       - name: Deploy to production
         run: |
           echo "placeholder"
+
   report-devops-event-deploy:
     runs-on: ubuntu-latest
-    needs: ['deploy-transaction-executor-bot-demo-ec2']
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
