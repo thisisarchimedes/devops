@@ -31,8 +31,22 @@ jobs:
         run: |
           echo "placeholder"
 
+      - name: List all commit SHAs involved in the push
+        id: format_commits
+        shell: bash
+        run: |
+          chmod +x get_commit_shas.sh
+          ./get_commit_shas.sh ${{ github.event.before }} ${{ github.event.after }} > commit_shas.txt
+          COMMIT_SHAS_JSON=$(cat commit_shas.txt)
+          echo "::set-output name=commit_shas::$COMMIT_SHAS_JSON"
+
+      - name: Report DevOps Event
+        run: |
+          yarn add axios dotenv
+          node devops/metrics/src/cicd_script/report_devops_event.js ${{ github.repository }} deploy '{"commit_ids": ${{ steps.format_commits.outputs.commit_shas }} }'          
+
       - name: Slack Notification
         if: always()
         uses: rtCamp/action-slack-notify@v2
         env:
-            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
