@@ -35,7 +35,6 @@ jobs:
         id: format_commits
         shell: bash
         run: |
-          chmod +x get_commit_shas.sh
           ./devops/github_actions_templates/get_commit_shas.sh ${{ github.event.before }} ${{ github.event.after }} > commit_shas.txt
           COMMIT_SHAS_JSON=$(cat commit_shas.txt)
           echo "::set-output name=commit_shas::$COMMIT_SHAS_JSON"
