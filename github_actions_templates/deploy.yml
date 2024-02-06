@@ -58,6 +58,9 @@ jobs:
         run: |
           yarn add axios dotenv
           node devops/metrics/src/cicd_script/report_devops_event.js ${{ github.repository }} deploy '{"commit_ids": ${{ steps.format_commits.outputs.commit_shas }} }'          
+        env:
+          API_DEVOPS_EVENT_CATCHER: ${{ vars.API_DEVOPS_EVENT_CATCHER }}
+          DEVOPS_EVENTS_SECRET_TOKEN: ${{ secrets.DEVOPS_EVENTS_SECRET_TOKEN }}
 
       - name: Slack Notification
         if: always()
