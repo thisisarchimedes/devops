@@ -70,6 +70,23 @@ jobs:
           fi
                   
           echo "LINT_PROBLEMS=$LINT_OUTPUT" >> $GITHUB_ENV
+
+      - name: Open ticket on Linear
+          if: env.TEST_PASS == 'false'
+          run: |
+          curl -X POST https://api.linear.app/graphql \
+            -H "Content-Type: application/json" \
+            -H "Authorization: ${{ secrets.LINEAR_API_KEY }}" \
+            --data-raw '{
+              "query": "mutation IssueCreate($input: IssueCreateInput!) { issueCreate(input: $input) { success issue { id title } } }",
+              "variables": {
+                "input": {
+                  "title": "Nightly Test Failure: ${{ github.repository }}",
+                  "description": "The nightly tests have failed. Please investigate. ${{ github.repository }}",
+                  "teamId": "${{ vars.LINEAR_TEAM_ID }}"
+                }
+              }
+            }'
           
       - name: Report test run time
         run: |
