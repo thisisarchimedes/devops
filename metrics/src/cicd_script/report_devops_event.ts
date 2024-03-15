@@ -46,7 +46,10 @@ class DevOpsEventReporter {
       return response;
     } catch (error) {
       console.error('Error in postEvent:', error);
-      return {status: error.response ? error.response.status : 500, data: error.response ? error.response.data : 'Internal Server Error'};
+      return {
+        status: error.response ? error.response.status : 500,
+        data: error.response ? error.response.data : 'Internal Server Error',
+      };
     }
   }
 }
@@ -63,7 +66,8 @@ async function main() {
   if (response && response.status === 200) {
     console.log('Event logged successfully.');
   } else {
-    console.log(`Event logging failed. Status: ${response ? response.status : 'N/A'}, Data: ${response ? response.data : 'N/A'}`);
+    console.log(
+        `Event logging failed. Status: ${response ? response.status:'N/A'}, Data: ${response ? response.data : 'N/A'}`);
   }
 }
 
